@@ -1745,6 +1745,11 @@
   dependencies:
     "loose-envify" "^1.1.0"
 
+"seal-middleware@^0.1.2":
+  "integrity" "sha512-iNrrxz2NvVpNplQwWjvz5JhqBQMW5wnjxbP2H7mmEKw28bWa8Dr1g7M2ITHpy95w0w7gI7FPUUgfp9yHe9gmfg=="
+  "resolved" "https://registry.npmjs.org/seal-middleware/-/seal-middleware-0.1.2.tgz"
+  "version" "0.1.2"
+
 "semver@^6.3.0":
   "integrity" "sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw=="
   "resolved" "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz"

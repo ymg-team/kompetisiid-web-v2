@@ -2,6 +2,12 @@
 import React from "react";
 import Dynamic from "next/dynamic";
 
+// import Script from "next/script";
+
+// helpers
+import { fetchCompetitions } from "~/src/services/competition";
+import { fetchNews } from "~/src/services/news";
+
 // components
 import Link from "next/Link";
 import HomeStyled from "./home/styled";
@@ -14,6 +20,7 @@ import SubHeaderTitle from "../components/headers/SubHeader";
 import GAds from "../components/cards/GoogleAds";
 import AddCompetitionBox from "../components/boxs/AddCompetitionBox";
 import Navbar from "../components/navigations/TransparentNavbar";
+import Head from "next/head";
 
 // split components
 const NewsBox = Dynamic(import("../components/boxs/NewsBox"), {
@@ -29,77 +36,57 @@ const MediaPartnerAds = Dynamic(import("../components/cards/MediaPartnerAds"), {
   loading: EmptyLoading,
 });
 
-// actions and store
-// import { fetchJelajah } from "../competition/actions";
-// import { fetchBerita } from "../news/actions";
-
-const Home = (props) => {
-  // initial states
-  const [respCompStats, setRespCompStats] = React.useState({});
-  const [respCompPopular, setRespCompPopular] = React.useState({});
-  const [respCompLatest, setRespCompLatest] = React.useState({});
+const Home = ({ competitionPopular, competitionLatest }) => {
+  // === initial states ===
+  const [respCompPopular, setRespCompPopular] =
+    React.useState(competitionPopular);
+  const [respCompLatest, setRespCompLatest] = React.useState(competitionLatest);
   const [respCompMP, setRespCompMP] = React.useState({});
   const [respNews, setRespNews] = React.useState({});
 
-  // called on first render like componentDidMount
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     window.scroll(0, 0)
+  // === initial effects ===
 
-  //     const competition_popular = kompetisi.data.home_popular || {}
-  //     const competition_latest = kompetisi.data.home_latest || {}
-  //     const competition_mp = kompetisi.data.home_mediapartner || {}
-  //     const news_latest = berita.data.home_latest || {}
+  // componentDidMount
+  React.useEffect(() => {
+    doFetchCompMP();
+    doFetchNews();
+  }, []);
 
-  //     // get popular competition
-  //     if (!competition_popular.status)
-  //       props.dispatch(
-  //         fetchJelajah(
-  //           { limit: 7, is_popular: true, status: "active" },
-  //           "home_popular"
-  //         )
-  //       )
+  // === initial functions ===
 
-  //     // get lattest 9 active competition
-  //     if (!competition_latest.status)
-  //       props.dispatch(
-  //         fetchJelajah({ limit: 9, status: "active" }, "home_latest")
-  //       )
+  const doFetchCompMP = async () => {
+    if (!respCompMP.status) {
+      const ResponseMP = await fetchCompetitions({
+        query: { limit: 7, is_mediapartner: true },
+      });
+      setRespCompMP(ResponseMP);
+    }
+  };
 
-  //     // get lattest 7 media partner
-  //     if (!competition_mp.status)
-  //       props.dispatch(
-  //         fetchJelajah({ limit: 7, is_mediapartner: true }, "home_mediapartner")
-  //       )
-
-  //     // get lattest 6 news
-  //     if (!news_latest.status)
-  //       props.dispatch(fetchBerita({ limit: 6 }, "home_latest"))
-  //   }
-  // }, [])
+  const doFetchNews = async () => {
+    if (!respNews.status) {
+      const ResponseNews = await fetchNews({
+        query: { limit: 6 },
+      });
+      setRespNews(ResponseNews);
+    }
+  };
 
   return (
     <HomeStyled>
-      {/* <Helmet
-        script={[
-          {
-            src: "https://unpkg.com/@glidejs/glide@3.3.0/dist/glide.min.js",
-            type: "text/javascript",
-          },
-        ]}
-        link={[
-          {
-            href: "https://unpkg.com/@glidejs/glide@3.3.0/dist/css/glide.core.min.css",
-            rel: "stylesheet",
-            type: "text/css",
-          },
-          {
-            href: "https://unpkg.com/@glidejs/glide@3.3.0/dist/css/glide.theme.min.css",
-            rel: "stylesheet",
-            type: "text/css",
-          },
-        ]}
-      /> */}
+      <Head>
+        <title>Kompetisi Id - Platform Kompetisi Online Indonesia</title>
+        <script src="https://unpkg.com/@glidejs/glide@3.3.0/dist/glide.min.js" />
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/@glidejs/glide@3.3.0/dist/css/glide.core.min.css"
+        />
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/@glidejs/glide@3.3.0/dist/css/glide.theme.min.css"
+        />
+      </Head>
+
       <Navbar />
 
       <div
@@ -112,7 +99,7 @@ const Home = (props) => {
         />
       </div>
       <div className="col-md-12">
-        <SubHeaderHome stats={respCompStats} slider={respCompPopular} />
+        <SubHeaderHome slider={respCompPopular} />
       </div>
 
       {/* competition */}
@@ -161,7 +148,7 @@ const Home = (props) => {
         />
       </div>
 
-      <NewsBox subtitle={false} {...setRespNews} />
+      <NewsBox subtitle={false} {...respNews} />
 
       <div className="row align-center">
         <Link href="/news">
@@ -186,21 +173,18 @@ const Home = (props) => {
   );
 };
 
-// Home.fetchData = ({ store, params, query }) => {
-//   const promises = [
-//     store.dispatch(
-//       fetchJelajah(
-//         { limit: 7, is_popular: true, status: "active" },
-//         "home_popular"
-//       )
-//     ),
-//     store.dispatch(fetchJelajah({ limit: 9, status: "active" }, "home_latest")),
-//     store.dispatch(fetchBerita({ limit: 6 }, "home_latest")),
-//     store.dispatch(
-//       fetchJelajah({ limit: 7, is_mediapartner: true }, "home_mediapartner")
-//     ),
-//   ];
-//   return Promise.all(promises);
-// };
+Home.getInitialProps = async (ctx) => {
+  const competitionPopular = await fetchCompetitions({
+    query: { limit: 7, is_popular: true, status: "active" },
+  });
+  const competitionLatest = await fetchCompetitions({
+    query: { limit: 9, status: "active" },
+  });
+  // const newsLatest = await
+  return {
+    competitionPopular,
+    competitionLatest,
+  };
+};
 
 export default Home;

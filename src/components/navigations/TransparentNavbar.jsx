@@ -286,8 +286,8 @@ const Navbar = (props) => {
                   </li>
                   {Menus.map((n) => (
                     <li key={n.link}>
-                      <Link title={n.title} href={n.link}>
-                        <a>{n.text}</a>
+                      <Link href={n.link}>
+                        <a title={n.title}>{n.text}</a>
                       </Link>
                     </li>
                   ))}

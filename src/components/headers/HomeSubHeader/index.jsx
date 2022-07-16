@@ -1,66 +1,64 @@
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { nominalToText } from "../../../helpers/number";
 import HomeSliderStyled from "./styled";
 
 // components
 import Loader from "../../preloaders/GlobalLoader";
 
-let IntervalSlider;
-
-const HomeSubHeader = (props) => {
+const HomeSubHeader = ({ slider }) => {
   const [sliderStart, setSliderStart] = useState(false);
   const [sliderShow, setSliderShow] = useState(false);
 
-  const { data = [] } = props.slider || {};
-
-  const renderSlider = () => {
-    IntervalSlider = setInterval(() => {
-      if (window && window.Glide) {
-        clearInterval(IntervalSlider);
+  const renderSlider = React.useCallback(() => {
+    if (window && window.Glide && slider.status === 200 && !sliderStart) {
+      setTimeout(() => {
         new Glide("#homepage-subheader", {
           type: "carousel",
           startAt: 0,
           perView: 2,
           hoverpause: true,
-          animationDuration: 200,
+          animationDuration: 500,
           autoplay: 5000,
         }).mount();
         setSliderShow(true);
-      }
-    }, 200);
-  };
+      }, 1000);
+    }
+  }, [slider, sliderStart]);
 
   useEffect(() => {
-    // setSliderStart(true)
     if (
       typeof window !== "undefined" &&
-      props.slider.status &&
-      props.slider.status === 200 &&
+      slider.status === 200 &&
       !sliderStart
     ) {
       setSliderStart(true);
       renderSlider();
     }
-  }, [props.slider]);
+  }, [slider, sliderStart]);
 
   return (
     <HomeSliderStyled>
       <div className="subheader-content home-slider">
-        {/*<div className="home-slider__wrapper">*/}
         <div className="glide" id="homepage-subheader">
           {!sliderStart && (
             <div style={{ width: "100%", height: "100%" }}>
               <Loader style={{ marginBottom: 60 }} />
             </div>
           )}
-          <div className="glide__track" data-glide-el="track">
+          <div
+            style={{ display: sliderStart ? "show" : "hide" }}
+            className="glide__track"
+            data-glide-el="track"
+          >
             <div
               style={!sliderShow || !sliderStart ? { display: "none" } : {}}
               className="glide__slides"
             >
-              {data.map((n, key) => (
-                <CompetitionSlider mainTopic={key === 0} key={n.id} {...n} />
-              ))}
+              {slider.status === 200 &&
+                slider.data.map((n, key) => (
+                  <CompetitionSlider mainTopic={key === 0} key={n.id} {...n} />
+                ))}
             </div>
           </div>
           <div
@@ -68,25 +66,30 @@ const HomeSubHeader = (props) => {
             data-glide-el="controls[nav]"
             style={!sliderStart ? { display: "none" } : {}}
           >
-            {data.map((n, key) => {
-              return (
-                <button
-                  className="glide__bullet"
-                  data-glide-dir={`=${key}`}
-                  key={key}
-                />
-              );
-            })}
+            {slider.status === 200 &&
+              slider.data.map((n, key) => {
+                return (
+                  <button
+                    className="glide__bullet"
+                    data-glide-dir={`=${key}`}
+                    key={key}
+                  />
+                );
+              })}
           </div>
         </div>
       </div>
-
-      {/*</div>*/}
     </HomeSliderStyled>
   );
 };
 
+HomeSubHeader.defaultProps = {
+  slider: {},
+};
+
 const CompetitionSlider = (props) => {
+  const Router = useRouter();
+
   const hrefTarget = `/competition/${props.id}/regulations/${props.nospace_title}`;
   return (
     <div className={`competition-slider`}>
@@ -109,10 +112,10 @@ const CompetitionSlider = (props) => {
               {props.sort}
             </div>
             <a
-              href={hrefTarget}
+              href="#"
               onClick={(e) => {
                 e.preventDefault();
-                window.transitionTo(hrefTarget);
+                Router.push(hrefTarget);
               }}
               className="btn btn-bordergray btn-rounded"
             >
