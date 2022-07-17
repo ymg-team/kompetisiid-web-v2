@@ -1,8 +1,8 @@
-import React, { useEffect } from "react"
-import Styled from "styled-components"
-import Tags from "../buttons/CompetitionTags"
-import { textParser } from "../../helpers/string"
-import { alert } from "../Alert"
+import React, { useEffect } from "react";
+import Styled from "styled-components";
+import Tags from "../buttons/CompetitionTags";
+import { textParser } from "../../helpers/string";
+import { alert } from "../Alert";
 
 const RegulationStyled = Styled.div`
 article {
@@ -17,29 +17,27 @@ article {
     text-transform: capitalize; 
   }
 }
-`
+`;
 
-const Regulation = props => {
+const Regulation = (props) => {
   useEffect(() => {
     // get all image inside .competition-regulator
     setTimeout(() => {
-      if (typeof window !== "undefined") {
-        const ImgEl = document.querySelectorAll(".competition-regulation img")
-        // ref: https://developer.mozilla.org/en-US/docs/Web/API/NodeList
-        for (let n of ImgEl) {
-          n.className = "image-modal-target"
-        }
+      const ImgEl = document.querySelectorAll(".competition-regulation img");
+      // ref: https://developer.mozilla.org/en-US/docs/Web/API/NodeList
+      for (let n of ImgEl) {
+        n.className = "image-modal-target";
       }
-    }, 1000)
-  }, [])
+    }, 1000);
+  }, []);
 
   return (
     <RegulationStyled
       className="competition-regulation"
-      onMouseDown={e => e.preventDefault()}
-      onSelectStart={e => {
+      onMouseDown={(e) => e.preventDefault()}
+      onSelectStart={(e) => {
         // e.preventDefault()
-        alert(true, "Select is disabled", "error")
+        alert(true, "Select is disabled", "error");
       }}
     >
       <h2>Peraturan kompetisi</h2>
@@ -59,7 +57,7 @@ const Regulation = props => {
       <hr />
       <Tags tags={props.tags} />
     </RegulationStyled>
-  )
-}
+  );
+};
 
-export default Regulation
+export default Regulation;

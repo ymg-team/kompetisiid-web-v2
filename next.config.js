@@ -11,6 +11,23 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   publicRuntimeConfig,
+  // https://nextjs.org/docs/api-reference/next.config.js/rewrites
+  async rewrites() {
+    return [
+      {
+        source: "/browse/:mainCat",
+        destination: "/browse?mainCat=:mainCat",
+      },
+      {
+        source: "/browse/tag/:tag",
+        destination: "/browse?tag=:tag",
+      },
+      {
+        source: "/browse/:mainCat/:subCat",
+        destination: "/browse?mainCat=:mainCat&subCat=:subCat",
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

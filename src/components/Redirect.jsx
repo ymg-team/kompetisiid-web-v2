@@ -5,11 +5,9 @@ import Helmet from "./Helmet";
 
 const Redirect = (props) => {
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setTimeout(() => {
-        location.href = props.url;
-      }, 1500);
-    }
+    setTimeout(() => {
+      location.href = props.url;
+    }, 1500);
   }, []);
 
   return (

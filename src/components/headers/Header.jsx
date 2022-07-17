@@ -4,13 +4,21 @@ import Link from "next/link";
 import { alert } from "../Alert";
 import { connect } from "react-redux";
 import { logout as logoutAction } from "../../../store/user/actions";
+import { useRouter } from "next/router";
 
 const Header = (props) => {
+  const Router = useRouter();
+
   const { q, session, dispatch, setState, logout } = props;
 
   const handleSearch = (e) => {
     if (e.keyCode == 13) {
-      return (window.location.href = `/browse?q=${q}`);
+      Router.push({
+        pathname: "/browse",
+        query: {
+          search: q,
+        },
+      });
     }
   };
 
@@ -166,7 +174,7 @@ const Header = (props) => {
           id="btn-closesearch"
           onClick={(e) => {
             e.preventDefault();
-            if (q != "") return (window.location.href = "/browse");
+            if (q != "") return Router.push("/browse");
           }}
           href="#"
           title="tutup pencarian"

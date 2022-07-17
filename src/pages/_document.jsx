@@ -28,6 +28,7 @@ export default function Document() {
         <Main />
         <NextScript />
         <div id="fb-root" />
+        <script src="/static/script.0.0.1.min.js"></script>
       </body>
     </Html>
   );

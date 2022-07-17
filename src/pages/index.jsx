@@ -36,11 +36,14 @@ const MediaPartnerAds = Dynamic(import("../components/cards/MediaPartnerAds"), {
   loading: EmptyLoading,
 });
 
-const Home = ({ competitionPopular, competitionLatest }) => {
+const Home = ({ serverData = {} }) => {
   // === initial states ===
-  const [respCompPopular, setRespCompPopular] =
-    React.useState(competitionPopular);
-  const [respCompLatest, setRespCompLatest] = React.useState(competitionLatest);
+  const [respCompPopular, setRespCompPopular] = React.useState(
+    serverData.competitionPopular
+  );
+  const [respCompLatest, setRespCompLatest] = React.useState(
+    serverData.competitionLatest
+  );
   const [respCompMP, setRespCompMP] = React.useState({});
   const [respNews, setRespNews] = React.useState({});
 
@@ -182,8 +185,10 @@ Home.getInitialProps = async (ctx) => {
   });
   // const newsLatest = await
   return {
-    competitionPopular,
-    competitionLatest,
+    serverData: {
+      competitionPopular,
+      competitionLatest,
+    },
   };
 };
 

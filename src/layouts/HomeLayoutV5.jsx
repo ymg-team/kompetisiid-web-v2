@@ -1,12 +1,11 @@
-import React, { useState, useMemo, Component, useEffect } from "react";
-import { connect } from "react-redux";
+import React, { useState, useMemo, useEffect } from "react";
 import { Colors } from "~/src/config/style";
-import { initModalImages } from "../helpers/modal";
-import { resendEmailValidationToken } from "../../store/user/actions";
+import { initModalImages } from "~/src/helpers/modal";
+import { useRouter } from "next/router";
+// import { resendEmailValidationToken } from "~src/../../store/user/actions";
 
 // components
 import Footer from "../components/Footer";
-import { renderRoutes, matchRoutes } from "react-router-config";
 import Styled from "styled-components";
 import Navbar from "../components/navigations/TransparentNavbar";
 import Alert from "../components/Alert";
@@ -63,57 +62,47 @@ const LayoutStyled = Styled.div`
 
 let addedEventScroll = false;
 
-const RootLayoutV5 = (props) => {
+const RootLayoutV5 = ({ children }) => {
+  const Router = useRouter();
+
+  const [isHideNavbar, setIsHideNavbar] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
   const [showBtnTop, setShowBtnTop] = useState(false);
   const [online, setOnline] = useState(true);
   const [showNotifConfirmation, setShowNotifConfirmation] = useState(false);
+
+  const session = {};
 
   // init effects
   useEffect(() => {
     // componentDidMount
 
-    if (typeof window !== "undefined") {
-      // global function to use react-router transition
-      window.transitionTo = (path) => {
-        path += `${path.includes("?") ? "&" : "?"}ref=${
-          props.location.pathname
-        }`;
-        props.history.push(path);
-      };
+    // init modal images
+    initModalImages();
 
-      // init modal images
-      initModalImages();
+    // scroll event listener
+    document.addEventListener("scroll", (e) => {
+      const position = window.scrollY;
+      if (position > 500) {
+        if (!showBtnTop) setShowBtnTop(true);
+      } else {
+        if (showBtnTop) setShowBtnTop(false);
+      }
+    });
 
-      // scroll event listener
-      document.addEventListener("scroll", (e) => {
-        const position = window.scrollY;
-        if (position > 500) {
-          if (!showBtnTop) setShowBtnTop(true);
-        } else {
-          if (showBtnTop) setShowBtnTop(false);
-        }
-      });
-
-      // online / offline listener
-      window.addEventListener("online", () => _updateOnlineStatus());
-      window.addEventListener("offline", () => _updateOnlineStatus());
-
-      // Google Analytics handler
-      props.history.listen((location) => {
-        if (window.ga) {
-          // ref : https://developers.google.com/analytics/devguides/collection/gajs/
-          ga("send", "pageview", location.pathname + location.search);
-        }
-      });
-    }
+    // online / offline listener
+    window.addEventListener("online", () => _updateOnlineStatus());
+    window.addEventListener("offline", () => _updateOnlineStatus());
   }, []);
 
-  // init memos
+  useEffect(() => {
+    if (window.ga) {
+      // ref : https://developers.google.com/analytics/devguides/collection/gajs/
+      ga("send", "pageview", Router.asPath);
+    }
+  }, [Router.pathnasPathame]);
 
-  // set fullscreen state
-  const routeState = useMemo(() => {
-    return matchRoutes(props.route.routes, props.location.pathname)[0].route;
-  }, [props.route, props.location]);
+  // init memos
 
   // init functions
   // const resendEmailVerification = () => {}
@@ -137,12 +126,12 @@ const RootLayoutV5 = (props) => {
     <LayoutStyled>
       {/* offline wrapper */}
       <div style={onlineWrapperStyle}>
-        {!routeState.hideNavbar && <Navbar location={props.location} />}
+        {!isHideNavbar && <Navbar />}
 
-        {renderRoutes(props.route.routes)}
+        {children}
 
         {/* gads */}
-        {!routeState.fullscreen ? (
+        {!isFullScreen ? (
           <div className="col-md-12 align-center">
             <GAds
               adClient="ca-pub-4468477322781117"
@@ -153,13 +142,13 @@ const RootLayoutV5 = (props) => {
         ) : null}
         {/* gads */}
 
-        {routeState.fullscreen ? null : <Footer />}
+        {!isFullScreen && <Footer />}
 
         {/* button click to go top */}
         <BackToTop
           onClick={() => {
             // ref: https://stackoverflow.com/a/1145012/2780875
-            window && window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           style={!showBtnTop ? { bottom: "-200px" } : {}}
         >
@@ -184,17 +173,14 @@ const RootLayoutV5 = (props) => {
         <div style={StickyNoteStyle}>
           Jaringan kamu sedang "offline", yang sabar ya :(
         </div>
-      ) : !routeState.fullscreen &&
-        props.session &&
-        props.session.id &&
-        !props.session.is_verified ? (
+      ) : !isFullScreen && session && session.id && !session.is_verified ? (
         <div style={StickyNoteStyle}>
           Kamu belum melakukan verifikasi email, segera cek email kamu. Atau
           klik{" "}
           <a
             onClick={(e) => {
               e.preventDefault();
-              props.dispatch(resendEmailValidationToken());
+              // props.dispatch(resendEmailValidationToken());
             }}
             style={StickyNoteLinkStyle}
             href="#"
@@ -207,10 +193,4 @@ const RootLayoutV5 = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    session: state.User.session,
-  };
-};
-
-export default connect(mapStateToProps)(RootLayoutV5);
+export default RootLayoutV5;

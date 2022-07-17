@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Styled from "styled-components";
 import { Colors } from "~/src/config/style";
 
 // components
 import Link from "next/link";
 
-const FooterWrapper = Styled.footer`
+const FooterWrapper = Styled.div`
   a {
     color: ${Colors.mainWhite};
     text-decoration: none;
@@ -73,15 +73,7 @@ const FooterBottom = Styled.div`
 `;
 
 const Footer = (props) => {
-  const [isLogin, setIsLogin] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (window.__data__.User && window.__data__.User.session.id) {
-        setIsLogin(true);
-      }
-    }
-  }, []);
+  const [isLogin, setIsLogin] = React.useState(false);
 
   return (
     <FooterWrapper>
@@ -129,7 +121,6 @@ const Footer = (props) => {
             </div>
             <div className="col-md-3 footer_content">
               <p>
-                {" "}
                 <strong className="title">Lebih Lengkap</strong>
               </p>
               <ul className="vertical-menu">
@@ -162,8 +153,9 @@ const Footer = (props) => {
                   <a
                     target="_blank"
                     href="https://goo.gl/forms/kMGGZQXJCjoyKThj1"
+                    rel="noreferer noopener"
                   >
-                    <a>Hubungi kami</a>
+                    Hubungi kami
                   </a>
                 </li>
                 <li>
@@ -205,13 +197,13 @@ const Footer = (props) => {
                     <a>Kategori</a>
                   </Link>
                 </li>
-                {!isLogin ? (
+                {!isLogin && (
                   <li>
                     <Link href="/login">
                       <a>Login / register</a>
                     </Link>
                   </li>
-                ) : null}
+                )}
               </ul>
               <p />
             </div>
@@ -224,7 +216,7 @@ const Footer = (props) => {
             >
               <img
                 className="footer-copyright-logo"
-                src="/assets/4.2/img/icon-128x128.png"
+                src="/static/images/icons-white/icon-72x72.png"
                 alt="kompetisi id icon"
               />
               <small className="footer-copyright-text">
@@ -293,7 +285,7 @@ const Footer = (props) => {
                 target="_blank"
               >
                 <img
-                  src="/assets/4.2/img/ymg-icon-small.png"
+                  src="/static/images/icons/ymg-icon-small.png"
                   alt="Yussan Media Group Small Icon"
                 />
               </a>

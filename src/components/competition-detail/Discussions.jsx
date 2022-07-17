@@ -1,36 +1,34 @@
-import React, { useEffect } from "react"
-import { pushScript } from "../../helpers/domEvents"
+import React, { useEffect } from "react";
+import { pushScript } from "../../helpers/domEvents";
 
-const Discussions = props => {
+const Discussions = (props) => {
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // disquss js sdk
-      pushScript("//kompetisiindonesia.disqus.com/embed.js")
+    // disquss js sdk
+    pushScript("//kompetisiindonesia.disqus.com/embed.js");
 
-      setTimeout(() => {
-        resetDisqus()
-      }, 1000)
-    }
-  }, [])
+    setTimeout(() => {
+      resetDisqus();
+    }, 1000);
+  }, []);
 
   const resetDisqus = () => {
-    console.log("reset Disqus...")
+    console.log("reset Disqus...");
     if (window.DISQUS) {
       DISQUS.reset({
         reload: true,
-        config: function() {
-          this.page.identifier = `${this.props.link}`
-          this.page.url = this.props.link
+        config: function () {
+          this.page.identifier = `${this.props.link}`;
+          this.page.url = this.props.link;
           this.callbacks.onNewComment = [
-            function(comment) {
-              console.log("Thanks for comment...", comment.text)
-              if (window.DISQUSWIDGETS) DISQUSWIDGETS.getCount({ reset: true })
-            }
-          ]
-        }
-      })
+            function (comment) {
+              console.log("Thanks for comment...", comment.text);
+              if (window.DISQUSWIDGETS) DISQUSWIDGETS.getCount({ reset: true });
+            },
+          ];
+        },
+      });
     }
-  }
+  };
 
   return (
     <React.Fragment>
@@ -43,7 +41,7 @@ const Discussions = props => {
       <hr />
       <div id="disqus_thread" />
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Discussions
+export default Discussions;

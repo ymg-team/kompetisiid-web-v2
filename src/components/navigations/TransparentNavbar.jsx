@@ -1,9 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Styled from "styled-components";
-// import { queryToObj } from "string-manager";
 import { Colors } from "~/src/config/style";
-// import { logout } from "../../../store/user/actions";
 
 // components
 import Link from "next/link";
@@ -163,8 +161,8 @@ const Navbar = (props) => {
 
   React.useEffect(() => {
     const { query } = Router;
-    setSearch(typeof query.q !== "undefined");
-    setKeyword(query.q || "");
+    setSearch(typeof query.search !== "undefined");
+    setKeyword(query.search || "");
   }, [Router.query]);
 
   // componentDidMount and componentWilUnmount
@@ -240,7 +238,12 @@ const Navbar = (props) => {
                       onChange={(e) => setKeyword(e.target.value || "")}
                       onKeyDown={(e) => {
                         if (e.keyCode === 13 && keyword.trim() !== "") {
-                          Router.push(`/browse?q=${keyword}`);
+                          Router.push({
+                            pathname: "/browse",
+                            query: {
+                              search: keyword,
+                            },
+                          });
                         }
                       }}
                     />

@@ -1,69 +1,69 @@
-import React from "react"
-import { validate, validator } from "./Validator"
+import React from "react";
+import { validate, validator } from "./Validator";
 
-const DatePicker = props => {
+const DatePicker = (props) => {
   // initial refs
-  const Picker = React.useRef(null)
+  const Picker = React.useRef(null);
 
   // initial effects
   React.useEffect(() => {
     // componentDidMount
-    validate(props)
+    validate(props);
 
     // init Pikaday
-    initPikaday()
-  }, [])
+    initPikaday();
+  }, []);
 
   // listen value changes
   React.useEffect(() => {
-    validate(props)
-  }, [props.value])
+    validate(props);
+  }, [props.value]);
 
   // initial functions
 
   const validateInput = (props = props) => {
-    const result = validate(props)
+    const result = validate(props);
     props.setState({
-      [props.name + "_validate"]: result
-    })
-  }
+      [props.name + "_validate"]: result,
+    });
+  };
 
   const initPikaday = () => {
-    let { config } = props
+    let { config } = props;
     config = Object.assign(
       {
         field: document.getElementById(props.id || props.name),
         format: "D MMM YYYY",
-        onSelect: val => {
+        onSelect: (val) => {
           props.setState(
             {
-              [props.name]: val
+              [props.name]: val,
             },
             () => {
               // validateInput()
             }
-          )
-        }
+          );
+        },
       },
       config
-    )
+    );
     setTimeout(
       () => {
-        if (typeof window !== "undefined" && window.Pikaday) {
-          Picker.current = new Pikaday(config)
+        if (window.Pikaday) {
+          Picker.current = new Pikaday(config);
 
           // set default Pikaday value
           if (props.value) {
-            console.log("set timepicket value", props.value)
-            Picker.current.setDate(props.value)
+            console.log("set timepicket value", props.value);
+            Picker.current.setDate(props.value);
           }
         }
       },
-      typeof window !== "undefined" && window.Pikaday ? 0 : 2500
-    )
-  }
+      typeof window.Pikaday ? 0 : 2500
+    );
+  };
 
-  const is_valid = !(!props.validate.is_valid && props.validate.message)
+  const is_valid = !(!props.validate.is_valid && props.validate.message);
 
   return (
     <div className={`form-child ${!is_valid ? "error" : ""}`}>
@@ -78,19 +78,19 @@ const DatePicker = props => {
         id={props.id || props.name}
         autoComplete={"off"}
         onClick={() => {
-          console.log("clicked...")
+          console.log("clicked...");
           if (!Picker.current) {
-            initPikaday()
+            initPikaday();
           }
         }}
       />
       {!is_valid ? <small>{validate.message}</small> : null}
     </div>
-  )
-}
+  );
+};
 
 DatePicker.defaultProps = {
-  config: {}
-}
+  config: {},
+};
 
-export default DatePicker
+export default DatePicker;

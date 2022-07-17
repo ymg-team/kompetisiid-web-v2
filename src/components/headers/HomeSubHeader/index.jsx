@@ -11,8 +11,8 @@ const HomeSubHeader = ({ slider }) => {
   const [sliderShow, setSliderShow] = useState(false);
 
   const renderSlider = React.useCallback(() => {
-    if (window && window.Glide && slider.status === 200 && !sliderStart) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (window && window.Glide && slider.status === 200 && !sliderStart) {
         new Glide("#homepage-subheader", {
           type: "carousel",
           startAt: 0,
@@ -21,18 +21,14 @@ const HomeSubHeader = ({ slider }) => {
           animationDuration: 500,
           autoplay: 5000,
         }).mount();
+        setSliderStart(true);
         setSliderShow(true);
-      }, 1000);
-    }
+      }
+    }, 1000);
   }, [slider, sliderStart]);
 
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      slider.status === 200 &&
-      !sliderStart
-    ) {
-      setSliderStart(true);
+    if (slider.status === 200 && !sliderStart) {
       renderSlider();
     }
   }, [slider, sliderStart]);

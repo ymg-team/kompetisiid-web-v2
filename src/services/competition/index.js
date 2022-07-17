@@ -9,3 +9,9 @@ export const fetchCompetitions = (args = {}) => {
     method: "get",
   });
 };
+
+export const fetchCompetitionCategories = () => {
+  return fetchModule({
+    endpoint: `/v2/maincategories`,
+  });
+};

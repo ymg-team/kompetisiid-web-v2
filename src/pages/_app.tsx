@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return <>
       <Head>
         <meta charSet="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="fb:app_id" content="1419514554927551" />
         <meta property="fb:admins" content="xyussanx" />
