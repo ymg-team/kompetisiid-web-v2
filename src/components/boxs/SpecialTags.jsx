@@ -1,5 +1,5 @@
-import React from "react"
-import Styled from "styled-components"
+import React from "react";
+import Styled from "styled-components";
 
 const SpecialTagsStyled = Styled.div`
   margin-top: 50px;
@@ -16,13 +16,14 @@ const SpecialTagsStyled = Styled.div`
   .specialtags-description {
     h1 {
       margin-bottom: -10px;
+      margin-top: 18px;
     }
   }
   padding: 25px 0;
   margin-bottom: 25px;
-`
+`;
 
-const SpecialTags = props => {
+const SpecialTags = (props) => {
   return (
     <SpecialTagsStyled className="container">
       <div className="col-md-12">
@@ -38,7 +39,7 @@ const SpecialTags = props => {
         </span>
       </div>
     </SpecialTagsStyled>
-  )
-}
+  );
+};
 
-export default SpecialTags
+export default SpecialTags;

@@ -131,8 +131,10 @@ const BrowseCompetition = ({
   }, [Router.query]);
 
   const SelectedSpecialTag = React.useMemo(() => {
-    return {};
-  }, []);
+    return tag
+      ? StaticSpecialTags.find((n) => n.tag === tag.toLowerCase()) || {}
+      : {};
+  }, [tag]);
 
   const subkategories = React.useMemo(() => {
     if (mainkat && categories.status) {
@@ -183,21 +185,32 @@ const BrowseCompetition = ({
     setCategories(Res);
   });
 
-  // const fetchData = React.useCallback(async () => {
-  //   console.log("called...");
+  const fetchDataMore = React.useCallback(async () => {
+    setLoading(true);
+    let currResponse = { ...respCompetition };
 
-  //   if (!loading) {
-  //     if (firstRender.current) return (firstRender.current = false);
-  //     setLoading(true);
-  //     const Res = await fetchCompetitions({
-  //       query: { ...DEFAULT_REQ_QUERY_COMPETITIONS, ...Router.query },
-  //     });
-  //     setRespCompetition(Res);
-  //     setTimeout(() => {
-  //       setLoading(false);
-  //     }, 1000);
-  //   }
-  // }, [Router.query]);
+    if (respCompetition.data && respCompetition.data.length > 0) {
+      const ResLength = respCompetition.data.length;
+      const lastid = respCompetition.data[ResLength - 1].id;
+      const Res = await fetchCompetitions({
+        query: {
+          ...DEFAULT_REQ_QUERY_COMPETITIONS,
+          ...Router.query,
+          ...{ lastid },
+        },
+      });
+
+      // join currentResponse and newResponse
+      currResponse.status = Res.status;
+      currResponse.message = Res.message;
+      currResponse.count = Res.count;
+      if (Res.data) currResponse.data = [...currResponse.data, ...Res.data];
+
+      setRespCompetition(currResponse);
+
+      setLoading(false);
+    }
+  }, [Router.query, respCompetition]);
 
   return (
     <HomeLayoutV5>
@@ -320,6 +333,25 @@ const BrowseCompetition = ({
           {...respCompetition}
         />
         {/*end of content*/}
+
+        {/* loader */}
+        {loading && <GlobalLoading />}
+
+        {/* button loadMore */}
+        {!loading && respCompetition.status == 200 && (
+          <div className="row align-center">
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                fetchDataMore();
+              }}
+              className="btn btn-bordergray"
+            >
+              KOMPETISI BERIKUTNYA
+            </a>
+          </div>
+        )}
 
         {/*modal*/}
         <>
@@ -535,8 +567,6 @@ const BrowseCompetition = ({
           </Modal>
         </>
         {/*end of modal*/}
-
-        {loading && <GlobalLoading />}
       </div>
     </HomeLayoutV5>
   );
