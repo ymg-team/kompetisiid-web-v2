@@ -4,6 +4,10 @@
       "allowSyntheticDefaultImports": false,
       "baseUrl": "./",
       "paths": {
+        "@components/*": ["./src/components/*"],
+        "@configs/*": ["./src/config/*"],
+        "@services/*": ["./src/services/*"],
+        "@helpers/*": ["./src/helpers/*"],
         "~/*": ["./*"],
         "~":  ["./"],
       },

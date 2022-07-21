@@ -1,9 +1,10 @@
-import Styled from "styled-components"
+import Styled from "styled-components";
 
 const GlobalLoaderStyled = Styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   margin: 50px 0;
 
   .pswp__preloader__icn {
@@ -104,6 +105,6 @@ const GlobalLoaderStyled = Styled.div`
       transform: rotate(0);
     }
   }
-`
+`;
 
-export default GlobalLoaderStyled
+export default GlobalLoaderStyled;

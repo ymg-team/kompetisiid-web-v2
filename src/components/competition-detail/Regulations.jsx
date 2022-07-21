@@ -34,9 +34,8 @@ const Regulation = (props) => {
   return (
     <RegulationStyled
       className="competition-regulation"
-      onMouseDown={(e) => e.preventDefault()}
-      onSelectStart={(e) => {
-        // e.preventDefault()
+      onMouseDown={(e) => {
+        e.preventDefault();
         alert(true, "Select is disabled", "error");
       }}
     >

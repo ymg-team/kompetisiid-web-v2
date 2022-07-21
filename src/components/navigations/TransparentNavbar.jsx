@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const Menus = [
   {
-    link: "/browse",
+    link: "/browse?status=active",
     text: "Jelajah",
     title: "Jelajahi kompetisi dari berbagai kategori",
   },
@@ -201,7 +201,7 @@ const Navbar = (props) => {
     setSearch(!search);
     setKeyword("");
 
-    if (close) Router.push("/browse");
+    if (close) Router.push("/browse?status=active");
   };
 
   return (
@@ -239,7 +239,7 @@ const Navbar = (props) => {
                       onKeyDown={(e) => {
                         if (e.keyCode === 13 && keyword.trim() !== "") {
                           Router.push({
-                            pathname: "/browse",
+                            pathname: "/browse?status=active",
                             query: {
                               search: keyword,
                             },

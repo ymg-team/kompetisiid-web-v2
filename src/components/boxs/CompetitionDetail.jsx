@@ -92,7 +92,7 @@ const CompetitionDetailBox = (props) => {
     },
     {
       title: "Jelajah Kompetisi",
-      link: "/browse",
+      link: "/browse?status=active",
     },
     {
       title: data.title,

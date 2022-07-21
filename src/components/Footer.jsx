@@ -183,7 +183,7 @@ const Footer = (props) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/browse">
+                  <Link href="/browse?status=active">
                     <a>Jelajah kompetisi</a>
                   </Link>
                 </li>

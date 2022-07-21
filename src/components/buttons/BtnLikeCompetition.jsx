@@ -1,21 +1,20 @@
-import React, { useState } from "react"
-import { connect } from "react-redux"
-import { likeActionCompetition } from "../../pages/competition/actions"
+import React, { useState } from "react";
+// import { likeActionCompetition } from "../../pages/competition/actions";
 
-const BtnLikeCompetition = props => {
-  const [isLiked, setIsLiked] = useState(props.isLiked)
-  const [total, setTotal] = useState(props.total)
+const BtnLikeCompetition = (props) => {
+  const [isLiked, setIsLiked] = useState(props.isLiked);
+  const [total, setTotal] = useState(props.total);
 
   const clickHandler = () => {
-    if (props.session && props.session.id) {
-      const nextTotal = isLiked ? total - 1 : total + 1
-      setTotal(nextTotal)
-      setIsLiked(!isLiked)
-      return props.dispatch(likeActionCompetition(props.competition_id))
-    } else {
-      return window.transitionTo("/login")
-    }
-  }
+    // if (props.session && props.session.id) {
+    //   const nextTotal = isLiked ? total - 1 : total + 1
+    //   setTotal(nextTotal)
+    //   setIsLiked(!isLiked)
+    //   return props.dispatch(likeActionCompetition(props.competition_id))
+    // } else {
+    //   return window.transitionTo("/login")
+    // }
+  };
 
   return (
     <a
@@ -25,9 +24,9 @@ const BtnLikeCompetition = props => {
         isLiked ? "batal menyukai" : "menyukai"
       } kompetisi ini`}
       style={{ fontSize: 25, padding: "5px 10px" }}
-      onClick={e => {
-        e.preventDefault()
-        clickHandler()
+      onClick={(e) => {
+        e.preventDefault();
+        clickHandler();
       }}
     >
       <span className={`${isLiked ? "fa fa-thumbs-up" : "far fa-thumbs-up"}`} />
@@ -35,20 +34,13 @@ const BtnLikeCompetition = props => {
         style={{
           fontWeight: 100,
           marginLeft: 5,
-          fontSize: 20
+          fontSize: 20,
         }}
       >
         {total}
       </span>
     </a>
-  )
-}
+  );
+};
 
-const mapStateToProps = State => {
-  return {
-    session: State.User.session,
-    competition: State.competition
-  }
-}
-
-export default connect(mapStateToProps)(BtnLikeCompetition)
+export default BtnLikeCompetition;

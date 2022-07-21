@@ -37,8 +37,9 @@ const nextConfig = {
         destination: "/competitionDetail?id=:id&title=:title&type=prizes",
       },
       {
-        source: "/competition/:id/annoucements/:title",
-        destination: "/competitionDetail?id=:id&title=:title&type=annoucements",
+        source: "/competition/:id/announcements/:title",
+        destination:
+          "/competitionDetail?id=:id&title=:title&type=announcements",
       },
       {
         source: "/competition/:id/discussions/:title",

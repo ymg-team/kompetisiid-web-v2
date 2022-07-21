@@ -25,6 +25,16 @@ export const fetchCompetitionById = ({ id }) => {
 };
 
 /**
+ * service to fetch related competition by id
+ */
+export const fetchCompetitionRelatedById = ({ id }) => {
+  return fetchModule({
+    endpoint: `/v2/competitions/related/${id}`,
+    method: "get",
+  });
+};
+
+/**
  * service to fetch list of competition categories
  */
 export const fetchCompetitionCategories = () => {
