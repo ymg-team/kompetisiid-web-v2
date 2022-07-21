@@ -16,7 +16,7 @@ const FullPageError = ({ message, code }) => {
           <Link href="/">
             <a>Kembali ke home</a>
           </Link>
-          <Link href="/browse">
+          <Link href="/browse?status=active">
             <a>Jelajah</a>
           </Link>
           <Link href="/add">

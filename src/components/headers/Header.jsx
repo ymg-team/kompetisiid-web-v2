@@ -14,7 +14,7 @@ const Header = (props) => {
   const handleSearch = (e) => {
     if (e.keyCode == 13) {
       Router.push({
-        pathname: "/browse",
+        pathname: "/browse?status=active",
         query: {
           search: q,
         },
@@ -67,7 +67,7 @@ const Header = (props) => {
               onClick={(e) => e.preventDefault()}
             />
             <li>
-              <Link onClick={() => toggleNavTop()} href="/browse">
+              <Link onClick={() => toggleNavTop()} href="/browse?status=active">
                 <a>jelajah</a>
               </Link>
             </li>
@@ -174,7 +174,7 @@ const Header = (props) => {
           id="btn-closesearch"
           onClick={(e) => {
             e.preventDefault();
-            if (q != "") return Router.push("/browse");
+            if (q != "") return Router.push("/browse?status=active");
           }}
           href="#"
           title="tutup pencarian"

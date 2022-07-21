@@ -193,4 +193,8 @@ const RootLayoutV5 = ({ children }) => {
   );
 };
 
+RootLayoutV5.defaultProps = {
+  isFullScreen: false,
+};
+
 export default RootLayoutV5;

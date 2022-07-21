@@ -2,10 +2,6 @@ import React from "react";
 import { useRouter } from "next/router";
 import Dynamic from "next/dynamic";
 
-import { LOCAL_STORAGE_CATEGORIES_VERSION } from "~/src/config/versions";
-import { getStorage, setStorage } from "~/src/helpers/localStorage";
-import { queryToObj, objToQuery } from "string-manager";
-import { topLoading } from "~/src/components/preloaders";
 import StaticSpecialTags from "~/src/config/consts/staticData/specialTags";
 
 // services
@@ -16,18 +12,18 @@ import {
 
 // components
 import HomeLayoutV5 from "~/src/layouts/HomeLayoutV5";
-import CompetitionLoading from "~/src/components/preloaders/CompetitionCardLoader";
-import Modal from "~/src/components/modals";
-import MediaPartnerAds from "~/src/components/cards/MediaPartnerAds";
-import GlobalLoading from "~/src/components/preloaders/GlobalLoader";
-import { FilterJelajahStyled } from "~/src/components/filters/Filter.styled";
-import Breadcrumb from "~/src/components/navigations/Breadcrumb";
+import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
+import Modal from "@components/modals";
+import MediaPartnerAds from "@components/cards/MediaPartnerAds";
+import GlobalLoading from "@components/preloaders/GlobalLoader";
+import { FilterJelajahStyled } from "@components/filters/Filter.styled";
+import Breadcrumb from "@components/navigations/Breadcrumb";
 import Head from "next/head";
 
-const CompetitionBox = Dynamic(import("~/src/components/boxs/CompetitionBox"), {
+const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
   loading: () => <CompetitionLoading withContainer />,
 });
-const SpecialTags = Dynamic(import("~/src/components/boxs/SpecialTags"), {
+const SpecialTags = Dynamic(import("@components/boxs/SpecialTags"), {
   loading: GlobalLoading,
 });
 
@@ -53,7 +49,7 @@ const BreadcrumbData = [
   },
   {
     title: "Jelajah Kompetisi",
-    link: "/browse",
+    link: "/browse?status=active",
   },
 ];
 
@@ -213,7 +209,7 @@ const BrowseCompetition = ({
   }, [Router.query, respCompetition]);
 
   return (
-    <HomeLayoutV5>
+    <>
       <div id="browse-container">
         <Head>
           <title>{Meta.Title}</title>
@@ -568,7 +564,7 @@ const BrowseCompetition = ({
         </>
         {/*end of modal*/}
       </div>
-    </HomeLayoutV5>
+    </>
   );
 };
 

@@ -1,9 +1,17 @@
+import React from "react"
 import "~/public/static/style.140422.css"
+import type { AppProps } from 'next/app'
 import Head from "next/head";
 
-import type { AppProps } from 'next/app'
+// layouts
+import HomeLayoutV5 from "~/src/layouts/HomeLayoutV5";
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  const Layout = React.useMemo(() => {
+    return HomeLayoutV5
+  }, [pageProps])
+
   return <>
       <Head>
         <meta charSet="UTF-8" />
@@ -27,7 +35,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="825189798997-4gtj3pdnfpj2gvkvad6984emfg67kvec.apps.googleusercontent.com"
         />
       </Head>
-  <Component {...pageProps} />
+      <Layout>
+      <Component {...pageProps} />
+  </Layout>
   </>
 }
 

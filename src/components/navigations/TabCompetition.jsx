@@ -18,10 +18,7 @@ const TabCompetition = (props) => {
             <div className="tab-competition">
               <ul className="horizontal-menu">
                 {tab.map((n, key) => (
-                  <li
-                    key={key}
-                    className={props.active - 1 == key ? "active" : ""}
-                  >
+                  <li key={key} className={props.active == key ? "active" : ""}>
                     <Link
                       href={`/competition/${props.data.id}/${tab[key].link}/${props.data.nospace_title}`}
                     >
@@ -68,7 +65,7 @@ export const tab = [
   },
   {
     name: "pengumuman",
-    link: "annoucements",
+    link: "announcements",
   },
   {
     name: "diskusi",

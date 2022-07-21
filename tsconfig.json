@@ -18,6 +18,10 @@
     "paths": {
       "~/*": ["./*"],
       "~":  ["./"],
+      "@components/*": ["./src/components/*"],
+      "@services/*": ["./src/services/*"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@configs/*": ["./src/config/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

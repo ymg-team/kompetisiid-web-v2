@@ -5,7 +5,8 @@ export const Fullscreen = styled.div`
   color: #fff;
   padding: 0;
   margin: 0;
-  min-height: calc(100vh - 58px);
+  height: 100vh;
+  min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -14,6 +14,7 @@ const nextConfig = {
   // https://nextjs.org/docs/api-reference/next.config.js/rewrites
   async rewrites() {
     return [
+      //browse competition pages
       {
         source: "/browse/:mainCat",
         destination: "/browse?mainCat=:mainCat",
@@ -25,6 +26,32 @@ const nextConfig = {
       {
         source: "/browse/:mainCat/:subCat",
         destination: "/browse?mainCat=:mainCat&subCat=:subCat",
+      },
+      //competition detail page
+      {
+        source: "/competition/:id/regulations/:title",
+        destination: "/competitionDetail?id=:id&title=:title&type=regulations",
+      },
+      {
+        source: "/competition/:id/prizes/:title",
+        destination: "/competitionDetail?id=:id&title=:title&type=prizes",
+      },
+      {
+        source: "/competition/:id/announcements/:title",
+        destination:
+          "/competitionDetail?id=:id&title=:title&type=announcements",
+      },
+      {
+        source: "/competition/:id/discussions/:title",
+        destination: "/competitionDetail?id=:id&title=:title&type=discussions",
+      },
+      {
+        source: "/competition/:id/contacts/:title",
+        destination: "/competitionDetail?id=:id&title=:title&type=contacts",
+      },
+      {
+        source: "/competition/:id/share/:title",
+        destination: "/competitionDetail?id=:id&title=:title&type=share",
       },
     ];
   },

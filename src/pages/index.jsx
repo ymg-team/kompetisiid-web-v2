@@ -5,34 +5,35 @@ import Dynamic from "next/dynamic";
 // import Script from "next/script";
 
 // helpers
-import { fetchCompetitions } from "~/src/services/competition";
-import { fetchNews } from "~/src/services/news";
+import { fetchCompetitions } from "@services/competition";
+import { fetchNews } from "@services/news";
 
 // components
 import Link from "next/Link";
 import HomeStyled from "./home/styled";
-import EmptyLoading from "../components/preloaders/EmptyLoader";
-import Loading from "../components/preloaders/GlobalLoader";
-import NewsLoading from "../components/preloaders/NewsCardLoader";
-import CompetitionLoading from "../components/preloaders/CompetitionCardLoader";
-import SubHeaderHome from "../components/headers/HomeSubHeader";
-import SubHeaderTitle from "../components/headers/SubHeader";
-import GAds from "../components/cards/GoogleAds";
-import AddCompetitionBox from "../components/boxs/AddCompetitionBox";
-import Navbar from "../components/navigations/TransparentNavbar";
+import EmptyLoading from "@components/preloaders/EmptyLoader";
+import Loading from "@components/preloaders/GlobalLoader";
+import NewsLoading from "@components/preloaders/NewsCardLoader";
+import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
+import SubHeaderHome from "@components/headers/HomeSubHeader";
+import SubHeaderTitle from "@components/headers/SubHeader";
+import GAds from "@components/cards/GoogleAds";
+import AddCompetitionBox from "@components/boxs/AddCompetitionBox";
+import Navbar from "@components/navigations/TransparentNavbar";
+import Footer from "@components/Footer";
 import Head from "next/head";
 
 // split components
-const NewsBox = Dynamic(import("../components/boxs/NewsBox"), {
+const NewsBox = Dynamic(import("@components/boxs/NewsBox"), {
   loading: () => <NewsLoading withContainer />,
 });
-const CompetitionBox = Dynamic(import("../components/boxs/CompetitionBox"), {
+const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
   loading: () => <CompetitionLoading withContainer />,
 });
-const MediapartnerBox = Dynamic(import("../components/boxs/MediapartnerBox"), {
+const MediapartnerBox = Dynamic(import("@components/boxs/MediapartnerBox"), {
   loading: Loading,
 });
-const MediaPartnerAds = Dynamic(import("../components/cards/MediaPartnerAds"), {
+const MediaPartnerAds = Dynamic(import("@components/cards/MediaPartnerAds"), {
   loading: EmptyLoading,
 });
 
@@ -90,7 +91,7 @@ const Home = ({ serverData = {} }) => {
         />
       </Head>
 
-      <Navbar />
+      {/* <Navbar /> */}
 
       <div
         style={{ marginTop: 50, borderBottom: "1px solid #e4e4e4" }}
@@ -127,7 +128,7 @@ const Home = ({ serverData = {} }) => {
       <CompetitionBox subtitle={false} {...respCompLatest} />
 
       <div className="row align-center">
-        <Link href="/browse">
+        <Link href="/browse?status=active">
           <a className="btn btn-bordergray">JELAJAH KOMPETISI</a>
         </Link>
       </div>

@@ -30,7 +30,7 @@ const Redirect = (props) => {
                 <a>Kembali ke Home</a>
               </Link>
               {" | "}
-              <Link href="/browse">
+              <Link href="/browse?status=active">
                 <a>Jelajah Kompetisi</a>
               </Link>
               {" | "}
