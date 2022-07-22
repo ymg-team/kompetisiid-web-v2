@@ -23,11 +23,6 @@ export default function Document() {
           href="/opensearch.xml"
           title="Cari Kompetisi"
         />
-        <meta
-          name="viewport"
-          content="initial-scale=1.0, width=device-width"
-          key="viewport"
-        />
       </Head>
       <body>
         <Main />

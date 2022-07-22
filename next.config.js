@@ -53,6 +53,10 @@ const nextConfig = {
         source: "/competition/:id/share/:title",
         destination: "/competitionDetail?id=:id&title=:title&type=share",
       },
+      {
+        source: "/news",
+        destination: "/news",
+      },
     ];
   },
 };
