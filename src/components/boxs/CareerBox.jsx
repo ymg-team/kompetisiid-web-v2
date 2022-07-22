@@ -1,13 +1,13 @@
-import React from "react"
+import React from "react";
 
-export default () => {
+const CareerBox = () => {
   return (
     <React.Fragment>
       <div
         className="col-md-12 careers-header"
         style={{
           textAlign: "center",
-          backgroundImage: "url(/assets/4.2/img/careers-background.jpg)"
+          backgroundImage: "url(/assets/4.2/img/careers-background.jpg)",
         }}
       >
         <div className="container">
@@ -145,6 +145,7 @@ export default () => {
               className="btn btn-green"
               href="https://goo.gl/forms/kMGGZQXJCjoyKThj1"
               target="_blank"
+              rel="noreferrer noopener"
             >
               {" "}
               <strong>Kontak Kami</strong>
@@ -156,15 +157,15 @@ export default () => {
                 <a
                   className="btn btn-socmed btn-gray btn-lg fab fa-facebook-f"
                   href="https://facebook.com/kompetisiid"
-                  rel="noopener"
                   target="_blank"
+                  rel="noreferrer noopener"
                 />
               </li>
               <li>
                 <a
                   className="btn btn-socmed btn-gray btn-lg fab fa-twitter"
                   href="https://twitter.com/_kompetisiid"
-                  rel="noopener"
+                  rel="noreferrer noopener"
                   target="_blank"
                 />
               </li>
@@ -172,7 +173,7 @@ export default () => {
                 <a
                   className="btn btn-socmed btn-gray btn-lg fab fa-instagram"
                   href="https://instagram.com/kompetisiid"
-                  rel="noopener"
+                  rel="noreferrer noopener"
                   target="_blank"
                 />
               </li>
@@ -181,5 +182,7 @@ export default () => {
         </div>
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
+
+export default CareerBox;

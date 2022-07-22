@@ -1,37 +1,37 @@
-import React, { Component } from "react"
-import { validate } from "./Validator"
+import React, { Component } from "react";
+import { validate } from "./Validator";
 
 export default class InputText extends Component {
   componentDidMount = () => {
-    validate(this.props)
-  }
+    validate(this.props);
+  };
 
-  componentWillReceiveProps = np => {
-    // validate on edit / set default value
-    if (!this.props.value && np.value) validate(np)
-  }
+  // componentWillReceiveProps = np => {
+  //   // validate on edit / set default value
+  //   if (!this.props.value && np.value) validate(np)
+  // }
 
-  handleChange = e => {
-    const { value } = e.target
+  handleChange = (e) => {
+    const { value } = e.target;
     this.props.setState(
       {
-        [this.props.name]: value
+        [this.props.name]: value,
       },
       () => {
-        this.validateInput()
+        this.validateInput();
       }
-    )
-  }
+    );
+  };
 
   validateInput(props = this.props) {
-    const result = validate(props)
+    const result = validate(props);
     // handle component used hooks
     if (this.props.setValidateState) {
-      this.props.setValidateState(result)
+      this.props.setValidateState(result);
     } else {
       this.props.setState({
-        [this.props.name + "_validate"]: result
-      })
+        [this.props.name + "_validate"]: result,
+      });
     }
   }
 
@@ -46,9 +46,9 @@ export default class InputText extends Component {
       validate,
       autoFocus,
       autoComplete,
-      note
-    } = this.props
-    const is_valid = !(!validate.is_valid && validate.message)
+      note,
+    } = this.props;
+    const is_valid = !(!validate.is_valid && validate.message);
     return (
       <div className={`form-child ${!is_valid ? "error" : ""}`}>
         <label
@@ -61,9 +61,9 @@ export default class InputText extends Component {
         {note ? <small>{note}</small> : null}
         <input
           readOnly={this.props.readOnly}
-          onInput={e => this.props.onInput(e)}
-          onChange={e => this.handleChange(e)}
-          onBlur={e => this.handleChange(e)}
+          onInput={(e) => this.props.onInput(e)}
+          onChange={(e) => this.handleChange(e)}
+          onBlur={(e) => this.handleChange(e)}
           type={type}
           name={name}
           id={this.props.id || name}
@@ -80,7 +80,7 @@ export default class InputText extends Component {
         ) : null}
         {!is_valid ? <small>{validate.message}</small> : null}
       </div>
-    )
+    );
   }
 }
 
@@ -91,5 +91,5 @@ InputText.defaultProps = {
   autoFocus: false,
   autoComplete: "off",
   placeholder: "",
-  onInput: () => {}
-}
+  onInput: () => {},
+};

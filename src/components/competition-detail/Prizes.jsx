@@ -1,6 +1,6 @@
-import React from "react"
+import React from "react";
 
-export default props => (
+const Prizes = () => (
   <React.Fragment>
     <h2>Hadiah kompetisi</h2>
     <p className="text-muted">
@@ -10,4 +10,6 @@ export default props => (
     <hr />
     <article>{props.html}</article>
   </React.Fragment>
-)
+);
+
+export default Prizes;

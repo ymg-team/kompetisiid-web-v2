@@ -33,13 +33,18 @@ const CompetitionListCard = (props) => {
               : " belum ada update"}
             <br />
             Kategori{" "}
-            <a href={`/browse/${n.main_category.name}`} target="_blank">
+            <a
+              href={`/browse/${n.main_category.name}`}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               {n.main_category.name}
             </a>
             -
             <a
               href={`/browse/${n.main_category.name}/${n.sub_category.name}`}
               target="_blank"
+              rel="noreferrer noopener"
             >
               {n.sub_category.name}
             </a>

@@ -1,10 +1,10 @@
-import React from "react"
-import { FilterJelajahStyled } from "./filters/Filter.styled"
+import React from "react";
+import { FilterJelajahStyled } from "./filters/Filter.styled";
 
 // components
-import Breadcrumb from "../components/navigations/Breadcrumb"
+import Breadcrumb from "../components/navigations/Breadcrumb";
 
-export default props => (
+const SubHeader = () => (
   <FilterJelajahStyled
     style={{ textAlign: props.text_center ? "center" : "left" }}
     className="col-md-12 filter-jelajah"
@@ -23,4 +23,6 @@ export default props => (
       </div>
     </div>
   </FilterJelajahStyled>
-)
+);
+
+export default SubHeader;

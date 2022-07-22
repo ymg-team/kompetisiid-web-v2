@@ -60,21 +60,10 @@ const Sidebar = (props) => {
   // initial refs
   const SideBarRef = React.useRef(null);
 
-  // initial effects
-  // componentDidMount(), listen outside menu box
-  React.useEffect(() => {
-    document.addEventListener("click", clickHandler);
-
-    // component will unmount
-    return () => {
-      document.removeEventListener("click", clickHandler);
-    };
-  }, []);
-
   // initial functions
 
   // click handler
-  const clickHandler = (e) => {
+  const clickHandler = React.useCallback((e) => {
     if (
       SideBarRef &&
       SideBarRef.current &&
@@ -86,7 +75,7 @@ const Sidebar = (props) => {
           e.target.className !== "fas fa-bars"
       );
     }
-  };
+  });
 
   // menus toggler
   const toggleMenus = (hide) => {
@@ -98,6 +87,17 @@ const Sidebar = (props) => {
           : "0px";
     }
   };
+
+  // initial effects
+  // componentDidMount(), listen outside menu box
+  React.useEffect(() => {
+    document.addEventListener("click", clickHandler);
+
+    // component will unmount
+    return () => {
+      document.removeEventListener("click", clickHandler);
+    };
+  }, []);
 
   return (
     <SidebarStyled

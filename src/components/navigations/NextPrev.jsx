@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-export default (props) => {
+const NextPrev = (props) => {
   const { next, prev } = props;
   return (
     <div className="container">
@@ -45,3 +45,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default NextPrev;

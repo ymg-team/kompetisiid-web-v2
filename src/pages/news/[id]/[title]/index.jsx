@@ -10,10 +10,13 @@ import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 const { URL_KI_WEB } = publicRuntimeConfig;
 
+// services
+import { fetchNewsDetail } from "@services/news";
+
 // components
+import SEO from "@components/meta/SEO";
 import Link from "next/link";
 import Loading from "@components/preloaders/GlobalLoader";
-// import Helmet from "@components/Helmet";
 import Author from "@components/cards/NewsAuthorCard";
 import ErrorCard from "@components/cards/ErrorCard";
 import Preloader from "@components/preloaders/NewsDetail";
@@ -99,7 +102,7 @@ const NewsDetailStyled = Styled.div`
 }
 `;
 
-// consts
+//  === consts ===
 
 const generateTags = (tags = []) => {
   tags = tags.split(",");
@@ -107,7 +110,7 @@ const generateTags = (tags = []) => {
     return tags.map((n, key) => {
       return (
         <span key={key}>
-          <Link className="btn btn-white" to={`/news/tag/${n}`}>
+          <Link className="btn btn-white" href={`/news/tag/${n}`}>
             {n}
           </Link>{" "}
         </span>
@@ -118,34 +121,68 @@ const generateTags = (tags = []) => {
   return null;
 };
 
-const NewsDetail = ({ encid, title }) => {
-  // initial states
-  const [respNews, setRespNews] = React.useState({});
-
-  // initial memos
+const NewsDetail = ({ encid, title, serverData }) => {
+  // === initial memos ===
 
   const url = `${URL_KI_WEB}/news/${encid}/${title}`;
 
-  const { encid, title } = props.match.params;
-
-  const NewsData = props.berita.detail[encid] || {};
+  // === initial states ===
+  const [respNews, setRespNews] = React.useState(serverData.news || {});
 
   const firstRender = useRef(true);
 
-  // breadcrumb generator
-  const BreadcrumbData = [
-    {
-      title: "Home",
-      link: "/",
-    },
-    {
-      title: "Kabar",
-      link: "/news",
-    },
-  ];
+  // === initial effects ===
+
+  // === initial memos ===
+  const Meta = React.useCallback(() => {
+    const breadcrumb = [
+      {
+        title: "Home",
+        link: "/",
+      },
+      {
+        title: "Kabar",
+        link: "/news",
+      },
+    ];
+
+    let title, description, jsonLd;
+
+    if (respNews.status && respNews.status === 200) {
+      title = respNews.data.title;
+      description = respNews.data.title;
+      link = `/news/${respNews.data.id}/${respNews.data.nospace_title}`;
+      jsonLd = generateJsonld(respNews.data, url);
+
+      breadcrumb.push({
+        title,
+        link,
+      });
+
+      // helmetdata = Object.assign(helmetdata, {
+      //   title: respNews.data.title,
+      //   description: respNews.data.contenttext,
+      //   url: `https://kompetisi.id/news/${respNews.data.id}/${respNews.data.nospace_title}`,
+      //   image: respNews.data.image.original,
+      // });
+
+      // //add jsonld
+      // helmetdata.script.push({
+      //   type: "application/ld+json",
+      //   innerHTML: generateJsonld(respNews.data, helmetdata.url),
+      // });
+    }
+
+    return {
+      breadcrumb,
+      title,
+      description,
+      url,
+    };
+  }, [respNews]);
 
   // function to reset disquss box after change url
-  const resetDisquss = (props) => {
+  const resetDisquss = () => {
     const url = `${URL_KI_WEB}/news/${encid}/${title}`;
 
     setTimeout(() => {
@@ -164,16 +201,6 @@ const NewsDetail = ({ encid, title }) => {
     }, 1000);
   };
 
-  // function to fetch new data
-  const reqData = (props) => {
-    const { encid } = props.match.params;
-    const data = props.berita.NewsData || {};
-    if (!data.status) {
-      topLoading(true);
-      props.dispatch(BeritaActions.fetchBeritaDetail(encid));
-    }
-  };
-
   // watch route changes
   useEffect(() => {
     if (firstRender.current) {
@@ -181,8 +208,8 @@ const NewsDetail = ({ encid, title }) => {
       return;
     }
     window.scrollTo(0, 0);
-    resetDisquss(props);
-    reqData(props);
+    resetDisquss();
+    fetchData();
   }, [encid]);
 
   // called on componentDidMount and componentWillUnmount
@@ -196,7 +223,7 @@ const NewsDetail = ({ encid, title }) => {
       });
 
       // fetch data from api
-      reqData(props);
+      // reqData(props);
 
       // get all image inside .competition-regulator
       setTimeout(() => {
@@ -212,57 +239,50 @@ const NewsDetail = ({ encid, title }) => {
     return () => {};
   }, []);
 
-  // helmet data generator
-  let helmetdata = {
-    title: "Kabar Kompetisi",
-    description: "Kabar terbaru seputar kompetisi dari Kompetisi Id",
-    url: `${URL_KI_WEB}/news/${encid}/${title}`,
-    script: [],
+  // === initial functions ==
+  const fetchData = async () => {
+    setRespNews({});
+    const Response = await fetchNewsDetail({ id: encid });
+    return setRespNews(Response);
   };
 
-  if (NewsData.status && NewsData.status === 200) {
-    BreadcrumbData.push({
-      title: NewsData.data.title,
-      link: `/news/${NewsData.data.id}/${NewsData.data.nospace_title}`,
-    });
+  //   helmetdata = Object.assign(helmetdata, {
+  //     title: respNews.data.title,
+  //     description: respNews.data.contenttext,
+  //     url: `https://kompetisi.id/news/${respNews.data.id}/${respNews.data.nospace_title}`,
+  //     image: respNews.data.image.original,
+  //   });
 
-    helmetdata = Object.assign(helmetdata, {
-      title: NewsData.data.title,
-      description: NewsData.data.contenttext,
-      url: `https://kompetisi.id/news/${NewsData.data.id}/${NewsData.data.nospace_title}`,
-      image: NewsData.data.image.original,
-    });
-
-    //add jsonld
-    helmetdata.script.push({
-      type: "application/ld+json",
-      innerHTML: generateJsonld(NewsData.data, helmetdata.url),
-    });
-  }
+  //   //add jsonld
+  //   helmetdata.script.push({
+  //     type: "application/ld+json",
+  //     innerHTML: generateJsonld(respNews.data, helmetdata.url),
+  //   });
+  // }
   // end of helmet data generator
 
   return (
     <NewsDetailStyled>
-      {/* <Helmet {...helmetdata} /> */}
+      <SEO {...Meta} />
 
-      {NewsData && NewsData.status ? (
-        parseInt(NewsData.status) === 200 ? (
+      {respNews && respNews.status ? (
+        parseInt(respNews.status) === 200 ? (
           <>
             <div className="col-md-6 col-md-push-3 col-md-pull-3">
               <div className="row">
                 {/* breadcrumb */}
-                <Breadcrumb breadcrumb={BreadcrumbData} />
+                <Breadcrumb breadcrumb={Meta.breadcrumb} />
                 {/* end of breadcrumb */}
 
                 {/* start news detail wrapper */}
                 <div className="news-detail">
-                  <Author data={NewsData.data.author} />
+                  <Author data={respNews.data.author} />
                   <article className="content">
-                    <h1>{NewsData.data.title}</h1>
+                    <h1>{respNews.data.title}</h1>
                     <p className="meta">
                       <span className="meta--item">
                         <i className="fa fa-calendar" />{" "}
-                        {epochToRelativeTime(NewsData.data.created_at)}
+                        {epochToRelativeTime(respNews.data.created_at)}
                       </span>
                       <span className="meta--item">
                         <a
@@ -297,7 +317,7 @@ const NewsDetail = ({ encid, title }) => {
                     <div className="image">
                       <figure>
                         <img
-                          src={NewsData.data.image.original}
+                          src={respNews.data.image.original}
                           className="image-modal-target"
                         />
                       </figure>
@@ -323,11 +343,11 @@ const NewsDetail = ({ encid, title }) => {
                   <article
                     className="content"
                     dangerouslySetInnerHTML={{
-                      __html: textParser(NewsData.data.content),
+                      __html: textParser(respNews.data.content),
                     }}
                   />
                   <div style={{ margin: "50px 0 0" }}>
-                    {generateTags(NewsData.data.tag)}
+                    {generateTags(respNews.data.tag)}
                   </div>
                 </div>
 
@@ -345,29 +365,29 @@ const NewsDetail = ({ encid, title }) => {
             <div className="col-md-12 no-padding">
               <NewsBox
                 subtitle={false}
-                data={NewsData.related}
-                status={NewsData.status}
+                data={respNews.related}
+                status={respNews.status}
                 size="small"
               />
             </div>
             {/* end of related news */}
           </>
         ) : (
-          <ErrorCard code={NewsData.status} message={NewsData.message} />
+          <ErrorCard code={respNews.status} message={respNews.message} />
         )
       ) : (
         <div className="fullheight">
           <Preloader />
         </div>
       )}
-      {NewsData && NewsData.status && NewsData.is_loading ? (
+      {respNews && respNews.status && respNews.is_loading ? (
         <Preloader />
       ) : null}
       {/* comment section */}
       <div
         style={{
           display:
-            NewsData && NewsData.status && NewsData.status == 200
+            respNews && respNews.status && respNews.status == 200
               ? "block"
               : "none",
         }}
@@ -427,12 +447,17 @@ function generateJsonld(n, url) {
     }`;
 }
 
-NewsDetail.getInitialProps = (ctx) => {
+NewsDetail.getInitialProps = async (ctx) => {
   const { query = {} } = ctx || {};
+
+  const Response = await fetchNewsDetail({ id: query.id });
 
   return {
     encid: query.id,
     title: query.title,
+    serverData: {
+      news: Response,
+    },
   };
 };
 

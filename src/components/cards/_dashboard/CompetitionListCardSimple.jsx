@@ -1,20 +1,20 @@
-import React from "react"
-import { epochToRelativeTime } from "../../../helpers/dateTime"
+import React from "react";
+import { epochToRelativeTime } from "../../../helpers/dateTime";
 
 // component
-import Label from "../../Label"
+import Label from "../../Label";
 
 class CompetitionListCard extends React.Component {
   handleActionWaitingCompetition(action) {
     if (action === "accept") {
     } else if (action === "reject") {
     } else {
-      console.warn("please provide an action!")
+      console.warn("please provide an action!");
     }
   }
 
   render() {
-    const { n } = this.props
+    const { n } = this.props;
 
     return (
       <div className="competition-items">
@@ -25,6 +25,7 @@ class CompetitionListCard extends React.Component {
                 title="ke halaman kompetisi"
                 href={`/competition/${n.id}/regulations/${n.nospace_title}`}
                 target="_blank"
+                rel="noreferrer noopener"
               >
                 {n.title}
               </a>
@@ -35,6 +36,7 @@ class CompetitionListCard extends React.Component {
                 title={n.author.username}
                 href={`/user/${n.author.username}`}
                 target="_blank"
+                rel="noreferrer noopener"
               >
                 {n.author.username}
               </a>
@@ -44,13 +46,18 @@ class CompetitionListCard extends React.Component {
                 : " belum ada update"}
               <br />
               Kategori{" "}
-              <a href={`/browse/${n.main_category.name}`} target="_blank">
+              <a
+                href={`/browse/${n.main_category.name}`}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 {n.main_category.name}
               </a>
               -
               <a
                 href={`/browse/${n.main_category.name}/${n.sub_category.name}`}
                 target="_blank"
+                rel="noreferrer noopener"
               >
                 {n.sub_category.name}
               </a>
@@ -88,8 +95,8 @@ class CompetitionListCard extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default CompetitionListCard
+export default CompetitionListCard;

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-export default (props) => (
+const ErrorCard = (props) => (
   <div className="fullheight">
     <div className="container error">
       <div className="col-md-4 col-md-push-4 col-sm-12">
@@ -24,3 +24,5 @@ export default (props) => (
     </div>
   </div>
 );
+
+export default ErrorCard;

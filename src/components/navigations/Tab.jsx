@@ -69,13 +69,13 @@ export const TabStyled = Styled.div`
   }
 `;
 
-export default (props) => (
+const Tab = ({ tabs }) => (
   <TabStyled
     className="container-competition-tab"
     style={{ margin: "20px 0 20px" }}
   >
     <ul className="horizontal-menu">
-      {props.tabs.map((n, key) => {
+      {tabs.map((n, key) => {
         return (
           <li key={key} className={n.is_active ? "active" : ""}>
             <Link href={n.target}>
@@ -89,3 +89,5 @@ export default (props) => (
     </ul>
   </TabStyled>
 );
+
+export default Tab;

@@ -7,7 +7,7 @@ export default function Document() {
       <Head>
         <link rel="icon" href="/static/images/icons-red/icon-128x128.png" />
         <link
-          href="https://fonts.googleapis.com/css?family=Raleway:400,500"
+          href="https://fonts.googleapis.com/css?family=Raleway:400,500&display=optional"
           rel="stylesheet"
         />
         <link

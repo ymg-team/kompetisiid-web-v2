@@ -32,7 +32,7 @@ const SpecialTags = (props) => {
           <h1>{props.name}</h1>
           <p>
             {props.description}{" "}
-            <a href={props.link} target="_blank">
+            <a href={props.link} target="_blank" rel="noreferrer noopener">
               Selengkapnya
             </a>
           </p>

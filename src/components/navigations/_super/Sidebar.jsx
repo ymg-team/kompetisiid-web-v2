@@ -1,18 +1,18 @@
-import React, { useRef } from "react"
+import React, { useRef } from "react";
 
 // components
-import Sidebar from "../Sidebar"
+import Sidebar from "../Sidebar";
 
-export default props => {
+const SuperSidebar = (props) => {
   const stats =
     props.stats && props.stats.status === 200
       ? props.stats
-      : { request: {}, competition: {}, news: {}, members: {} }
+      : { request: {}, competition: {}, news: {}, members: {} };
 
   const Menus = [
     {
       title: "Dashboard",
-      to: "/super/dashboard"
+      to: "/super/dashboard",
     },
     {
       title: "Kompetisi",
@@ -20,7 +20,7 @@ export default props => {
         {
           title: "Tambah Kompetisi",
           to: "/super/competition/create",
-          icon: "fas fa-plus"
+          icon: "fas fa-plus",
         },
         {
           title: "Menunggu",
@@ -29,35 +29,35 @@ export default props => {
           label: stats.competition.waiting
             ? {
                 color: "red",
-                text: stats.competition.waiting
+                text: stats.competition.waiting,
               }
-            : undefined
+            : undefined,
         },
         {
           title: "Berlangsung",
           to: "/super/competition/live",
           label: {
             color: "blue",
-            text: stats.competition.live
-          }
+            text: stats.competition.live,
+          },
         },
         {
           title: "Dipublikasi",
           to: "/super/competition/posted",
           label: {
             color: "blue",
-            text: stats.competition.posted
-          }
+            text: stats.competition.posted,
+          },
         },
         {
           title: "Ditolak",
           to: "/super/competition/rejected",
           label: {
             color: "gray",
-            text: stats.competition.reject
-          }
-        }
-      ]
+            text: stats.competition.reject,
+          },
+        },
+      ],
     },
     {
       title: "Request",
@@ -68,26 +68,26 @@ export default props => {
           hide: !stats.request.waiting,
           label: {
             color: "blue",
-            text: stats.request.waiting
-          }
+            text: stats.request.waiting,
+          },
         },
         {
           title: "Request Diterima",
           to: "/super/requests/posted",
           label: {
             color: "blue",
-            text: stats.request.accept
-          }
+            text: stats.request.accept,
+          },
         },
         {
           title: "Request Ditolak",
           to: "/super/requests/reject",
           label: {
             color: "blue",
-            text: stats.request.reject
-          }
-        }
-      ]
+            text: stats.request.reject,
+          },
+        },
+      ],
     },
     {
       title: "Kabar",
@@ -95,25 +95,25 @@ export default props => {
         {
           title: "Tambah Kabar",
           icon: "fas fa-plus",
-          to: "/super/news/create"
+          to: "/super/news/create",
         },
         {
           title: "Diposting",
           to: "/super/news/posted",
           label: {
             color: "blue",
-            text: stats.news.posted
-          }
+            text: stats.news.posted,
+          },
         },
         {
           title: "Draft",
           to: "/super/news/draft",
           label: {
             color: "blue",
-            text: stats.news.draft
-          }
-        }
-      ]
+            text: stats.news.draft,
+          },
+        },
+      ],
     },
     {
       title: "Users",
@@ -122,25 +122,25 @@ export default props => {
           title: "Telah Konfirmasi",
           to: "/super/users/confirmed",
           label: {
-            text: stats.members.verified
-          }
+            text: stats.members.verified,
+          },
         },
         {
           title: "Belum Konfirmasi",
           to: "/super/users/unconfirmed",
           label: {
-            text: stats.members.unverified
-          }
+            text: stats.members.unverified,
+          },
         },
         {
           title: "Banned",
           to: "/super/users/banned",
           label: {
             color: "red",
-            text: stats.members.banned
-          }
-        }
-      ]
+            text: stats.members.banned,
+          },
+        },
+      ],
     },
     {
       title: "Akun",
@@ -148,11 +148,13 @@ export default props => {
         {
           title: "Logout",
           to: "#",
-          onClick: () => props.handleLogout()
-        }
-      ]
-    }
-  ]
+          onClick: () => props.handleLogout(),
+        },
+      ],
+    },
+  ];
 
-  return <Sidebar menus={Menus} />
-}
+  return <Sidebar menus={Menus} />;
+};
+
+export default SuperSidebar;

@@ -46,7 +46,12 @@ const MediaPartnerAds = (props) => {
     const data = MediaPartnerData[active];
     return (
       <MediaPartnerStyled>
-        <a href={data.url} title={data.title} target="_blank">
+        <a
+          href={data.url}
+          title={data.title}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           <img src={data.poster[props.size]} alt={data.title} />
           <span className="mediapartner-text">
             Kompetisi Id sebagai Media Partner

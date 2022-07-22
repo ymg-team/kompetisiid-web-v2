@@ -1,6 +1,6 @@
-import React from "react"
+import React from "react";
 
-export default props => {
+const TabProfile = () => {
   return (
     <div className="col-md-12">
       <div className="container">
@@ -44,5 +44,7 @@ export default props => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
+
+export default TabProfile;

@@ -113,7 +113,7 @@ const Footer = (props) => {
               </p>
               Kami adalah sebuah platform kompetisi untuk berbagai macam
               kompetisi yang diadakan di Indonesia untuk selanjutnya dipanggil
-              'KI'. Dipersembahkan oleh Yussan Media Group. Penyelenggara dapat
+              "KI". Dipersembahkan oleh Yussan Media Group. Penyelenggara dapat
               menggunakan KI sebagai media publikasi, media partner ataupun
               kerja sama untuk kompetisi yang mereka adakan. Peserta dapat
               menjelajahi dan mengikuti berbagai kategori kompetisi di KI dan
@@ -153,7 +153,7 @@ const Footer = (props) => {
                   <a
                     target="_blank"
                     href="https://goo.gl/forms/kMGGZQXJCjoyKThj1"
-                    rel="noreferer noopener"
+                    rel="noreferrer noopener"
                   >
                     Hubungi kami
                   </a>
@@ -231,7 +231,7 @@ const Footer = (props) => {
                   <a
                     href="https://wa.me/6285156934428?text=Ada%20pertanyaan%20seputar%20produk%20Yussan%20Media%20Group%2C%20bisa%20disini."
                     target="_blank"
-                    rel="noreferer noopener"
+                    rel="noreferrer noopener"
                   >
                     <i className="fab fa-whatsapp" />
                   </a>
@@ -240,7 +240,7 @@ const Footer = (props) => {
                   <a
                     href="https://facebook.com/kompetisiid"
                     target="_blank"
-                    rel="noreferer noopener"
+                    rel="noreferrer noopener"
                   >
                     <i className="fab fa-facebook-f" />
                   </a>
@@ -249,7 +249,7 @@ const Footer = (props) => {
                   <a
                     href="https://twitter.com/_kompetisiid"
                     target="_blank"
-                    rel="noreferer noopener"
+                    rel="noreferrer noopener"
                   >
                     <i className="fab fa-twitter" />
                   </a>
@@ -258,13 +258,13 @@ const Footer = (props) => {
                   <a
                     href="https://instagram.com/kompetisiid"
                     target="_blank"
-                    rel="noreferer noopener"
+                    rel="noreferrer noopener"
                   >
                     <i className="fab fa-instagram" />
                   </a>
                 </li>
                 <li>
-                  <a href="/feed" target="_blank" rel="noreferer noopener">
+                  <a href="/feed" target="_blank" rel="noreferrer noopener">
                     <i className="fa fa-rss" />
                   </a>
                 </li>

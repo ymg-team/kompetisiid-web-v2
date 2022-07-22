@@ -1,14 +1,14 @@
-import React from "react"
-import { nominalToText } from "../../helpers/number"
-import { epochToDMY, epochToRelativeTime } from "../../helpers/dateTime"
+import React from "react";
+import { nominalToText } from "../../helpers/number";
+import { epochToDMY, epochToRelativeTime } from "../../helpers/dateTime";
 
 // components
-import MediaPartnerAds from "../cards/MediaPartnerAds"
-import GAds from "../cards/GoogleAds"
-import Label from "../Label"
+import MediaPartnerAds from "../cards/MediaPartnerAds";
+import GAds from "../cards/GoogleAds";
+import Label from "../Label";
 
-export default props => {
-  const { data } = props
+const Sidebar = () => {
+  const { data } = props;
   return (
     <div className="col-sm-4">
       <div className="competition-detail--meta">
@@ -72,5 +72,7 @@ export default props => {
       />
       {/* end of GAds */}
     </div>
-  )
-}
+  );
+};
+
+export default Sidebar;
