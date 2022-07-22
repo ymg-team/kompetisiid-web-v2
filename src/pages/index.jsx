@@ -9,6 +9,7 @@ import { fetchCompetitions } from "@services/competition";
 import { fetchNews } from "@services/news";
 
 // components
+import SEO from "@components/meta/SEO";
 import Link from "next/Link";
 import HomeStyled from "./home/styled";
 import EmptyLoading from "@components/preloaders/EmptyLoader";
@@ -19,9 +20,6 @@ import SubHeaderHome from "@components/headers/HomeSubHeader";
 import SubHeaderTitle from "@components/headers/SubHeader";
 import GAds from "@components/cards/GoogleAds";
 import AddCompetitionBox from "@components/boxs/AddCompetitionBox";
-import Navbar from "@components/navigations/TransparentNavbar";
-import Footer from "@components/Footer";
-import Head from "next/head";
 
 // split components
 const NewsBox = Dynamic(import("@components/boxs/NewsBox"), {
@@ -78,8 +76,7 @@ const Home = ({ serverData = {} }) => {
 
   return (
     <HomeStyled>
-      <Head>
-        <title>Kompetisi Id - Platform Kompetisi Online Indonesia</title>
+      <SEO title={"Kompetisi Id - Platform Kompetisi Online Indonesia"}>
         <script src="https://unpkg.com/@glidejs/glide@3.3.0/dist/glide.min.js" />
         <link
           rel="stylesheet"
@@ -89,10 +86,9 @@ const Home = ({ serverData = {} }) => {
           rel="stylesheet"
           href="https://unpkg.com/@glidejs/glide@3.3.0/dist/css/glide.theme.min.css"
         />
-      </Head>
+      </SEO>
 
       {/* <Navbar /> */}
-
       <div
         style={{ marginTop: 50, borderBottom: "1px solid #e4e4e4" }}
         className="m-b-50"

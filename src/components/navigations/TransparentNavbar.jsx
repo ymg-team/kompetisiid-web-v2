@@ -12,21 +12,21 @@ const Menus = [
     text: "Jelajah",
     title: "Jelajahi kompetisi dari berbagai kategori",
   },
-  {
-    link: "/add",
-    text: "Pasang",
-    title: "Pasang Kompetisi disini, gratis!",
-  },
+  // {
+  //   link: "/add",
+  //   text: "Pasang",
+  //   title: "Pasang Kompetisi disini, gratis!",
+  // },
   {
     link: "/news",
     text: "Kabar",
     title: "Kumpulan kabar seputar Kompetisi di Indonesia",
   },
-  {
-    link: "/calendar",
-    text: "Kalender",
-    title: "Kalender kompetisi se-Indonesia",
-  },
+  // {
+  //   link: "/calendar",
+  //   text: "Kalender",
+  //   title: "Kalender kompetisi se-Indonesia",
+  // },
 ];
 
 const StickyNavbarStyled = Styled.div`
@@ -209,7 +209,7 @@ const Navbar = (props) => {
       style={styleNavbar}
       className={`${sticky ? "sticky" : ""}`}
     >
-      <div className="container">
+      <div>
         <NavbarStyled session={session} className={`${props.className} row`}>
           {search ? (
             <SearchStyled>
@@ -370,11 +370,13 @@ const Navbar = (props) => {
                       </div>
                     </div>
                   ) : (
-                    <li key="public">
-                      <Link href="/login">
-                        <a>Login</a>
-                      </Link>
-                    </li>
+                    <>
+                      {/* <li key="public">
+                       <Link href="/login">
+                         <a>Login</a>
+                       </Link>
+                     </li> */}
+                    </>
                   )}
                   {/* end of auth */}
                 </ul>

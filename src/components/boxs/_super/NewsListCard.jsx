@@ -40,6 +40,7 @@ const NewsListCard = (props) => {
                     <a
                       target="_blank"
                       href={`/news/${data.id}/${data.nospace_title}`}
+                      rel="noreferrer noopener"
                     >
                       Preview
                     </a>

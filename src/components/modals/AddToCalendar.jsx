@@ -1,9 +1,9 @@
-import React from "react"
-import Styled from "styled-components"
-import { objToQuery } from "string-manager"
+import React from "react";
+import Styled from "styled-components";
+import { objToQuery } from "string-manager";
 
 // components
-import Modal from "./index"
+import Modal from "./index";
 
 const StyledCalendar = Styled.div`
   padding-bottom: 10px;
@@ -30,11 +30,11 @@ const StyledCalendar = Styled.div`
   @media only screen and (max-width: 543px) {
     
   }
-`
+`;
 
-const AddToCalendarModal = props => {
+const AddToCalendarModal = (props) => {
   // paremeter to generate query on add to calendar menus
-  const calendarParams = calendarParamsGenerator(props.data)
+  const calendarParams = calendarParamsGenerator(props.data);
   return (
     <Modal className="modal-white" id="save-to-calendar">
       <div className="col-md-6 col-xs-12 modal-white-content">
@@ -43,7 +43,7 @@ const AddToCalendarModal = props => {
           <a
             className="btn btn-white btn-close-modal btn-sm fas fa-times"
             href="#"
-            onClick={e => e.preventDefault()}
+            onClick={(e) => e.preventDefault()}
           />
         </div>
 
@@ -54,13 +54,13 @@ const AddToCalendarModal = props => {
             href={addCalendar.google(calendarParams)}
             target="_blank"
             title="Tambahkan ke Google Calendar"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             <img
               style={{
                 width: "inherit",
                 backgroundColor: "#FFF",
-                maxWidth: "100%"
+                maxWidth: "100%",
               }}
               src="/assets/4.2/img/icon-google-calendar.png"
             />
@@ -75,13 +75,13 @@ const AddToCalendarModal = props => {
             href={addCalendar.yahoo(calendarParams)}
             target="_blank"
             title="Tambahkan ke Yahoo! Calendar"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             <img
               style={{
                 width: "inherit",
                 backgroundColor: "#FFF",
-                maxWidth: "100%"
+                maxWidth: "100%",
               }}
               src="/assets/4.2/img/icon-yahoo-calendar.png"
             />
@@ -102,7 +102,7 @@ const AddToCalendarModal = props => {
               style={{
                 width: "inherit",
                 backgroundColor: "#FFF",
-                maxWidth: "100%"
+                maxWidth: "100%",
               }}
               src="/assets/4.2/img/icon-outlook-calendar.png"
             />
@@ -123,7 +123,7 @@ const AddToCalendarModal = props => {
               style={{
                 width: "inherit",
                 backgroundColor: "#FFF",
-                maxWidth: "100%"
+                maxWidth: "100%",
               }}
               src="/assets/4.2/img/icon-apple-calendar.png"
             />
@@ -133,45 +133,45 @@ const AddToCalendarModal = props => {
         </StyledCalendar>
       </div>
     </Modal>
-  )
-}
+  );
+};
 
-export default AddToCalendarModal
+export default AddToCalendarModal;
 
-const calendarParamsGenerator = n => {
-  let deadlineISOString = new Date(n.deadline_at * 1000).toISOString()
+const calendarParamsGenerator = (n) => {
+  let deadlineISOString = new Date(n.deadline_at * 1000).toISOString();
   deadlineISOString = deadlineISOString
     .replace(/-/g, "")
     .replace(/:/g, "")
-    .replace(/\.000/g, "")
+    .replace(/\.000/g, "");
 
   const params = {
     deadlineTitle: `Deadline ${n.title} - Kompetisi Id`,
     details: `Untuk selengkapnya silahkan kunjungi https://kompetisi.id/c/${n.id}`,
     deadlineDate: deadlineISOString,
-    location: `https://kompetisi.id/c/${n.id}`
-  }
+    location: `https://kompetisi.id/c/${n.id}`,
+  };
 
-  return params
-}
+  return params;
+};
 
 const addCalendar = {
   // ref: http://taskboy.com/blog/Creating_events_for_Yahoo_and_Google_calendars.html
-  google: n => {
+  google: (n) => {
     const query = {
       text: n.deadlineTitle,
       dates: `${n.deadlineDate}/${n.deadlineDate}`,
       // dates: `20190906T063000Z/20190906T090000Z`,
       details: n.details,
       location: n.location,
-      sf: true
-    }
+      sf: true,
+    };
 
     return `https://calendar.google.com/calendar/r/eventedit?${objToQuery(
       query
-    )}`
+    )}`;
   },
-  yahoo: n => {
+  yahoo: (n) => {
     const query = {
       v: 60,
       view: "d",
@@ -180,13 +180,13 @@ const addCalendar = {
       st: n.deadlineDate,
       dur: "0000",
       desc: n.details,
-      in_loc: n.location
-    }
+      in_loc: n.location,
+    };
 
-    return `https://calendar.yahoo.com/?${objToQuery(query)}`
+    return `https://calendar.yahoo.com/?${objToQuery(query)}`;
   },
   // apple calendar
-  apple: n => {
+  apple: (n) => {
     return (
       "BEGIN:VCALENDAR\n" +
       "VERSION:2.0\n" +
@@ -209,6 +209,6 @@ const addCalendar = {
       "LOCATION:Kompetisi Id\n" +
       "END:VEVENT\n" +
       "END:VCALENDAR"
-    )
-  }
-}
+    );
+  },
+};

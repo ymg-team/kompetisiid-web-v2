@@ -1,7 +1,5 @@
-import React from "react"
-
-export default props => (
-  <React.Fragment>
+const Announcements = (props) => (
+  <>
     <h2>Pengumuman kompetisi</h2>
     <p className="text-muted">
       Berisi pengumuman jika terjadi perubahan peraturan, detail hadiah, atau
@@ -19,10 +17,12 @@ export default props => (
             <br />
             {n.data}
           </div>
-        )
+        );
       })
     ) : (
       <p>saat ini tidak ada pengumuman</p>
     )}
-  </React.Fragment>
-)
+  </>
+);
+
+export default Announcements;

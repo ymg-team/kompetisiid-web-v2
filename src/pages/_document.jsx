@@ -7,7 +7,7 @@ export default function Document() {
       <Head>
         <link rel="icon" href="/static/images/icons-red/icon-128x128.png" />
         <link
-          href="https://fonts.googleapis.com/css?family=Raleway:400,500"
+          href="https://fonts.googleapis.com/css?family=Raleway:400,500&display=optional"
           rel="stylesheet"
         />
         <link
@@ -22,11 +22,6 @@ export default function Document() {
           type="application/opensearchdescription+xml"
           href="/opensearch.xml"
           title="Cari Kompetisi"
-        />
-        <meta
-          name="viewport"
-          content="initial-scale=1.0, width=device-width"
-          key="viewport"
         />
       </Head>
       <body>

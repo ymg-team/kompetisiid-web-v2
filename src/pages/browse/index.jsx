@@ -11,7 +11,6 @@ import {
 } from "~/src/services/competition";
 
 // components
-import HomeLayoutV5 from "~/src/layouts/HomeLayoutV5";
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
 import Modal from "@components/modals";
 import MediaPartnerAds from "@components/cards/MediaPartnerAds";

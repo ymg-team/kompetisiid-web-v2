@@ -2,7 +2,7 @@ import React from "react";
 import Styled from "styled-components";
 import { Colors } from "~/src/config/style";
 
-const Alert = Styled.div`
+const AlertStyled = Styled.div`
   display: block;
   position: fixed;
   width: 400px;
@@ -45,10 +45,10 @@ const Alert = Styled.div`
   }
 `;
 
-export default (props) => (
-  <Alert onClick={() => alert(false)} id="ki-alert">
+const Alert = () => (
+  <AlertStyled onClick={() => alert(false)} id="ki-alert">
     alert.. !
-  </Alert>
+  </AlertStyled>
 );
 
 let timeout;
@@ -82,3 +82,5 @@ export function alert(show = true, text = "", type = "", fixed = false) {
     console.err("alert element not available");
   }
 }
+
+export default Alert;

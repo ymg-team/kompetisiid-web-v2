@@ -1,9 +1,9 @@
 // ref: https://codepen.io/dimsemenov/pen/yyBWoR
 
-import React from "react"
-import GlobalLoaderStyled from "./styled"
+import React from "react";
+import GlobalLoaderStyled from "./styled";
 
-export default ({ style = {} }) => {
+const GlobalLoader = ({ style = {} }) => {
   return (
     <GlobalLoaderStyled {...{ style }}>
       <div className="pswp__preloader__icn">
@@ -12,5 +12,7 @@ export default ({ style = {} }) => {
         </div>
       </div>
     </GlobalLoaderStyled>
-  )
-}
+  );
+};
+
+export default GlobalLoader;

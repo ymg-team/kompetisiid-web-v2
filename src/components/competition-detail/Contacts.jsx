@@ -1,5 +1,5 @@
-import React from "react"
-import { generateLink } from "../../helpers/linkGenerator"
+import React from "react";
+import { generateLink } from "../../helpers/linkGenerator";
 
 const Type = [
   { icon: "" },
@@ -11,10 +11,10 @@ const Type = [
   { icon: "fas fa-envelope-square" },
   { icon: "fas fa-map" },
   { icon: "fab fa-youtube-square" },
-  { icon: "fas fa-phone-square" }
-]
+  { icon: "fas fa-phone-square" },
+];
 
-export default props => (
+const Contacts = (props) => (
   <React.Fragment>
     <h2>Kontak kompetisi</h2>
     <p className="text-muted">
@@ -31,10 +31,12 @@ export default props => (
               ? generateLink(n.value, "_blank")
               : n.value}
           </p>
-        )
+        );
       })
     ) : (
       <p>kontak tidak tersedia</p>
     )}
   </React.Fragment>
-)
+);
+
+export default Contacts;

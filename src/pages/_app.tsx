@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const Layout = React.useMemo(() => {
     return HomeLayoutV5
-  }, [pageProps])
+  }, [])
 
   return <>
       <Head>

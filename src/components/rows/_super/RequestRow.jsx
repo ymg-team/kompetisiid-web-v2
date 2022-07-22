@@ -91,7 +91,7 @@ const RequestRow = (props) => {
         />
         <div className="item__right">
           <h4>
-            <a href={props.link} target="_blank">
+            <a href={props.link} target="_blank" rel="noreferrer noopener">
               {props.title}
             </a>{" "}
           </h4>

@@ -1,7 +1,7 @@
 import React from "react";
 // import { subscribeCompetition } from "../../pages/competition/actions"
 
-export default ({ data, authData }) => {
+const BtnSubscribe = ({ data, authData }) => {
   const clickHandler = (e) => {
     e.preventDefault();
 
@@ -44,3 +44,5 @@ export default ({ data, authData }) => {
     </a>
   );
 };
+
+export default BtnSubscribe;

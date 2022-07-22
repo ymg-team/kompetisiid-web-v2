@@ -1,4 +1,6 @@
-import React from "react"
-import LoadingFullPage from "./FullPage"
+import React from "react";
+import LoadingFullPage from "./FullPage";
 
-export default () => <LoadingFullPage show />
+const FullContentLoader = () => <LoadingFullPage show />;
+
+export default FullContentLoader;

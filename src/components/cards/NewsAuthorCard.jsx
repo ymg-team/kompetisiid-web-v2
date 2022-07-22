@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-export default (props) => (
+const NewsAuthorCard = (props) => (
   <div className="author">
     <Link href={`/user/${props.data.username}`}>
       <a>
@@ -16,3 +16,5 @@ export default (props) => (
     <span className="text-muted">{props.data.moto || ""}</span>
   </div>
 );
+
+export default NewsAuthorCard;

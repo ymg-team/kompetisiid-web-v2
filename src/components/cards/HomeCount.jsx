@@ -1,6 +1,6 @@
-import React from 'react'
-import Styled from 'styled-components'
-import { today } from '../../helpers/dateTime'
+import React from "react";
+import Styled from "styled-components";
+import { today } from "../../helpers/dateTime";
 
 const HomeCountStyled = Styled.div`
   padding: 20px 0 40px;
@@ -31,9 +31,9 @@ const HomeCountStyled = Styled.div`
       margin-bottom: 2em;
     }
   } */
-`
+`;
 
-export default props => {
+const HomeCount = (props) => {
   if (props.status == 200) {
     return (
       <HomeCountStyled className="col-md-6 col-md-offset-3 home-count">
@@ -55,15 +55,19 @@ export default props => {
             </div>
           </div>
           <div className="col-sm-4 col-xs-4 home-count-item">
-            <div className="home-count-text-large">{props.totalPrizeActiveCompetition}</div>
+            <div className="home-count-text-large">
+              {props.totalPrizeActiveCompetition}
+            </div>
             <div className="home-count-text-small text-gray">
               Nilai Total Hadiah
             </div>
           </div>
         </div>
       </HomeCountStyled>
-    )
+    );
   }
 
-  return null
-}
+  return null;
+};
+
+export default HomeCount;

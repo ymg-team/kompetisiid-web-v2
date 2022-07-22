@@ -271,6 +271,7 @@ const CompetitionDetailBox = (props) => {
                       <a
                         target="_blank"
                         href={`https://docs.google.com/forms/d/e/1FAIpQLSdmsHkJdGctVkWYFhhLC10YYVbtNIi5IF8X0mbdd2DjS-N1eQ/viewform?entry.559533126=${link_competition}`}
+                        rel="noreferrer noopener"
                       >
                         Laporkan Kompetisi
                       </a>

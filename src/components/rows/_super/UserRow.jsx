@@ -20,7 +20,7 @@ const UserRowStyled = Styled.div`
 }
 `;
 
-export default (props) => {
+const UserRow = (props) => {
   return (
     <UserRowStyled>
       <div className="item">
@@ -49,3 +49,5 @@ export default (props) => {
     </UserRowStyled>
   );
 };
+
+export default UserRow;

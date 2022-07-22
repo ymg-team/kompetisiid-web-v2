@@ -27,7 +27,7 @@ const LabelDraft = () => (
   </div>
 );
 
-export default (props) => {
+const NewsListCard = (props) => {
   const { n } = props;
   const target = `/news/${n.id}/${n.nospace_title}`;
   return (
@@ -85,3 +85,5 @@ export default (props) => {
     </CardCompetitionStyled>
   );
 };
+
+export default NewsListCard;

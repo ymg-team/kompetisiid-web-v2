@@ -1,6 +1,6 @@
-import React, { Component } from "react"
-import Styled from "styled-components"
-import { validate, validator } from "./Validator"
+import React, { Component } from "react";
+import Styled from "styled-components";
+import { validate, validator } from "./Validator";
 
 const SelectStyled = Styled.select`
   background: none;
@@ -10,39 +10,39 @@ const SelectStyled = Styled.select`
     border-color: #cf3030 !important;
     color: #cf3030 !important;
   }
-`
+`;
 
 class Select extends Component {
   static defaultProps = {
     validate: {},
-    options: []
-  }
-  
+    options: [],
+  };
+
   componentDidMount = () => {
-    validate(this.props)
-  }
+    validate(this.props);
+  };
 
-  componentWillReceiveProps = np => {
-    // validate on edit / set default value
-    if(!this.props.value && np.value) validate(np)
-  }
+  // componentWillReceiveProps = np => {
+  //   // validate on edit / set default value
+  //   if(!this.props.value && np.value) validate(np)
+  // }
 
-  handleChange = e => {
+  handleChange = (e) => {
     this.props.setState(
       {
-        [this.props.name]: e.target.value
+        [this.props.name]: e.target.value,
       },
       () => {
-        this.validateInput()
+        this.validateInput();
       }
-    )
-  }
+    );
+  };
 
   validateInput(props = this.props) {
-    const result = validate(props)
+    const result = validate(props);
     this.props.setState({
-      [this.props.name + "_validate"]: result
-    })
+      [this.props.name + "_validate"]: result,
+    });
   }
 
   render = () => {
@@ -54,9 +54,9 @@ class Select extends Component {
       autofocus,
       options,
       valueKey,
-      textKey
-    } = this.props
-    const is_valid = !(!validate.is_valid && validate.message)
+      textKey,
+    } = this.props;
+    const is_valid = !(!validate.is_valid && validate.message);
 
     return (
       <div className={`form-child ${!is_valid ? "error" : ""}`}>
@@ -66,7 +66,7 @@ class Select extends Component {
         </label>
         <SelectStyled
           className={`form-child ${!is_valid ? "error" : ""}`}
-          onChange={e => this.handleChange(e)}
+          onChange={(e) => this.handleChange(e)}
           value={this.props.value || ""}
         >
           <option value="0">--- Pilih salah satu ---</option>
@@ -77,8 +77,8 @@ class Select extends Component {
           ))}
         </SelectStyled>
       </div>
-    )
-  }
+    );
+  };
 }
 
-export default Select
+export default Select;
