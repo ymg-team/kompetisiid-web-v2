@@ -10,7 +10,7 @@ import { fetchNews } from "@services/news";
 
 // components
 import SEO from "@components/meta/SEO";
-import Link from "next/Link";
+import Link from "next/link";
 import HomeStyled from "./home/styled";
 import EmptyLoading from "@components/preloaders/EmptyLoader";
 import Loading from "@components/preloaders/GlobalLoader";
