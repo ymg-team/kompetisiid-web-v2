@@ -77,7 +77,10 @@ const Home = ({ serverData = {} }) => {
   return (
     <HomeStyled>
       <SEO title={"Kompetisi Id - Platform Kompetisi Online Indonesia"}>
-        <script src="https://unpkg.com/@glidejs/glide@3.3.0/dist/glide.min.js" />
+        <script
+          src="https://unpkg.com/@glidejs/glide@3.3.0/dist/glide.min.js"
+          async
+        />
         <link
           rel="stylesheet"
           href="https://unpkg.com/@glidejs/glide@3.3.0/dist/css/glide.core.min.css"

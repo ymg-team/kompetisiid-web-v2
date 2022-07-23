@@ -7,8 +7,7 @@ import MediaPartnerAds from "../cards/MediaPartnerAds";
 import GAds from "../cards/GoogleAds";
 import Label from "../Label";
 
-const Sidebar = () => {
-  const { data } = props;
+const Sidebar = ({ data }) => {
   return (
     <div className="col-sm-4">
       <div className="competition-detail--meta">

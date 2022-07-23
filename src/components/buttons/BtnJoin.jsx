@@ -19,6 +19,7 @@ const BtnJoin = (props) => {
       }}
       href={is_ended ? "#" : props.data.link_join || props.data.link_source}
       target="_blank"
+      rel="noreferrer noopener"
       className={`btn btn-join btn-lg ${
         is_ended || is_waiting == "berakhir" ? "btn-gray" : "btn-green"
       }`}

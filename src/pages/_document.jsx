@@ -1,7 +1,8 @@
 // pages/_document.js
-import { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
+import { ServerStyleSheet } from "styled-components";
 
-export default function Document() {
+export default function KIDocument() {
   return (
     <Html>
       <Head>
@@ -28,8 +29,29 @@ export default function Document() {
         <Main />
         <NextScript />
         <div id="fb-root" />
-        <script src="/static/script.0.0.1.min.js"></script>
+        <script src="/static/script.0.0.1.min.js" async></script>
       </body>
     </Html>
   );
 }
+
+KIDocument.getInitialProps = async (ctx) => {
+  const styledComponentsSheet = new ServerStyleSheet();
+  const originalRenderPage = ctx.renderPage;
+  try {
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: (App) => (props) => {
+          return styledComponentsSheet.collectStyles(<App {...props} />);
+        },
+      });
+    const initialProps = await Document.getInitialProps(ctx);
+    initialProps.styles = [
+      initialProps.styles,
+      styledComponentsSheet.getStyleElement(),
+    ];
+    return initialProps;
+  } finally {
+    styledComponentsSheet.seal();
+  }
+};

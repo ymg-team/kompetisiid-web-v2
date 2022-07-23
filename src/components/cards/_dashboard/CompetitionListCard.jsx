@@ -106,6 +106,7 @@ const CompetitionListCard = (props) => {
                   <li>
                     <a
                       target="_blank"
+                      rel="noreferrer noopener"
                       href={`/competition/${n.id}/regulations/${n.nospace_title}`}
                     >
                       Preview
