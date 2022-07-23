@@ -17,7 +17,7 @@ const CountBoxStyled = Styled.div`
     }
 `;
 
-export default (props) => {
+const CountBox = (props) => {
   return (
     <CountBoxStyled>
       <Link href={props.link || "/"}>
@@ -29,3 +29,5 @@ export default (props) => {
     </CountBoxStyled>
   );
 };
+
+export default CountBox;

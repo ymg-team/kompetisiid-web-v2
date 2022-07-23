@@ -1,7 +1,7 @@
-import React from "react"
-import Styled from "styled-components"
+import React from "react";
+import Styled from "styled-components";
 
-const TitleLevel2 = Styled.div`
+const TitleLevel2Styled = Styled.div`
   border-bottom: 1px solid lightgray;
   padding-bottom: 20px;
   margin-bottom: 20px;
@@ -12,11 +12,13 @@ const TitleLevel2 = Styled.div`
   small {
     color: gray;
   }
-`
+`;
 
-export default props => (
-  <TitleLevel2>
+const TitleLevel2 = (props) => (
+  <TitleLevel2Styled>
     <h2>{props.title}</h2>
     <small>{props.text}</small>
-  </TitleLevel2>
-)
+  </TitleLevel2Styled>
+);
+
+export default TitleLevel2;

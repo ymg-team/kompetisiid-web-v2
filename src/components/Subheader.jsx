@@ -4,7 +4,7 @@ import { FilterJelajahStyled } from "./filters/Filter.styled";
 // components
 import Breadcrumb from "../components/navigations/Breadcrumb";
 
-const SubHeader = () => (
+const SubHeader = (props) => (
   <FilterJelajahStyled
     style={{ textAlign: props.text_center ? "center" : "left" }}
     className="col-md-12 filter-jelajah"

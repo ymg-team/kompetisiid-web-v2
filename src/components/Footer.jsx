@@ -113,11 +113,11 @@ const Footer = (props) => {
               </p>
               Kami adalah sebuah platform kompetisi untuk berbagai macam
               kompetisi yang diadakan di Indonesia untuk selanjutnya dipanggil
-              "KI". Dipersembahkan oleh Yussan Media Group. Penyelenggara dapat
-              menggunakan KI sebagai media publikasi, media partner ataupun
-              kerja sama untuk kompetisi yang mereka adakan. Peserta dapat
-              menjelajahi dan mengikuti berbagai kategori kompetisi di KI dan
-              semoga menjadi pemenang.
+              `&quot;`KI`&quot;`. Dipersembahkan oleh Yussan Media Group.
+              Penyelenggara dapat menggunakan KI sebagai media publikasi, media
+              partner ataupun kerja sama untuk kompetisi yang mereka adakan.
+              Peserta dapat menjelajahi dan mengikuti berbagai kategori
+              kompetisi di KI dan semoga menjadi pemenang.
             </div>
             <div className="col-md-3 footer_content">
               <p>
@@ -281,7 +281,7 @@ const Footer = (props) => {
               Powered by{" "}
               <a
                 href="https://byymg.com"
-                rel="noopener noreferer"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
