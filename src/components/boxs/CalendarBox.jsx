@@ -4,11 +4,11 @@
 import React from "react";
 import Styled from "styled-components";
 import { Month } from "../../helpers/dateTime";
-import { fetchJelajah } from "../../pages/competition/actions";
-import { connect } from "react-redux";
-import memoize from "memoize-one";
 
-const Year = [2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014];
+// services
+import { fetchCompetitions } from "@services/competition";
+
+const Year = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014];
 const Days = ["SENIN", "SELASA", "RABU", "KAMIS", "JUM'AT", "SABTU", "MINGGU"];
 
 const CalendarBoxStyled = Styled.div`
@@ -153,7 +153,7 @@ const CalendarBoxStyled = Styled.div`
     cursor: not-allowed;
   }
 
-  &--today {
+  &--Now {
     span.day--date {
       background: #4786ff;
       color: #fff;
@@ -272,92 +272,45 @@ const CalendarBoxStyled = Styled.div`
 }
 `;
 
-class CalendarBox extends React.Component {
-  constructor(props) {
-    super(props);
+const Now = new Date();
 
-    const date = new Date();
-    this.state = {
-      current_date: date.getDate(),
-      current_year: date.getFullYear(),
-      current_month: date.getMonth(),
-      show_set_month: false,
-      show_set_year: false,
-      // collection data of competition with deadline in current month and current year
-      deadline_events: {},
-      // collection data of competition with announcement in current month and current year
-      announcement_events: {},
-    };
-  }
+const CalendarBox = (props) => {
+  // initial states
+  const [date, setDate] = React.useState(Now.getDate());
+  const [month, setMonth] = React.useState(Now.getMonth());
+  const [showMonth, setShowMonth] = React.useState(false);
+  const [year, setYear] = React.useState(Now.getFullYear());
+  const [showYear, setShowYear] = React.useState(false);
+  const [respDeadlineEvents, setRespDeadlineEvents] = React.useState({});
+  const [respAnnouncementEvents, setRespAnnouncementEvents] = React.useState(
+    {}
+  );
 
-  componentDidMount() {
-    // fetch competition data
-    this.fetchData();
-  }
+  // === initial memos  ====
+  const EventData = React.useMemo(() => {
+    let NextDataAnnouncements = {};
+    let NextDataDeadline = {};
 
-  componentDidUpdate = (prevprops) => {
-    this.onUpdateCompetition(this.props.competition);
-  };
+    // generate list event of deadline
+    if (respDeadlineEvents.status) {
+      respDeadlineEvents.data.map((n) => {
+        const DeadlineDate = new Date(parseInt(n.deadline_at * 1000));
+        const Filter = `${DeadlineDate.getFullYear()}_${DeadlineDate.getMonth()}_${DeadlineDate.getDate()}`;
 
-  // memoize handle on update props competition
-  onUpdateCompetition = memoize((competition) => {
-    const { current_month, current_year } = this.state;
-    const filterDeadline = `deadline_${current_month}_${current_year}`;
-    const deadlineData = competition[filterDeadline] || {};
-    const announcementData = competition[filterDeadline] || {};
-    if (deadlineData.status && !deadlineData.is_loading) {
-      // transform competition data to calendar events format
-      let { deadline_events, announcement_events } = this.state;
-
-      announcementData.data.map((n) => {
-        // get deadline date and month
-        const announcement_date = new Date(parseInt(n.announcement_at * 1000));
-
-        const event_filter = `${announcement_date.getFullYear()}_${announcement_date.getMonth()}_${announcement_date.getDate()}`;
-
-        // store events in array by filter
-        if (!announcement_events[event_filter])
-          announcement_events[event_filter] = [];
+        // set default value
+        if (!NextDataDeadline[Filter]) NextDataDeadline[Filter] = [];
 
         let found = false;
 
-        for (let i = 0; i < announcement_events[event_filter].length; i++) {
-          if (announcement_events[event_filter][i].id_competition === n.id) {
+        for (let i = 0; i < NextDataDeadline[Filter].length; i++) {
+          if (NextDataDeadline[Filter][i].id_competition === n.id) {
             found = true;
             break;
           }
         }
 
         if (!found) {
-          announcement_events[event_filter].push({
-            id_competition: n.id,
-            link: `/competition/${n.id}/regulations/${n.nospace_title}`,
-            title: n.title,
-            type: "announcement",
-          });
-        }
-      });
-
-      deadlineData.data.map((n) => {
-        // get deadline date and month
-        const deadline_date = new Date(parseInt(n.deadline_at * 1000));
-
-        const event_filter = `${deadline_date.getFullYear()}_${deadline_date.getMonth()}_${deadline_date.getDate()}`;
-
-        // store events in array by filter
-        if (!deadline_events[event_filter]) deadline_events[event_filter] = [];
-
-        let found = false;
-
-        for (let i = 0; i < deadline_events[event_filter].length; i++) {
-          if (deadline_events[event_filter][i].id_competition === n.id) {
-            found = true;
-            break;
-          }
-        }
-
-        if (!found) {
-          deadline_events[event_filter].push({
+          NextDataDeadline[Filter].push({
             id_competition: n.id,
             link: `/competition/${n.id}/regulations/${n.nospace_title}`,
             title: n.title,
@@ -365,31 +318,59 @@ class CalendarBox extends React.Component {
           });
         }
       });
-
-      // set state of deadline events
-      this.setState({ deadline_events, announcement_events });
     }
-  });
 
-  dateGenerator() {
+    // generate list event of announcement
+    if (respAnnouncementEvents.status) {
+      respAnnouncementEvents.data.map((n) => {
+        const AnnouncementDate = new Date(parseInt(n.announcement_at * 1000));
+        const Filter = `${AnnouncementDate.getFullYear()}_${AnnouncementDate.getMonth()}_${AnnouncementDate.getDate()}`;
+
+        // set default value
+        if (!NextDataAnnouncements[Filter]) NextDataAnnouncements[Filter] = [];
+
+        let found = false;
+
+        for (let i = 0; i < NextDataAnnouncements[Filter].length; i++) {
+          if (NextDataAnnouncements[Filter][i].id_competition === n.id) {
+            found = true;
+            break;
+          }
+        }
+
+        if (!found) {
+          NextDataAnnouncements[Filter].push({
+            id_competition: n.id,
+            link: `/competition/${n.id}/regulations/${n.nospace_title}`,
+            title: n.title,
+            type: "announcement",
+          });
+        }
+      });
+    }
+
+    return {
+      deadline: NextDataDeadline,
+      announcement: NextDataAnnouncements,
+    };
+  }, [respDeadlineEvents, respAnnouncementEvents]);
+
+  // === initial effects ===
+
+  React.useEffect(() => {
+    fetchData();
+  }, [month, year]);
+
+  const dateGenerator = React.useCallback(() => {
     // get starting day of the month
-    const {
-      current_month,
-      current_year,
-      current_date,
-      deadline_events,
-      announcement_events,
-    } = this.state;
-    const today = new Date();
-    const firstday = new Date(current_year, current_month).getDay();
-    const daysInMonth =
-      32 - new Date(current_year, current_month, 32).getDate();
+    const firstday = new Date(year, month).getDay();
+    const daysInMonth = 32 - new Date(year, month, 32).getDate();
 
     let DateComponent = [];
 
     // start looping
     // create column by days
-    let date = 1;
+    let calendarDate = 1;
     for (let n = 0; n < 6; n++) {
       // create rows
       // creating individual cells
@@ -398,29 +379,27 @@ class CalendarBox extends React.Component {
 
         if (n === 0 && m < firstday) {
           DateComponent.push(<div key={key} className="day day--disabled" />);
-        } else if (date > daysInMonth) {
+        } else if (calendarDate > daysInMonth) {
           break;
         } else {
           DateComponent.push(
             <div
               key={key}
               className={`day ${
-                date === current_date &&
-                today.getFullYear() === current_year &&
-                today.getMonth() === current_month
-                  ? "day--today"
+                date === calendarDate &&
+                Now.getFullYear() === year &&
+                Now.getMonth() === month
+                  ? "day--Now"
                   : ""
               }`}
             >
-              <span className="day--date">{date}</span>
-
+              <span className="day--date">{calendarDate}</span>
               {/* events generator */}
 
               {/* lopping deadline competition */}
-              {deadline_events[`${current_year}_${current_month}_${date}`]
-                ? deadline_events[
-                    `${current_year}_${current_month}_${date}`
-                  ].map((n, key) => (
+              {EventData.deadline[`${year}_${month}_${calendarDate}`] &&
+                EventData.deadline[`${year}_${month}_${calendarDate}`].map(
+                  (n, key) => (
                     <a
                       key={key}
                       href={n.link}
@@ -431,15 +410,13 @@ class CalendarBox extends React.Component {
                         Deadline {n.title}
                       </section>
                     </a>
-                  ))
-                : null}
-              {/* end of lopping deadline competition */}
+                  )
+                )}
 
               {/* lopping announcement competition */}
-              {announcement_events[`${current_year}_${current_month}_${date}`]
-                ? announcement_events[
-                    `${current_year}_${current_month}_${date}`
-                  ].map((n, key) => (
+              {EventData.announcement[`${year}_${month}_${calendarDate}`] &&
+                EventData.announcement[`${year}_${month}_${calendarDate}`].map(
+                  (n, key) => (
                     <a
                       key={key}
                       href={n.link}
@@ -450,180 +427,141 @@ class CalendarBox extends React.Component {
                         Pengumuman {n.title}
                       </section>
                     </a>
-                  ))
-                : null}
-              {/* end of lopping announcement competition */}
-
-              {/* end of event generator */}
+                  )
+                )}
             </div>
           );
-          date++;
+          calendarDate++;
         }
       }
     }
     // end of loopiung
 
     return DateComponent;
-  }
+  }, [year, month, EventData]);
 
-  fetchData() {
-    // generate request params
-    const { current_month, current_year } = this.state;
-    const max_date = 32 - new Date(current_year, current_month, 32).getDate();
-    const paramsDeadline = {
-      min_deadline_date: `${current_year}-${current_month + 1}-1`,
-      max_deadline_date: `${current_year}-${current_month + 1}-${max_date}`,
+  const fetchData = React.useCallback(async () => {
+    const MaxDate = 32 - new Date(year, month, 32).getDate();
+
+    const QueryMinDate = `${year}-${month + 1}-1`;
+    const QueryMaxDate = `${year}-${month + 1}-${MaxDate}`;
+
+    const QueryDeadline = {
+      min_deadline_date: QueryMinDate,
+      max_deadline_date: QueryMaxDate,
       limit: 100,
     };
-    const paramsAnnouncement = {
-      min_announcement_date: `${current_year}-${current_month + 1}-1`,
-      max_announcement_date: `${current_year}-${current_month + 1}-${max_date}`,
+    const QueryAnnouncement = {
+      min_announcement_date: QueryMinDate,
+      max_announcement_date: QueryMaxDate,
       limit: 100,
     };
 
-    const filterDeadline = `deadline_${current_month}_${current_year}`;
-    const filterAnnouncement = `announcement_${current_month}_${current_year}`;
-    const deadlineData = this.props.competition[filterDeadline] || {};
-    const announcementData = this.props.competition[filterAnnouncement] || {};
+    const ResponseDeadline = await fetchCompetitions({ query: QueryDeadline });
+    setRespDeadlineEvents(ResponseDeadline);
 
-    // request for first time
-    if (!deadlineData.status && !deadlineData.is_loading) {
-      this.props.dispatch(fetchJelajah(paramsDeadline, filterDeadline));
-    }
-    if (!announcementData.status && !announcementData.is_loading) {
-      this.props.dispatch(fetchJelajah(paramsAnnouncement, filterAnnouncement));
-    }
-  }
+    const ResponseAnnouncement = await fetchCompetitions({
+      query: QueryAnnouncement,
+    });
+    setRespAnnouncementEvents(ResponseAnnouncement);
+  }, [year, month, respDeadlineEvents]);
 
-  render() {
-    return (
-      <CalendarBoxStyled>
-        <div className="calendar-container">
-          {/* year and month select */}
-          <div className="calendar-header">
-            <div className="calendar-header_year">
-              <h1>
-                {Month[this.state.current_month][1].toUpperCase()}{" "}
-                <button
-                  onClick={() =>
-                    this.setState({
-                      show_set_month: !this.state.show_set_month,
-                    })
-                  }
-                >
-                  ▾
-                </button>
-              </h1>
-              <div
-                className={`calendar-header_year_select ${
-                  this.state.show_set_month ? "show" : ""
-                }`}
-              >
-                {Month.map((n, key) => {
-                  return (
-                    <a
-                      key={key}
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        this.setState(
-                          {
-                            current_month: key,
-                            show_set_month: false,
-                          },
-                          () => this.fetchData()
-                        );
-                      }}
-                    >
-                      {n[1]}
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-
-            <p>
-              {this.state.current_year}{" "}
-              <button
-                onClick={() =>
-                  this.setState({ show_set_year: !this.state.show_set_year })
-                }
-              >
-                ▾
-              </button>
-            </p>
+  return (
+    <CalendarBoxStyled>
+      <div className="calendar-container">
+        {/* year and month select */}
+        <div className="calendar-header">
+          <div className="calendar-header_year">
+            <h1>
+              {Month[month][1].toUpperCase()}{" "}
+              <button onClick={() => setShowMonth(!showMonth)}>▾</button>
+            </h1>
             <div
               className={`calendar-header_year_select ${
-                this.state.show_set_year ? "show" : ""
+                showMonth ? "show" : ""
               }`}
             >
-              {Year.map((n, key) => {
+              {Month.map((n, key) => {
                 return (
                   <a
                     key={key}
                     href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      this.setState(
-                        {
-                          current_year: n,
-                          show_set_year: false,
-                        },
-                        () => this.fetchData()
-                      );
+                      setMonth(key);
+                      setShowMonth(false);
+                      fetchData({ month: key });
                     }}
                   >
-                    {n}
+                    {n[1]}
                   </a>
                 );
               })}
             </div>
           </div>
-          {/* end of year and month select */}
 
-          <div className="calendar">
-            {/* days maping */}
-            {Days.map((n, key) => {
+          <p>
+            {year} <button onClick={() => setShowYear(!showYear)}>▾</button>
+          </p>
+          <div
+            className={`calendar-header_year_select ${showYear ? "show" : ""}`}
+          >
+            {Year.map((n, key) => {
               return (
-                <span key={key} className="day-name">
+                <a
+                  key={key}
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowYear(false);
+                    setYear(n);
+                    fetchData({ year: n });
+                  }}
+                >
                   {n}
-                </span>
+                </a>
               );
             })}
-            {/* end of days maping */}
-
-            {/* date maping */}
-            {this.dateGenerator()}
-            {/* end of date maping */}
-
-            {/* events */}
-            {/* <section
-              style={{ gridColumn: "2 / span 3", gridRow: 3 }}
-              className="task task--danger"
-            >
-              Deadline kompetisi blog pertamina
-            </section> */}
-            {/* <section className="task task--warning">Deadline Kompetisi Blog Nintendo</section> */}
-            {/* <section className="task task--primary">
-              Product Checkup 1
-              <div className="task__detail">
-                <h2>Product Checkup 1</h2>
-                <p>15-17th November</p>
-              </div>
-            </section> */}
-            {/* <section className="task task--info">Product Checkup 2</section> */}
-            {/* end of events */}
           </div>
         </div>
-      </CalendarBoxStyled>
-    );
-  }
-}
+        {/* end of year and month select */}
 
-const mapStateToProps = (state) => {
-  return {
-    competition: state.Kompetisi.data,
-  };
+        <div className="calendar">
+          {/* days maping */}
+          {Days.map((n, key) => {
+            return (
+              <span key={key} className="day-name">
+                {n}
+              </span>
+            );
+          })}
+          {/* end of days maping */}
+
+          {/* date maping */}
+          {dateGenerator()}
+          {/* end of date maping */}
+
+          {/* events */}
+          {/* <section
+        style={{ gridColumn: "2 / span 3", gridRow: 3 }}
+        className="task task--danger"
+      >
+        Deadline kompetisi blog pertamina
+      </section> */}
+          {/* <section className="task task--warning">Deadline Kompetisi Blog Nintendo</section> */}
+          {/* <section className="task task--primary">
+        Product Checkup 1
+        <div className="task__detail">
+          <h2>Product Checkup 1</h2>
+          <p>15-17th November</p>
+        </div>
+      </section> */}
+          {/* <section className="task task--info">Product Checkup 2</section> */}
+          {/* end of events */}
+        </div>
+      </div>
+    </CalendarBoxStyled>
+  );
 };
 
-export default connect(mapStateToProps)(CalendarBox);
+export default CalendarBox;
