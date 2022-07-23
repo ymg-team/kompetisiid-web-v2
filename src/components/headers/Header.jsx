@@ -14,9 +14,10 @@ const Header = (props) => {
   const handleSearch = (e) => {
     if (e.keyCode == 13) {
       Router.push({
-        pathname: "/browse?status=active",
+        pathname: "/browse",
         query: {
           search: q,
+          status: "active",
         },
       });
     }

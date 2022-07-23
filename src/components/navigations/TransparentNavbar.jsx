@@ -9,24 +9,28 @@ import Link from "next/link";
 const Menus = [
   {
     link: "/browse?status=active",
+    keys: ["browse", "competitionDetail"],
     text: "Jelajah",
     title: "Jelajahi kompetisi dari berbagai kategori",
   },
   // {
   //   link: "/add",
   //   text: "Pasang",
+  //   key: "add",
   //   title: "Pasang Kompetisi disini, gratis!",
   // },
   {
     link: "/news",
+    keys: ["news"],
     text: "Kabar",
     title: "Kumpulan kabar seputar Kompetisi di Indonesia",
   },
-  // {
-  //   link: "/calendar",
-  //   text: "Kalender",
-  //   title: "Kalender kompetisi se-Indonesia",
-  // },
+  {
+    link: "/calendar",
+    keys: ["calendar"],
+    text: "Kalender",
+    title: "Kalender kompetisi se-Indonesia",
+  },
 ];
 
 const StickyNavbarStyled = Styled.div`
@@ -97,7 +101,11 @@ const NavbarStyled = Styled.div`
   ul.inline-list {
     height: 40px;
     li {
-      padding: 7.5px 10px
+      padding: 7.5px 10px;
+      &.active  a{
+        color: #e74d3c;
+        font-weight: 500;
+      }
     }
   }
 
@@ -156,6 +164,11 @@ const Navbar = (props) => {
   const [keyword, setKeyword] = React.useState("");
   const [sticky, setSticky] = React.useState(false);
   const [styleNavbar, setStyleNavbar] = React.useState({});
+
+  // initial memos
+  const CurrentPath = React.useMemo(() => {
+    return Router.pathname.split("/");
+  }, [Router.pathname]);
 
   // initial effects
 
@@ -239,9 +252,10 @@ const Navbar = (props) => {
                       onKeyDown={(e) => {
                         if (e.keyCode === 13 && keyword.trim() !== "") {
                           Router.push({
-                            pathname: "/browse?status=active",
+                            pathname: "/browse",
                             query: {
                               search: keyword,
+                              status: "active",
                             },
                           });
                         }
@@ -288,7 +302,12 @@ const Navbar = (props) => {
                     </Link>
                   </li>
                   {Menus.map((n) => (
-                    <li key={n.link}>
+                    <li
+                      className={
+                        n.keys.includes(CurrentPath[1]) ? "active" : ""
+                      }
+                      key={n.link}
+                    >
                       <Link href={n.link}>
                         <a title={n.title}>{n.text}</a>
                       </Link>
