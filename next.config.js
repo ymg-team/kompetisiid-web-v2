@@ -3,7 +3,7 @@
 const publicRuntimeConfig = {
   NODE_ENV: process.env.NODE_ENV || "production",
   URL_KI_BE: process.env.URL_KI_BE || "https://apiv4.kompetisi.id",
-  URL_KI_WEB: process.env.URL_KI_WEB || "https://kompetisi.id",
+  URL_KI_WEB: process.env.URL_KI_WEB || "https://kompetisi.id/api",
   APP_KEY: process.env.APP_KEY || "ki-kjhsdfi763423jhsdf76qw3qhegsdfi876",
 };
 
