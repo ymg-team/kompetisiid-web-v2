@@ -9,7 +9,7 @@ const publicRuntimeConfig = {
 
 const nextConfig = {
   reactStrictMode: false,
-  swcMinify: true,
+  swcMinify: false,
   publicRuntimeConfig,
   // https://nextjs.org/docs/api-reference/next.config.js/rewrites
   async rewrites() {
