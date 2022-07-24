@@ -1,10 +1,13 @@
-import React from "react"
+import React from "react";
 
 // components
-import AddCompetitionBoxStyled from "./styled"
-import Button from "../../buttons/index"
+import AddCompetitionBoxStyled from "./styled";
+import Button from "../../buttons/index";
+import { useRouter } from "next/router";
 
 const AddCompetitionBox = () => {
+  const Router = useRouter();
+
   return (
     <AddCompetitionBoxStyled>
       <div className="container">
@@ -13,7 +16,7 @@ const AddCompetitionBox = () => {
             <Button
               color="white-transparent"
               size="large"
-              onClick={() => transitionTo("/add")}
+              onClick={() => Router.push("/add")}
             >
               Pasang Kompetisi
             </Button>
@@ -26,7 +29,7 @@ const AddCompetitionBox = () => {
         </div>
       </div>
     </AddCompetitionBoxStyled>
-  )
-}
+  );
+};
 
-export default AddCompetitionBox
+export default AddCompetitionBox;

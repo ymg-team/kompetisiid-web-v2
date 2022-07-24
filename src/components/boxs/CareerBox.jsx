@@ -56,7 +56,7 @@ const CareerBox = () => {
                   Kami menggunakan<i>git</i>sebagai<i>version control system</i>
                 </li>
               </ul>
-              <button className="btn btn-gray btn-sm" disabled="true">
+              <button className="btn btn-gray btn-sm" disabled>
                 Pendaftaran Belum Dibuka
               </button>
             </div>
@@ -73,7 +73,7 @@ const CareerBox = () => {
                   Kami menggunakan<i>git</i>sebagai<i>version control system</i>
                 </li>
               </ul>
-              <button className="btn btn-gray btn-sm" disabled="true">
+              <button className="btn btn-gray btn-sm" disabled>
                 Pendaftaran Belum Dibuka
               </button>
             </div>
@@ -98,7 +98,7 @@ const CareerBox = () => {
               </li>
               <li>Remote, Monitoring, Standby </li>
             </ul>
-            <button className="btn btn-gray btn-sm" disabled="true">
+            <button className="btn btn-gray btn-sm" disabled>
               Pendaftaran Belum Dibuka{" "}
             </button>
           </div>

@@ -24,7 +24,7 @@ const HomeSubHeader = ({ slider }) => {
         setSliderStart(true);
         setSliderShow(true);
       }
-    }, 1000);
+    }, 200);
   }, [slider, sliderStart]);
 
   useEffect(() => {
