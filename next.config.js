@@ -17,7 +17,7 @@ const nextConfig = {
       //browse competition pages
       {
         source: "/browse/:mainCat",
-        destination: "/browse?mainCat=:mainCat",
+        destination: "/browse?mainkat=:mainCat",
       },
       {
         source: "/browse/tag/:tag",
@@ -25,7 +25,7 @@ const nextConfig = {
       },
       {
         source: "/browse/:mainCat/:subCat",
-        destination: "/browse?mainCat=:mainCat&subCat=:subCat",
+        destination: "/browse?mainkat=:mainCat&subkat=:subCat",
       },
       //competition detail page
       {
