@@ -79,7 +79,7 @@ const AddCompetition = () => {
                 <h2>Kirim Kompetisi</h2>
                 <p>
                   Kamu cukup upload poster dan link untuk kemudian dicek pihak
-                  "KI" dan akan diposting jika data tersebut valid.
+                  &quot;KI&quot; dan akan diposting jika data tersebut valid.
                   <br />
                   <small>
                     *)waktu yang dibutuhkan untuk validasi lebih lama dari

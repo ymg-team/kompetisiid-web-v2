@@ -123,6 +123,7 @@ const SendCompetition = () => {
                 <a
                   href="https://kompetisi.id/news/TlRFPQ/Syarat-dan-Ketentuan-Mengirim-Kompetisi-di-Kompetisi.Id"
                   target="_blank"
+                  rel="noreferrer noopener"
                 >
                   syarat dan ketentuan yang berlaku
                 </a>
