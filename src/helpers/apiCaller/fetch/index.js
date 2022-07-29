@@ -35,16 +35,15 @@ const fetchModule = ({
       }
       const Res = await fetch(`${host}${endpoint}`, ReqParams);
       const ResText = await Res.text();
-
       try {
-        const ResJson = await Res.json();
-        resolve(ResJson);
+        const ResJson = JSON.parse(ResText);
+        return resolve(ResJson);
       } catch (e) {
-        resolve(ResText);
+        return resolve(ResText);
       }
     } else {
       // fetch api not available
-      resolve({
+      return resolve({
         status: "500",
         message: "Fetch function not supported",
       });
