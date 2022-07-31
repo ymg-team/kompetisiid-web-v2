@@ -29,6 +29,10 @@ const nextConfig = {
       },
       //competition detail page
       {
+        source: "/c/:id",
+        destination: "/competitionDetail?id=:id&type=regulations",
+      },
+      {
         source: "/competition/:id/regulations/:title",
         destination: "/competitionDetail?id=:id&title=:title&type=regulations",
       },
