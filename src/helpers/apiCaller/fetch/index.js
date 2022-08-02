@@ -12,6 +12,7 @@ const fetchModule = ({
   endpoint,
   method = "get",
   jsonBody = {},
+  formData,
   headers = {},
 }) => {
   return new Promise(async (resolve) => {
@@ -19,9 +20,9 @@ const fetchModule = ({
       // generate headers ars
       headers.Seal = sealMiddleware.generateSeal();
 
-      if (!headers["Content-Type"]) {
-        headers["Content-Type"] = "application/json";
-      }
+      // if (!headers["Content-Type"]) {
+      //   headers["Content-Type"] = "application/json";
+      // }
 
       //time to fetch to services
       let ReqParams = {
@@ -31,7 +32,11 @@ const fetchModule = ({
       };
 
       if (method.toLowerCase() !== "get") {
-        ReqParams.body = JSON.stringify(jsonBody);
+        if (formData) {
+          ReqParams.body = formData;
+        } else {
+          ReqParams.body = JSON.stringify(jsonBody);
+        }
       }
       const Res = await fetch(`${host}${endpoint}`, ReqParams);
       const ResText = await Res.text();
