@@ -2,6 +2,10 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+const { NODE_ENV } = publicRuntimeConfig;
+
 export default function KIDocument() {
   return (
     <Html>
@@ -30,6 +34,28 @@ export default function KIDocument() {
         <NextScript />
         <div id="fb-root" />
         <script src="/static/script.0.0.1.min.js" async></script>
+        {NODE_ENV === "production" && (
+          <>
+            <script
+              async
+              src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+            ></script>
+            <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-6SDWQ9RSGC"
+            ></script>
+            <script
+              async
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-6SDWQ9RSGC');`,
+              }}
+            ></script>
+          </>
+        )}
       </body>
     </Html>
   );
