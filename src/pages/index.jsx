@@ -91,6 +91,17 @@ const Home = ({ serverData = {} }) => {
         />
       </SEO>
 
+      <div className="col-md-12">
+        <GAds
+          style={{ marginTop: 0, marginBottom: 50 }}
+          key={`ads_key`}
+          adClient="ca-pub-4468477322781117"
+          adSlot={5218613800}
+          timeout={1000}
+          adTest
+        />
+      </div>
+
       {/* <Navbar /> */}
       <div
         style={{ marginTop: 50, borderBottom: "1px solid #e4e4e4" }}
@@ -111,16 +122,6 @@ const Home = ({ serverData = {} }) => {
         <SubHeaderTitle
           title="Kompetisi Baru"
           text="Ikuti beragam kompetisi disini sesuai dengan minat kamu."
-        />
-      </div>
-
-      <div className="col-md-12">
-        <GAds
-          key={`ads_key`}
-          adClient="ca-pub-4468477322781117"
-          adSlot={5218613800}
-          timeout={1000}
-          adTest
         />
       </div>
 

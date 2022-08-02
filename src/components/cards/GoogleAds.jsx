@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -13,65 +13,61 @@ const Ads = styled.ins`
   text-align: center;
 `;
 
-class GoogleAds extends Component {
-  static propTypes = {
-    adClient: PropTypes.string.isRequired,
-    adSlot: PropTypes.number.isRequired,
-    adTest: PropTypes.bool.isRequired,
-    dummy: PropTypes.bool.isRequired,
-    style: PropTypes.object,
-    timeout: PropTypes.number,
-  };
+const GoogleAds = (props) => {
+  React.useEffect(() => {
+    renderGADS();
+  }, []);
 
-  static defaultProps = {
-    adTest: false,
-    dummy: false,
-    adSlot: 0,
-    adClient: "",
-    style: {},
-  };
-
-  componentDidMount() {
+  const renderGADS = () => {
     // render new Google Ads
     if (NODE_ENV === "production") {
-      if (this.props.timeout) {
+      if (props.timeout) {
         setTimeout(() => {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
-        }, this.props.timeout);
+        }, props.timeout);
       } else {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
       }
     }
-  }
+  };
 
-  componentWillUnmount() {
-    // destroy Google Ads
+  let style = { display: "block" };
+  if (NODE_ENV !== "production") {
+    style.backgroundColor = "#F4F4F4";
+    style.height = "250px";
   }
+  style = Object.assign(style, props.style);
 
-  render() {
-    let style = { display: "block" };
-    if (this.props.dummy) {
-      style.backgroundColor = "#F4F4F4";
-      style.height = "100px";
-    }
-    style = Object.assign(style, this.props.style);
-
-    if (this.props.dummy) {
-      return <Ads className="col-md-12" style={style} />;
-    } else {
-      return (
-        <Ads
-          className="adsbygoogle"
-          style={style}
-          data-ad-client={this.props.adClient}
-          data-ad-slot={this.props.adSlot}
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-          data-adtest={this.props.adTest ? "on" : "off"}
-        />
-      );
-    }
+  if (NODE_ENV !== "production") {
+    return <Ads className="col-md-12" style={style} />;
+  } else {
+    return (
+      <Ads
+        className="adsbygoogle"
+        style={style}
+        data-ad-client={props.adClient}
+        data-ad-slot={props.adSlot}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+        data-adtest={props.adTest ? "on" : "off"}
+      />
+    );
   }
-}
+};
+
+GoogleAds.propTypes = {
+  adClient: PropTypes.string.isRequired,
+  adSlot: PropTypes.number.isRequired,
+  adTest: PropTypes.bool.isRequired,
+  style: PropTypes.object,
+  timeout: PropTypes.number,
+};
+
+GoogleAds.defaultProps = {
+  adTest: false,
+  adSlot: 0,
+  adClient: "",
+  style: {},
+};
 
 export default GoogleAds;
