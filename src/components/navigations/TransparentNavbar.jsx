@@ -13,12 +13,12 @@ const Menus = [
     text: "Jelajah",
     title: "Jelajahi kompetisi dari berbagai kategori",
   },
-  // {
-  //   link: "/add",
-  //   text: "Pasang",
-  //   key: "add",
-  //   title: "Pasang Kompetisi disini, gratis!",
-  // },
+  {
+    link: "/add",
+    text: "Pasang",
+    keys: ["add"],
+    title: "Pasang Kompetisi disini, gratis!",
+  },
   {
     link: "/news",
     keys: ["news"],
@@ -304,7 +304,9 @@ const Navbar = (props) => {
                   {Menus.map((n) => (
                     <li
                       className={
-                        n.keys.includes(CurrentPath[1]) ? "active" : ""
+                        n.keys && n.keys.includes(CurrentPath[1])
+                          ? "active"
+                          : ""
                       }
                       key={n.link}
                     >

@@ -1,13 +1,17 @@
-import React, { Component } from "react"
-import styled from "styled-components"
-import PropTypes from "prop-types"
+import React, { Component } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+const { NODE_ENV } = publicRuntimeConfig;
 
 // components
 const Ads = styled.ins`
   display: block;
   margin: 30px 0;
   text-align: center;
-`
+`;
 
 class GoogleAds extends Component {
   static propTypes = {
@@ -16,26 +20,26 @@ class GoogleAds extends Component {
     adTest: PropTypes.bool.isRequired,
     dummy: PropTypes.bool.isRequired,
     style: PropTypes.object,
-    timeout: PropTypes.number
-  }
+    timeout: PropTypes.number,
+  };
 
   static defaultProps = {
     adTest: false,
     dummy: false,
     adSlot: 0,
     adClient: "",
-    style: {}
-  }
+    style: {},
+  };
 
   componentDidMount() {
     // render new Google Ads
-    if (process.env.NODE_ENV === "production") {
+    if (NODE_ENV === "production") {
       if (this.props.timeout) {
         setTimeout(() => {
-          ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-        }, this.props.timeout)
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        }, this.props.timeout);
       } else {
-        ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
       }
     }
   }
@@ -45,15 +49,15 @@ class GoogleAds extends Component {
   }
 
   render() {
-    let style = { display: "block" }
+    let style = { display: "block" };
     if (this.props.dummy) {
-      style.backgroundColor = "#F4F4F4"
-      style.height = "100px"
+      style.backgroundColor = "#F4F4F4";
+      style.height = "100px";
     }
-    style = Object.assign(style, this.props.style)
+    style = Object.assign(style, this.props.style);
 
     if (this.props.dummy) {
-      return <Ads className="col-md-12" style={style} />
+      return <Ads className="col-md-12" style={style} />;
     } else {
       return (
         <Ads
@@ -65,9 +69,9 @@ class GoogleAds extends Component {
           data-full-width-responsive="true"
           data-adtest={this.props.adTest ? "on" : "off"}
         />
-      )
+      );
     }
   }
 }
 
-export default GoogleAds
+export default GoogleAds;
