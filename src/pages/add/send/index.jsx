@@ -95,7 +95,7 @@ const SendCompetition = () => {
             <hr />
 
             <Formik
-              initialValues={{ email: "", link: "", title: "", poster: "" }}
+              initialValues={{ email: "", link: "", title: "", poster: null }}
               validate={(values) => {
                 const errors = {};
 
