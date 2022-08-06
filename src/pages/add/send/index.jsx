@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { alert } from "@components/Alert";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import Script from "next/script";
 
 // services
@@ -10,9 +10,9 @@ import { sendCompetition } from "@services/sendCompetition";
 import SEO from "@components/meta/SEO";
 import Link from "next/link";
 import InputTextV2 from "@components/form/v2/InputText";
-import InputFileV2 from "@components/form/v2/InputFile";
 import Submit from "@components/form/v2/Submit";
 import Subheader from "@components/Subheader";
+import { useRouter } from "next/router";
 
 const Meta = {
   title: "Pasang Kompetisi",
@@ -36,6 +36,8 @@ const BreadcrumbData = [
 ];
 
 const SendCompetition = () => {
+  const Router = useRouter();
+
   // === initial states ===
   const [loading, setLoading] = React.useState(false);
   const [isAccept, setIsAccept] = React.useState(false);
@@ -48,11 +50,11 @@ const SendCompetition = () => {
   });
 
   React.useEffect(() => {
-    if (response.status) {
-      if (response.status == 200) {
+    if (response.status || response.message) {
+      if (response.status == 201) {
         alert(true, response.message, "success");
         setTimeout(() => {
-          location.reload();
+          Router.push("/");
         }, 1500);
       } else {
         alert(true, response.message, "error");
@@ -105,9 +107,6 @@ const SendCompetition = () => {
                 // link validation
                 if (!values.link) errors.link = "Required";
 
-                // poster validation
-                if (!values.poster) errors.poster = "Required";
-
                 // email validation
                 if (!values.email) {
                   errors.email = "Required";
@@ -130,14 +129,8 @@ const SendCompetition = () => {
                     alert(true, "Rechaptcha belum valid", "error");
                     setLoading(false);
                   } else {
-                    const formData = new FormData();
-
-                    for (let key in values) {
-                      formData.append(key, values[key]);
-                    }
-
                     const Response = await sendCompetition({
-                      formData,
+                      jsonBody: values,
                     });
                     setResponse(Response);
                   }
@@ -148,7 +141,7 @@ const SendCompetition = () => {
                 <InputTextV2 type="email" name="email" required />
                 <InputTextV2 type="text" name="title" required />
                 <InputTextV2 type="text" name="link" required />
-                <InputFileV2 name="poster" required />
+                {/* <InputFileV2 name="poster" required /> */}
                 <br />
                 <div className="form-child">
                   <input
