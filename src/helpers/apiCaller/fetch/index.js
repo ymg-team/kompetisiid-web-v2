@@ -20,9 +20,9 @@ const fetchModule = ({
       // generate headers ars
       headers.Seal = sealMiddleware.generateSeal();
 
-      // if (!headers["Content-Type"]) {
-      //   headers["Content-Type"] = "application/json";
-      // }
+      if (!headers["Content-Type"]) {
+        headers["Content-Type"] = "application/json";
+      }
 
       //time to fetch to services
       let ReqParams = {
