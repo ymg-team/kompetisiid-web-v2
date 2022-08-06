@@ -29,21 +29,17 @@ const IndexApi = async (req, res) => {
 
       const URL_TARGET = `${URL_KI_BE}${endpoint}`;
 
-      let headers = req.headers;
-
-      if (!headers["Content-Type"]) {
-        headers["Content-Type"] = "application/json";
-      }
+      let headers = {};
 
       let ReqArgs = {
         method,
         headers,
       };
 
-      console.log("body", body);
-
-      if (method.toLowerCase() !== "get" && body)
+      if (method.toLowerCase() !== "get" && body) {
+        ReqArgs.headers["Content-Type"] = "application/json";
         ReqArgs.body = JSON.stringify(body);
+      }
 
       console.log(`REQ LOG: ${method} ${URL_TARGET}`);
 
