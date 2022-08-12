@@ -1,6 +1,6 @@
-import { Field, Form, Formik, FormikProps } from "formik";
+import { Field } from "formik";
 
-const InputTextV2 = ({ label, name, type, placeholder, required }) => {
+const InputTextV2 = ({ label, name, type, placeholder, required, noLabel }) => {
   return (
     <Field name={name}>
       {({
@@ -9,7 +9,7 @@ const InputTextV2 = ({ label, name, type, placeholder, required }) => {
         meta,
       }) => (
         <div className={`form-child ${meta.touched && meta.error && "error"} `}>
-          {(label || name) && (
+          {!noLabel && (label || name) && (
             <label>
               {label || name} {required && <span className="text-red">*</span>}
             </label>
@@ -24,6 +24,7 @@ const InputTextV2 = ({ label, name, type, placeholder, required }) => {
 
 InputTextV2.defaultProps = {
   type: "text",
+  noLabel: false,
 };
 
 export default InputTextV2;

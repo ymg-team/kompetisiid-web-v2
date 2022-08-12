@@ -1,4 +1,4 @@
-import { fetchFeedNews } from "../../../../services/feed";
+import { fetchFeedNews } from "@services/feed";
 
 const FeedNewsApi = async (req, res) => {
   const Response = await fetchFeedNews();

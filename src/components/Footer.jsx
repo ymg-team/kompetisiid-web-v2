@@ -113,7 +113,7 @@ const Footer = (props) => {
               </p>
               Kami adalah sebuah platform kompetisi untuk berbagai macam
               kompetisi yang diadakan di Indonesia untuk selanjutnya dipanggil
-              `&quot;`KI`&quot;`. Dipersembahkan oleh Yussan Media Group.
+              &quot;KI&quot;. Dipersembahkan oleh YMG (Yussan Media Group) Team.
               Penyelenggara dapat menggunakan KI sebagai media publikasi, media
               partner ataupun kerja sama untuk kompetisi yang mereka adakan.
               Peserta dapat menjelajahi dan mengikuti berbagai kategori
@@ -264,7 +264,11 @@ const Footer = (props) => {
                   </a>
                 </li>
                 <li>
-                  <a href="/feed" target="_blank" rel="noreferrer noopener">
+                  <a
+                    href="https://kompetisi.id/api/feed/competition"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
                     <i className="fa fa-rss" />
                   </a>
                 </li>
