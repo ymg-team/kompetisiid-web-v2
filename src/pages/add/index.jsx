@@ -9,8 +9,6 @@ import { alert } from "@components/Alert";
 
 const ChooseMethodStyled = Styled.div`
   .add-competition {
-    width: 1100px;
-    margin: auto;
     p {
       margin-bottom: 50px;
       overflow-y: auto;
@@ -69,30 +67,30 @@ const AddCompetition = () => {
   return (
     <ChooseMethodStyled>
       <SEO title={title} description={desc} />
-      <Subheader title={title} desc={desc} breadcrumb={BreadcrumbData} />
-      <div className="col-md-12">
+
+      <div className="container">
+        <Subheader title={title} desc={desc} breadcrumb={BreadcrumbData} />
         <div className="add-competition">
           <div className="col-md-12 m-20" />
-          <div className="col-md-10 col-md-push-1 m-20">
-            <div className="row">
-              <div className="add-competition-box col-md-6 align-center">
-                <h2>Kirim Kompetisi</h2>
-                <p>
-                  Kamu cukup upload poster dan link untuk kemudian dicek pihak
-                  &quot;KI&quot; dan akan diposting jika data tersebut valid.
-                  <br />
-                  <small>
-                    *)waktu yang dibutuhkan untuk validasi lebih lama dari
-                    pasang sendiri
-                  </small>
-                </p>
-                <Link href="/add/send">
-                  <a className="btn btn-white" title="klik untuk pasang cepat">
-                    Klik untuk kirim kompetisi
-                  </a>
-                </Link>
-              </div>
-              <div className="add-competition-box col-md-6 align-center">
+          <div className="row">
+            <div className="add-competition-box col-md-6 align-left">
+              <h2>Kirim Kompetisi</h2>
+              <p>
+                Kamu cukup upload poster dan link untuk kemudian dicek pihak
+                &quot;KI&quot; dan akan diposting jika data tersebut valid.
+                <br />
+                <small>
+                  *)waktu yang dibutuhkan untuk validasi lebih lama dari pasang
+                  sendiri
+                </small>
+              </p>
+              <Link href="/add/send">
+                <a className="btn btn-white" title="klik untuk pasang cepat">
+                  Klik untuk kirim kompetisi
+                </a>
+              </Link>
+            </div>
+            {/* <div className="add-competition-box col-md-6 align-center">
                 <h2>Pasang Sendiri</h2>
                 <p>
                   Login dan pasang sendiri kompetisimu melalui dashboard member.
@@ -110,11 +108,10 @@ const AddCompetition = () => {
                 >
                   Klik untuk pasang kompetisi
                 </a>
-              </div>
-            </div>
+              </div> */}
           </div>
-          <div className="col-md-12 m-20" />
         </div>
+        <div className="col-md-12 m-20" />
       </div>
     </ChooseMethodStyled>
   );

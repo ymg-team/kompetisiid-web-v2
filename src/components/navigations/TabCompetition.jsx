@@ -21,24 +21,25 @@ const TabCompetition = (props) => {
                   <li key={key} className={props.active == key ? "active" : ""}>
                     <Link
                       href={`/competition/${props.data.id}/${tab[key].link}/${props.data.nospace_title}`}
+                      scroll={false}
                     >
                       <a>
                         {n.name}
                         &nbsp;
                         {/* count announcements */}
-                        {n.name == "pengumuman" && n_pengumuman > 0 ? (
+                        {n.name == "pengumuman" && n_pengumuman > 0 && (
                           <Label
                             type={props.active - 1 == key ? "red" : "white"}
                             text={n_pengumuman}
                           />
-                        ) : null}
+                        )}
                         {/* count contacts */}
-                        {n.name == "kontak" && n_kontak > 0 ? (
+                        {n.name == "kontak" && n_kontak > 0 && (
                           <Label
                             type={props.active - 1 == key ? "red" : "white"}
                             text={n_kontak}
                           />
-                        ) : null}
+                        )}
                       </a>
                     </Link>
                   </li>

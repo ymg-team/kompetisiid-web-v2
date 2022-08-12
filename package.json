@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "local": "npm run dev",
+    "local": "pnpm dev",
     "dev": "next dev -p 20222",
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production next start -p 20222",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "copy-to-clipboard": "^3.3.1",
+    "formik": "^2.2.9",
     "next": "12.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

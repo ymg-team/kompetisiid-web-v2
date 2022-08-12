@@ -12,13 +12,17 @@ const fetchModule = ({
   endpoint,
   method = "get",
   jsonBody = {},
+  formData,
+  headers = {},
 }) => {
   return new Promise(async (resolve) => {
     if (typeof fetch !== "undefined") {
-      let headers = {
-        "Content-Type": "application/json",
-        Seal: sealMiddleware.generateSeal(),
-      };
+      // generate headers ars
+      headers.Seal = sealMiddleware.generateSeal();
+
+      if (!headers["Content-Type"]) {
+        headers["Content-Type"] = "application/json";
+      }
 
       //time to fetch to services
       let ReqParams = {
@@ -28,15 +32,23 @@ const fetchModule = ({
       };
 
       if (method.toLowerCase() !== "get") {
-        ReqParams.body = JSON.stringify(jsonBody);
+        if (formData) {
+          ReqParams.body = formData;
+        } else {
+          ReqParams.body = JSON.stringify(jsonBody);
+        }
       }
-      const Req = await fetch(`${host}${endpoint}`, ReqParams);
-      const ResJson = await Req.json();
-
-      resolve(ResJson);
+      const Res = await fetch(`${host}${endpoint}`, ReqParams);
+      const ResText = await Res.text();
+      try {
+        const ResJson = JSON.parse(ResText);
+        return resolve(ResJson);
+      } catch (e) {
+        return resolve(ResText);
+      }
     } else {
       // fetch api not available
-      resolve({
+      return resolve({
         status: "500",
         message: "Fetch function not supported",
       });
