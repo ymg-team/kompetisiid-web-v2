@@ -1,4 +1,4 @@
-import { fetchFeedCompetition } from "../../../../services/feed";
+import { fetchFeedCompetition } from "@services/feed";
 
 const FeedCompetitionApi = async (req, res) => {
   const Response = await fetchFeedCompetition();
