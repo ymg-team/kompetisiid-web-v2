@@ -1,5 +1,5 @@
 import React from "react";
-import { Fullscreen } from "../Fullscreen";
+import Fullscreen from "../Fullscreen";
 import Link from "next/link";
 
 const FullPageError = ({ message, code }) => {

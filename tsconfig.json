@@ -19,6 +19,7 @@
       "~/*": ["./*"],
       "~":  ["./"],
       "@components/*": ["./src/components/*"],
+      "@modules/*": ["./src/modules/*"],
       "@services/*": ["./src/services/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@configs/*": ["./src/config/*"],
