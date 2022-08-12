@@ -10,8 +10,6 @@ import InputFile from "@components/form/InputFile";
 import Submit from "@components/form/Submit";
 import Subheader from "@components/Subheader";
 
-let RecaptchaContainer;
-
 const Meta = {
   title: "Pasang Kompetisi",
   description:
