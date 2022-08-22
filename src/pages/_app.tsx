@@ -1,18 +1,22 @@
-import React from "react"
-import "~/public/static/style.140422.css"
-import type { AppProps } from 'next/app'
+import React from "react";
+import "~/public/static/style.140422.css";
+import type { AppProps } from "next/app";
 import Head from "next/head";
 
 // layouts
 import HomeLayoutV5 from "~/src/layouts/HomeLayoutV5";
 
-function MyApp({ Component, pageProps }: AppProps) {
-
+function MyApp({ Component, pageProps, router }: AppProps) {
   const Layout = React.useMemo(() => {
-    return HomeLayoutV5
-  }, [])
+    return HomeLayoutV5;
+  }, []);
 
-  return <>
+  const isFullScreen = React.useMemo(() => {
+    return router.pathname === "/404";
+  }, [router, pageProps]);
+
+  return (
+    <>
       <Head>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -35,10 +39,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="825189798997-4gtj3pdnfpj2gvkvad6984emfg67kvec.apps.googleusercontent.com"
         />
       </Head>
-      <Layout>
-      <Component {...pageProps} />
-  </Layout>
-  </>
+      <Layout {...{ isFullScreen }}>
+        <Component {...pageProps} />
+      </Layout>
+    </>
+  );
 }
 
-export default MyApp
+export default MyApp;

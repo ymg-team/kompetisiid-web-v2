@@ -62,11 +62,10 @@ const LayoutStyled = Styled.div`
 
 let addedEventScroll = false;
 
-const RootLayoutV5 = ({ children }) => {
+const RootLayoutV5 = ({ children, isFullScreen }) => {
   const Router = useRouter();
 
   const [isHideNavbar, setIsHideNavbar] = useState(false);
-  const [isFullScreen, setIsFullScreen] = useState(false);
   const [showBtnTop, setShowBtnTop] = useState(false);
   const [online, setOnline] = useState(true);
   const [showNotifConfirmation, setShowNotifConfirmation] = useState(false);
@@ -126,12 +125,12 @@ const RootLayoutV5 = ({ children }) => {
     <LayoutStyled>
       {/* offline wrapper */}
       <div style={onlineWrapperStyle}>
-        {!isHideNavbar && <Navbar />}
+        {!isHideNavbar && !isFullScreen && <Navbar />}
 
         {children}
 
         {/* gads */}
-        {!isFullScreen ? (
+        {!isFullScreen && (
           <div className="col-md-12 align-center">
             <GAds
               adClient="ca-pub-4468477322781117"
@@ -139,7 +138,7 @@ const RootLayoutV5 = ({ children }) => {
               // adTest={true}
             />
           </div>
-        ) : null}
+        )}
         {/* gads */}
 
         {!isFullScreen && <Footer />}
@@ -195,6 +194,7 @@ const RootLayoutV5 = ({ children }) => {
 
 RootLayoutV5.defaultProps = {
   isFullScreen: false,
+  isHideNavbar: false,
 };
 
 export default RootLayoutV5;
