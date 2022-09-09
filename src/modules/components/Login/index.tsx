@@ -8,6 +8,7 @@ import SEO from "@components/meta/SEO";
 import FullScreen from "@components/Fullscreen";
 import InputTextV2 from "@components/form/v2/InputText";
 import { LoginStyled } from "./styled";
+import Submit from "@components/form/v2/Submit";
 
 const Login: React.FC<LoginComponentInterface> = ({ isSuper }) => {
   // === initial states ===
@@ -72,18 +73,31 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper }) => {
             }}
           >
             <Form className="form-ki">
-              {/* <InputTextV2
+              <InputTextV2
                 type="text"
                 name="username"
                 label="Email/Username"
                 required
-              />
+              />{" "}
               <InputTextV2
                 type="password"
                 name="password"
                 label="Password"
                 required
-              /> */}
+              />
+              <br />
+              <Submit
+                className="btn btn-gray"
+                disabled={loading}
+                type="submit"
+                style={{
+                  fontWeight: "bold",
+                  width: "100%",
+                  backgroundColor: "#FFF",
+                  color: "#292929",
+                }}
+                text={loading ? "loading..." : "login"}
+              />
             </Form>
           </Formik>
 
@@ -142,19 +156,22 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper }) => {
               />
             </div>
           </form> */}
-          <hr />
-          {!isSuper ? (
-            <p>
-              Belum punya akun, silahkan{" "}
-              <Link href="/register">
-                <a>Register Disini</a>
-              </Link>{" "}
-              atau{" "}
-              <Link href="/forgot-password">
-                <a>Lupa password</a>
-              </Link>
-            </p>
-          ) : null}
+
+          {!isSuper && (
+            <>
+              <hr />
+              <p>
+                Belum punya akun, silahkan{" "}
+                <Link href="/register">
+                  <a>Register Disini</a>
+                </Link>{" "}
+                atau{" "}
+                <Link href="/forgot-password">
+                  <a>Lupa password</a>
+                </Link>
+              </p>
+            </>
+          )}
         </div>
 
         {/* footer navigation */}

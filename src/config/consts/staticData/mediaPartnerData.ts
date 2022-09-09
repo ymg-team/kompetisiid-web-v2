@@ -1,4 +1,4 @@
-export default [
+const MediaPartnerData: Array<Object> = [
   // {
   //   title:
   //     "Lomba Karya Tulis Ilmiah - Sharia Economics Triumph Activities 2018",
@@ -12,3 +12,5 @@ export default [
   //   }
   // }
 ];
+
+export default MediaPartnerData;

@@ -1,13 +1,21 @@
-import { Field } from "formik";
+import { Field, FormikContextType } from "formik";
+import { InputTextInterface } from "./interfaces";
 
-const InputTextV2 = ({ label, name, type, placeholder, required, noLabel }) => {
+const InputTextV2: React.FC<InputTextInterface> = ({
+  label,
+  name,
+  type,
+  placeholder,
+  required,
+  noLabel,
+}) => {
   return (
     <Field name={name}>
       {({
         field, // { name, value, onChange, onBlur }
         form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
         meta,
-      }) => (
+      }: any) => (
         <div className={`form-child ${meta.touched && meta.error && "error"} `}>
           {!noLabel && (label || name) && (
             <label>
@@ -25,6 +33,7 @@ const InputTextV2 = ({ label, name, type, placeholder, required, noLabel }) => {
 InputTextV2.defaultProps = {
   type: "text",
   noLabel: false,
+  required: false,
 };
 
 export default InputTextV2;
