@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Colors } from "~/src/config/style";
 import { initModalImages } from "~/src/helpers/modal";
 import { useRouter } from "next/router";
@@ -62,7 +62,7 @@ const LayoutStyled = Styled.div`
 
 let addedEventScroll = false;
 
-const RootLayoutV5 = ({ children, isFullScreen }) => {
+const HomeLayoutV5 = ({ children, isFullScreen }) => {
   const Router = useRouter();
 
   const [isHideNavbar, setIsHideNavbar] = useState(false);
@@ -192,9 +192,9 @@ const RootLayoutV5 = ({ children, isFullScreen }) => {
   );
 };
 
-RootLayoutV5.defaultProps = {
+HomeLayoutV5.defaultProps = {
   isFullScreen: false,
   isHideNavbar: false,
 };
 
-export default RootLayoutV5;
+export default HomeLayoutV5;

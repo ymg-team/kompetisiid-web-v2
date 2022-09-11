@@ -17,6 +17,9 @@ const fetchModule = ({
 }) => {
   return new Promise(async (resolve) => {
     if (typeof fetch !== "undefined") {
+      // normalize method
+      method = method.toUpperCase();
+
       // generate headers ars
       headers.Seal = sealMiddleware.generateSeal();
 
@@ -31,13 +34,14 @@ const fetchModule = ({
         headers,
       };
 
-      if (method.toLowerCase() !== "get") {
+      if (method !== "GET") {
         if (formData) {
           ReqParams.body = formData;
         } else {
           ReqParams.body = JSON.stringify(jsonBody);
         }
       }
+
       const Res = await fetch(`${host}${endpoint}`, ReqParams);
       const ResText = await Res.text();
       try {

@@ -1,5 +1,7 @@
 import React from "react";
+import { alert } from "~/src/components/Alert";
 import { LoginComponentInterface } from "./interfaces";
+import { setSession } from "@helpers/cookies";
 
 import Link from "next/link";
 import { Form, Formik } from "formik";
@@ -9,6 +11,9 @@ import FullScreen from "@components/Fullscreen";
 import InputTextV2 from "@components/form/v2/InputText";
 import { LoginStyled } from "./styled";
 import Submit from "@components/form/v2/Submit";
+
+// services
+import { superLogin } from "@services/super";
 
 const Login: React.FC<LoginComponentInterface> = ({ isSuper }) => {
   // === initial states ===
@@ -23,6 +28,32 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper }) => {
       description: "Login dan tetap jaga privasi anda ya",
     };
   }, [isSuper]);
+
+  const loginHandler = React.useCallback(
+    async ({ username, password }: any) => {
+      setLoading(true);
+      const Response = await superLogin({ username, password });
+
+      if (Response.status) {
+        // login success, time to save session
+        setSession(Response);
+        setTimeout(() => {
+          // reload after 1.5s
+          location.reload();
+        }, 1500);
+      } else {
+        // login error
+        setLoading(false);
+      }
+
+      alert(
+        true,
+        Response.message,
+        Response.status === 200 ? "success" : "error"
+      );
+    },
+    [username, password]
+  );
 
   return (
     <FullScreen className={`login ${isSuper ? "login-super" : ""}`}>
@@ -60,7 +91,7 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper }) => {
           <Formik
             initialValues={{ username: "", password: "" }}
             onSubmit={(values, { setSubmitting }) => {
-              console.log("values", values);
+              return loginHandler(values);
             }}
             validate={(values) => {
               const errors: any = {};

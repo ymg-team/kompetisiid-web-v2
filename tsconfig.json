@@ -23,6 +23,7 @@
       "@services/*": ["./src/services/*"],
       "@helpers/*": ["./src/helpers/*"],
       "@configs/*": ["./src/config/*"],
+      "@layouts/*": ["./src/layouts/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
