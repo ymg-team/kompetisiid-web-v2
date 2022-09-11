@@ -1,4 +1,5 @@
 import getConfig from "next/config";
+import { modifyRouteRegex } from "next/dist/lib/load-custom-routes";
 const { publicRuntimeConfig } = getConfig();
 const { URL_KI_BE } = publicRuntimeConfig;
 
@@ -13,7 +14,8 @@ export const config = {
 };
 
 const IndexApi = async (req, res) => {
-  const { method, query, headers, body, files } = req;
+  const { query, headers, body, files } = req;
+  let { method } = req;
   const { seal } = headers;
 
   if (!seal) {
@@ -22,6 +24,9 @@ const IndexApi = async (req, res) => {
     // seal validation
     const { is_valid } = sealMiddleware.validate(seal);
     if (is_valid) {
+      // normalize method
+      method = method.toUpperCase();
+
       // const endpoint = `/${req.query.endpoint.join("/")}`;
       const endpoint = req.url.replace("/api", "");
 
@@ -36,7 +41,7 @@ const IndexApi = async (req, res) => {
         headers,
       };
 
-      if (method.toLowerCase() !== "get" && body) {
+      if (method !== "GET" && body) {
         ReqArgs.headers["Content-Type"] = "application/json";
         ReqArgs.body = JSON.stringify(body);
       }
