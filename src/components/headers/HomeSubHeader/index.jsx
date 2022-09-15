@@ -90,12 +90,20 @@ const CompetitionSlider = (props) => {
   return (
     <div className={`competition-slider`}>
       <div
+        onClick={() => Router.push(hrefTarget)}
         className="hide-mobile competition-slider_poster col-md-4"
-        style={{ backgroundImage: `url(${props.poster.original})` }}
+        style={{
+          backgroundImage: `url(${props.poster.original})`,
+          cursor: "pointer",
+        }}
       />
       <div className="competition-slider_text col-md-8">
         <div>
-          <div className="col-md-12">
+          <div
+            style={{ cursor: "pointer" }}
+            className="col-md-12"
+            onClick={() => Router.push(hrefTarget)}
+          >
             {props.mainTopic ? <h1>{props.title}</h1> : <h2>{props.title}</h2>}
           </div>
           <div className="col-md-12">
