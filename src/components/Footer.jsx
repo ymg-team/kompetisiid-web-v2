@@ -227,7 +227,7 @@ const Footer = (props) => {
             </div>
             <div style={{ padding: "10px 0" }} className="col-md-6 col-xs-12">
               <ul className="horizontal-menu pull-right social-media">
-                <li>
+                {/* <li>
                   <a
                     href="https://wa.me/6285156934428?text=Ada%20pertanyaan%20seputar%20produk%20Yussan%20Media%20Group%2C%20bisa%20disini."
                     target="_blank"
@@ -235,7 +235,7 @@ const Footer = (props) => {
                   >
                     <i className="fab fa-whatsapp" />
                   </a>
-                </li>
+                </li> */}
                 <li>
                   <a
                     href="https://facebook.com/kompetisiid"
