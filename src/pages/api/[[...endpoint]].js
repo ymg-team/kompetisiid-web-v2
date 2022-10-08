@@ -46,8 +46,6 @@ const IndexApi = async (req, res) => {
         ReqArgs.body = JSON.stringify(body);
       }
 
-      console.log(`REQ LOG: ${method} ${URL_TARGET}`);
-
       const Res = await fetch(URL_TARGET, ReqArgs);
       const ResText = await Res.text();
       try {

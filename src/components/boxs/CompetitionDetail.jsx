@@ -207,11 +207,11 @@ const CompetitionDetailBox = (props) => {
               {/* end of button to join competition */}
 
               {/* subscribe button */}
-              <BtnSubscribe
+              {/* <BtnSubscribe
                 authData={props.authData}
                 dispatch={props.dispatch}
                 data={data}
-              />
+              /> */}
               {/* end if subscribe button */}
 
               {/* like button */}

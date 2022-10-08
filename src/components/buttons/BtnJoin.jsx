@@ -7,7 +7,7 @@ const BtnJoin = (props) => {
     props.data.deadline_at,
     props.data.announcement_at
   );
-  return (
+  return props.data.link_join || is_ended || is_waiting ? (
     <a
       id={props.id}
       style={{ marginRight: "10px" }}
@@ -17,16 +17,16 @@ const BtnJoin = (props) => {
           alert(true, "Pendaftaran sudah ditutup", "error");
         }
       }}
-      href={is_ended ? "#" : props.data.link_join || props.data.link_source}
+      href={is_ended || is_waiting ? "#" : props.data.link_join}
       target="_blank"
       rel="noreferrer noopener"
       className={`btn btn-join btn-lg ${
-        is_ended || is_waiting == "berakhir" ? "btn-gray" : "btn-green"
+        is_ended || is_waiting ? "btn-gray" : "btn-green"
       }`}
     >
       {is_ended || is_waiting ? "Pendaftaran Ditutup" : "Registrasi Di Sini"}
     </a>
-  );
+  ) : null;
 };
 
 export default BtnJoin;
