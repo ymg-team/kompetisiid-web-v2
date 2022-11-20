@@ -20,6 +20,7 @@ import NextPrev from "@components/navigations/NextPrev";
 import GAds from "@components/cards/GoogleAds";
 import AlertBox from "@components/commons/AlertBox";
 import { fetchCompetitionRelatedById } from "../../services/competition";
+import ErrorCard from "@components/cards/ErrorCard";
 
 const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
   loading: CompetitionLoading,
@@ -191,127 +192,134 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
         <SEO {...Meta} />
 
         {/* detail box competition */}
-        {respCompetition.data ? (
-          <>
-            <CompetitionDetailBox
-              activeTab={ActiveTab}
-              data={respCompetition.data}
-              // authData={props.authData}
-            />
-            <Tab
-              active={ActiveTab}
-              data={respCompetition.data}
-              link={helmetdata.url}
-            />
+        {respCompetition.status ? (
+          respCompetition.status === 200 ? (
+            <>
+              <CompetitionDetailBox
+                activeTab={ActiveTab}
+                data={respCompetition.data}
+                // authData={props.authData}
+              />
+              <Tab
+                active={ActiveTab}
+                data={respCompetition.data}
+                link={helmetdata.url}
+              />
 
-            {/* GAds */}
-            <div className="row">
-              <div
-                className="col-md-12 align-center"
-                style={{ marginBottom: 30 }}
-              >
-                <GAds
-                  style={{ marginBottom: 0 }}
-                  adClient="ca-pub-4468477322781117"
-                  adSlot={9209398500}
-                  timeout={1000}
-                />
+              {/* GAds */}
+              <div className="row">
+                <div
+                  className="col-md-12 align-center"
+                  style={{ marginBottom: 30 }}
+                >
+                  <GAds
+                    style={{ marginBottom: 0 }}
+                    adClient="ca-pub-4468477322781117"
+                    adSlot={9209398500}
+                    timeout={1000}
+                  />
+                </div>
               </div>
-            </div>
-            {/* end of GAds */}
+              {/* end of GAds */}
 
-            <div className="container">
-              <div className="competition-detail--content">
-                <div className="col-md-10 col-md-push-1">
-                  {selectedAlertBoxData && (
-                    <AlertBox type={selectedAlertBoxData.type}>
-                      <strong>Perhatian!&nbsp;</strong>
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: selectedAlertBoxData.body,
-                        }}
-                      />
-                    </AlertBox>
-                  )}
+              <div className="container">
+                <div className="competition-detail--content">
+                  <div className="col-md-10 col-md-push-1">
+                    {selectedAlertBoxData && (
+                      <AlertBox type={selectedAlertBoxData.type}>
+                        <strong>Perhatian!&nbsp;</strong>
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: selectedAlertBoxData.body,
+                          }}
+                        />
+                      </AlertBox>
+                    )}
 
-                  <div className="m-20" />
+                    <div className="m-20" />
 
-                  <div className="row">
-                    <div className={"col-sm-8"}>
-                      {(() => {
-                        switch (ActiveTab) {
-                          case 1:
-                            return (
-                              <Regulations
-                                {...{ encid }}
-                                nospace_title={
-                                  respCompetition.data.nospace_title
-                                }
-                                link_source={respCompetition.data.link_source}
-                                tags={
-                                  respCompetition.data.tag
-                                    ? respCompetition.data.tag.split(",")
-                                    : []
-                                }
-                                html={respCompetition.data.content}
-                              />
-                            );
-                          case 0:
-                            return (
-                              <Prizes
-                                html={nl2br(
-                                  respCompetition.data.prize.description
-                                )}
-                              />
-                            );
-                          case 2:
-                            return (
-                              <Announcements
-                                data={
-                                  respCompetition.data.announcement
-                                    ? respCompetition.data.announcement
-                                    : []
-                                }
-                              />
-                            );
-                          case 3:
-                            return <Discussions link={helmetdata.url} />;
-                          case 4:
-                            return (
-                              <Contacts
-                                data={
-                                  respCompetition.data.contacts
-                                    ? respCompetition.data.contacts
-                                    : []
-                                }
-                              />
-                            );
-                          case 5:
-                            return (
-                              <Share
-                                title={respCompetition.data.title}
-                                desc={respCompetition.data.sort}
-                                link={helmetdata.url}
-                              />
-                            );
-                          default:
-                            return null;
-                        }
-                      })()}
+                    <div className="row">
+                      <div className={"col-sm-8"}>
+                        {(() => {
+                          switch (ActiveTab) {
+                            case 1:
+                              return (
+                                <Regulations
+                                  {...{ encid }}
+                                  nospace_title={
+                                    respCompetition.data.nospace_title
+                                  }
+                                  link_source={respCompetition.data.link_source}
+                                  tags={
+                                    respCompetition.data.tag
+                                      ? respCompetition.data.tag.split(",")
+                                      : []
+                                  }
+                                  html={respCompetition.data.content}
+                                />
+                              );
+                            case 0:
+                              return (
+                                <Prizes
+                                  html={nl2br(
+                                    respCompetition.data.prize.description
+                                  )}
+                                />
+                              );
+                            case 2:
+                              return (
+                                <Announcements
+                                  data={
+                                    respCompetition.data.announcement
+                                      ? respCompetition.data.announcement
+                                      : []
+                                  }
+                                />
+                              );
+                            case 3:
+                              return <Discussions link={helmetdata.url} />;
+                            case 4:
+                              return (
+                                <Contacts
+                                  data={
+                                    respCompetition.data.contacts
+                                      ? respCompetition.data.contacts
+                                      : []
+                                  }
+                                />
+                              );
+                            case 5:
+                              return (
+                                <Share
+                                  title={respCompetition.data.title}
+                                  desc={respCompetition.data.sort}
+                                  link={helmetdata.url}
+                                />
+                              );
+                            default:
+                              return null;
+                          }
+                        })()}
+                      </div>
+
+                      {/* show sidebar info */}
+                      <Sidebar {...respCompetition} />
+                      {/* end of show sidebar info */}
                     </div>
-
-                    {/* show sidebar info */}
-                    <Sidebar {...respCompetition} />
-                    {/* end of show sidebar info */}
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/*next prev*/}
-            <NextPrev {...NextPrevProps} />
-            {/* end of next prev */}
-          </>
+              {/*next prev*/}
+              <NextPrev {...NextPrevProps} />
+              {/* end of next prev */}
+            </>
+          ) : (
+            <ErrorCard
+              code={respCompetition.status}
+              message={respCompetition.message}
+            />
+          )
         ) : (
           <Loading style={{ minHeight: 200 }} />
         )}

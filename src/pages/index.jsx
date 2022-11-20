@@ -14,20 +14,23 @@ import Link from "next/link";
 import HomeStyled from "./home/styled";
 import EmptyLoading from "@components/preloaders/EmptyLoader";
 import Loading from "@components/preloaders/GlobalLoader";
-import NewsLoading from "@components/preloaders/NewsCardLoader";
+// import NewsLoading from "@components/preloaders/NewsCardLoader";
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
 import SubHeaderHome from "@components/headers/HomeSubHeader";
 import SubHeaderTitle from "@components/headers/SubHeader";
 import GAds from "@components/cards/GoogleAds";
-import AddCompetitionBox from "@components/boxs/AddCompetitionBox";
+import AddCompetitionButton from "@components/buttons/AddCompetitionButton";
 
 // split components
-const NewsBox = Dynamic(import("@components/boxs/NewsBox"), {
-  loading: () => <NewsLoading withContainer />,
-});
+// const NewsBox = Dynamic(import("@components/boxs/NewsBox"), {
+//   loading: () => <NewsLoading withContainer />,
+// });
 const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
   loading: () => <CompetitionLoading withContainer />,
 });
+const BtnGroupCompetition = Dynamic(
+  import("@components/buttons/ButtonGroupBrowseSpecial")
+);
 const MediapartnerBox = Dynamic(import("@components/boxs/MediapartnerBox"), {
   loading: Loading,
 });
@@ -117,7 +120,8 @@ const Home = ({ serverData = {} }) => {
       </div>
 
       {/* competition */}
-      <AddCompetitionBox />
+      <BtnGroupCompetition />
+      <AddCompetitionButton />
       <div className="m-b-50" style={{ borderBottom: "1px solid #e4e4e4" }}>
         <SubHeaderTitle
           title="Kompetisi Baru"
@@ -142,30 +146,30 @@ const Home = ({ serverData = {} }) => {
 
       {/* end of competition */}
 
-      <div className="m-b-50" />
+      {/* <div className="m-b-50" /> */}
 
       {/* news */}
-      <div className="m-b-50" style={{ borderBottom: "1px solid #e4e4e4" }}>
+      {/* <div className="m-b-50" style={{ borderBottom: "1px solid #e4e4e4" }}>
         <SubHeaderTitle
           title="Kabar Baru"
           text="Update dengan kabar baru seputar kompetisi di Indonesia."
         />
-      </div>
+      </div> */}
 
-      <NewsBox subtitle={false} {...respNews} />
+      {/* <NewsBox subtitle={false} {...respNews} /> */}
 
-      <div className="row align-center">
+      {/* <div className="row align-center">
         <Link href="/news">
           <a className="btn btn-bordergray">KABAR BERIKUTNYA</a>
         </Link>
-      </div>
+      </div> */}
 
       {/* media partners ads */}
-      <div className="container">
+      {/* <div className="container">
         <div className="col-md-12">
           <MediaPartnerAds />
         </div>
-      </div>
+      </div> */}
 
       {/* end of news */}
 

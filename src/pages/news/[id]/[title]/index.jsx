@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import Dynamic from "next/dynamic";
 import Styled from "styled-components";
 import { pushScript } from "@helpers/domEvents";
-import { topLoading } from "@components/preloaders";
 import { epochToRelativeTime } from "@helpers/dateTime";
 import { textParser } from "@helpers/string";
 

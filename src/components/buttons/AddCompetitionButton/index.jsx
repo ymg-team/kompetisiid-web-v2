@@ -2,7 +2,7 @@ import React from "react";
 
 // components
 import AddCompetitionBoxStyled from "./styled";
-import Button from "../../buttons/index";
+import Button from "../index";
 import { useRouter } from "next/router";
 
 const AddCompetitionBox = () => {
