@@ -311,7 +311,7 @@ function handleCopyInstagramCaption(data) {
 
   if (data.tag) {
     data.tag.split(",").map((n) => {
-      hashtags += `#${n.trim()} `;
+      hashtags += `#${n.replace(/ /g, "")} `;
     });
   }
 
