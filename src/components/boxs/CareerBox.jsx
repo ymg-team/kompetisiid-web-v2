@@ -1,8 +1,6 @@
-import React from "react";
-
 const CareerBox = () => {
   return (
-    <React.Fragment>
+    <>
       <div
         className="col-md-12 careers-header"
         style={{
@@ -181,7 +179,7 @@ const CareerBox = () => {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { generateLink } from "../../helpers/linkGenerator";
 
 const Type = [
@@ -15,7 +14,7 @@ const Type = [
 ];
 
 const Contacts = (props) => (
-  <React.Fragment>
+  <>
     <h2>Kontak kompetisi</h2>
     <p className="text-muted">
       Ada pertanyaan atau ingin info lebih lanjut langsung dari penyelenggara,
@@ -36,7 +35,7 @@ const Contacts = (props) => (
     ) : (
       <p>kontak tidak tersedia</p>
     )}
-  </React.Fragment>
+  </>
 );
 
 export default Contacts;

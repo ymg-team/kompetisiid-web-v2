@@ -276,7 +276,7 @@ const Navbar = (props) => {
               </div>
             </SearchStyled>
           ) : (
-            <React.Fragment>
+            <>
               <div className="col-xs-6">
                 <ul className="inline-list inline-list-left">
                   {/* button to toggle sidebar on super and dashboard */}
@@ -402,7 +402,7 @@ const Navbar = (props) => {
                   {/* end of auth */}
                 </ul>
               </div>
-            </React.Fragment>
+            </>
           )}
         </NavbarStyled>
       </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Styled from "styled-components";
 import Tags from "../buttons/CompetitionTags";
 import { textParser } from "../../helpers/string";

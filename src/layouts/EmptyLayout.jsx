@@ -1,4 +1,3 @@
-import React from 'react'
-import { renderRoutes } from 'react-router-config'
+import { renderRoutes } from "react-router-config";
 
-export default props => <React.Fragment>{renderRoutes(props.route.routes)}</React.Fragment>
+export default (props) => <>{renderRoutes(props.route.routes)}</>;

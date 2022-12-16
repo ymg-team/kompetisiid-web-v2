@@ -1,70 +1,69 @@
-import React from "react"
-import { createNews, updateNews } from "../../../pages/news/actions"
+import React from "react";
+import { createNews, updateNews } from "../../../pages/news/actions";
 
 // components
-import HeaderDashboard from "../../cards/HeaderDashboard"
-import SubHeader from "../../headers/SubHeader"
-import TitleLevel2Box from "../../boxs/TitleLevel2"
-import InputText from "../../form/InputText"
-import InputFile from "../../form/InputFile"
-import Editor from "../../form/Editor"
-import InputTags from "../../form/InputTags"
-import BtnSubmit from "../../form/Submit"
-import Spacer from "../../boxs/Spacer"
+import HeaderDashboard from "../../cards/HeaderDashboard";
+import TitleLevel2Box from "../../boxs/TitleLevel2";
+import InputText from "../../form/InputText";
+import InputFile from "../../form/InputFile";
+import Editor from "../../form/Editor";
+import InputTags from "../../form/InputTags";
+import BtnSubmit from "../../form/Submit";
+import Spacer from "../../boxs/Spacer";
 
 class FormNews extends React.Component {
   static defaultProps = {
-    response: {}
-  }
+    response: {},
+  };
 
   constructor(props) {
-    super(props)
-    this.state = {}
+    super(props);
+    this.state = {};
   }
 
   componentDidMount = () => {
-    const { newsData, newsId } = this.props
+    const { newsData, newsId } = this.props;
     if (newsData && newsId) {
       let nextstate = {
         title: newsData.title,
         content: newsData.content,
-        tags: newsData.tag ? newsData.tag.split(",") : []
-      }
+        tags: newsData.tag ? newsData.tag.split(",") : [],
+      };
 
-      this.setState(nextstate)
+      this.setState(nextstate);
     }
-  }
+  };
 
-  submitHandler = status => {
+  submitHandler = (status) => {
     let formdata = {
       title: this.state.title,
       content: this.state.content,
-      tags: this.state.tags ? this.state.tags.toString() : ""
-    }
+      tags: this.state.tags ? this.state.tags.toString() : "",
+    };
 
     if (status) {
-      if (status == "draft") formdata.draft = true
+      if (status == "draft") formdata.draft = true;
     }
 
-    if (this.state.image) formdata.image = this.state.image
+    if (this.state.image) formdata.image = this.state.image;
 
-    console.log("submit handler...", formdata)
+    console.log("submit handler...", formdata);
 
     if (this.props.newsId) {
       // update news
-      this.props.dispatch(updateNews(this.props.newsId, formdata))
+      this.props.dispatch(updateNews(this.props.newsId, formdata));
     } else {
       // create news
-      this.props.dispatch(createNews(formdata))
+      this.props.dispatch(createNews(formdata));
     }
-  }
+  };
 
   render = () => {
-    const { response } = this.props
+    const { response } = this.props;
     const loading =
-      response.is_loading || response.status === 201 || response.status === 200
+      response.is_loading || response.status === 201 || response.status === 200;
     return (
-      <React.Fragment>
+      <>
         <HeaderDashboard
           title={this.props.title}
           text="Menyampaikan kabar seputar kompetisi di Indonesia"
@@ -72,8 +71,8 @@ class FormNews extends React.Component {
         <form
           className="form-ki no-padding col-md-8"
           action="#"
-          onSubmit={e => {
-            e.preventDefault()
+          onSubmit={(e) => {
+            e.preventDefault();
           }}
           method="post"
         >
@@ -137,9 +136,9 @@ class FormNews extends React.Component {
             setState={(n, cb) => this.setState(n, cb)}
           />
         </form>
-      </React.Fragment>
-    )
-  }
+      </>
+    );
+  };
 }
 
-export default FormNews
+export default FormNews;

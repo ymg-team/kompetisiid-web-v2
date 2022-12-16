@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { pushScript } from "../../helpers/domEvents";
 
 const Discussions = (props) => {
-  useEffect(() => {
+  React.useEffect(() => {
     // disquss js sdk
     pushScript("//kompetisiindonesia.disqus.com/embed.js");
 
@@ -31,7 +31,7 @@ const Discussions = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <h2>Diskusi kompetisi</h2>
       <p className="text-muted">
         Untuk mendapatkan info lebih lanjut, mari sampaikan melalui menu diskusi
@@ -40,7 +40,7 @@ const Discussions = (props) => {
       </p>
       <hr />
       <div id="disqus_thread" />
-    </React.Fragment>
+    </>
   );
 };
 

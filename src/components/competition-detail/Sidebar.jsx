@@ -1,4 +1,3 @@
-import React from "react";
 import { nominalToText } from "../../helpers/number";
 import { epochToDMY, epochToRelativeTime } from "../../helpers/dateTime";
 

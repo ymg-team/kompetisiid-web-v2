@@ -1,7 +1,5 @@
-import React from "react"
-
-const Share = props => {
-  const { title, desc, link } = props
+const Share = (props) => {
+  const { title, desc, link } = props;
   return (
     <div>
       <h2>Share kompetisi</h2>
@@ -15,13 +13,13 @@ const Share = props => {
         href="#"
         className="share share-facebook"
         title="share ke Facebook"
-        onClick={e => {
-          e.preventDefault()
+        onClick={(e) => {
+          e.preventDefault();
           window.open(
             `http://www.facebook.com/sharer/sharer.php?u=${link}&title=${title}&desc=${desc}`,
             "MsgWindow",
             "width=500,height=400"
-          )
+          );
         }}
       >
         <div className="share__icon">
@@ -36,13 +34,13 @@ const Share = props => {
         href="#"
         className="share share-twitter"
         title="share ke Twitter"
-        onClick={e => {
-          e.preventDefault()
+        onClick={(e) => {
+          e.preventDefault();
           window.open(
             `http://twitter.com/intent/tweet?text=${title}+${link}`,
             "MsgWindow",
             "width=500,height=400"
-          )
+          );
         }}
       >
         <div className="share__icon">
@@ -57,13 +55,13 @@ const Share = props => {
         href="#"
         className="share share-linkedin"
         title="share ke Linkedin"
-        onClick={e => {
-          e.preventDefault()
+        onClick={(e) => {
+          e.preventDefault();
           window.open(
             `http://www.linkedin.com/shareArticle?mini=true&url=${link}&title=${title}`,
             "MsgWindow",
             "width=500,height=400"
-          )
+          );
         }}
       >
         <div className="share__icon">
@@ -73,6 +71,6 @@ const Share = props => {
       </a>
       {/* end of click to share on Linkedin */}
     </div>
-  )
-}
-export default Share
+  );
+};
+export default Share;
