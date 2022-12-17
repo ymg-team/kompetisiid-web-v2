@@ -14,8 +14,9 @@ import Submit from "@components/form/v2/Submit";
 
 // services
 import { superLogin } from "@services/super";
+import { login } from "@services/auth";
 
-const Login: React.FC<LoginComponentInterface> = ({ isSuper }) => {
+const Login: React.FC<LoginComponentInterface> = ({ isSuper, isDashboard }) => {
   // === initial states ===
   const [loading, setLoading] = React.useState(false);
   const [username, setUsername] = React.useState("");
@@ -32,15 +33,17 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper }) => {
   const loginHandler = React.useCallback(
     async ({ username, password }: any) => {
       setLoading(true);
-      const Response = await superLogin({ username, password });
+      const Response = isSuper
+        ? await superLogin({ username, password })
+        : await login({ username, password });
 
       if (Response.status) {
         // login success, time to save session
         setSession(Response);
         setTimeout(() => {
           // reload after 1.5s
-          location.reload();
-        }, 1500);
+          location.href = isDashboard ? "/manage" : "/super/dashboard";
+        }, 1000);
       } else {
         // login error
         setLoading(false);
@@ -131,62 +134,6 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper }) => {
               />
             </Form>
           </Formik>
-
-          {/* <form
-            className="form-ki"
-            action="#"
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-            method="post"
-          >
-            <div className="form-child">
-              {username ? (
-                <Input
-                  label="Password"
-                  name="password"
-                  type="password"
-                  id="input-password"
-                  value={password || ""}
-                  // validate={this.state.password_validate || {}}
-                  setState={(n, cb) => this.setState(n, cb)}
-                  required
-                  autoFocus
-                  autoComplete="off"
-                />
-              ) : (
-                <Input
-                  label="Email / username"
-                  name="username"
-                  type="text"
-                  id="input-username"
-                  value={username || ""}
-                  validate={this.state.username_validate || {}}
-                  setState={(n, cb) => this.setState(n, cb)}
-                  required
-                  autoFocus
-                  autoComplete="off"
-                />
-              )}
-            </div>
-            <div className="form-child">
-              <Submit
-                className="btn btn-gray"
-                disabled={loading}
-                action={() => this.handleLogin()}
-                requiredInputs={["username"]}
-                setState={(n, cb) => this.setState(n, cb)}
-                type="submit"
-                style={{
-                  fontWeight: "bold",
-                  width: "100%",
-                  backgroundColor: "#FFF",
-                  color: "#292929",
-                }}
-                text={loading ? "loading..." : "login"}
-              />
-            </div>
-          </form> */}
 
           {!isSuper && (
             <>

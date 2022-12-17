@@ -154,17 +154,16 @@ const Sidebar = (props) => {
                             href={m.to}
                           >
                             <a>
-                              {m.icon ? <i className={m.icon} /> : null}{" "}
-                              {m.title}
-                              {m.label ? (
-                                <React.Fragment>
+                              {m.icon && <i className={m.icon} />} {m.title}
+                              {m.label && m.label.text && (
+                                <>
                                   &nbsp;
                                   <Label
                                     type={m.label.color || "blue"}
                                     text={m.label.text}
                                   />
-                                </React.Fragment>
-                              ) : null}
+                                </>
+                              )}
                             </a>
                           </Link>
                         )}

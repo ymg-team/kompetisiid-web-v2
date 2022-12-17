@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Colors } from "~/src/config/style";
 import { initModalImages } from "~/src/helpers/modal";
 import { useRouter } from "next/router";
-// import { resendEmailValidationToken } from "~src/../../store/user/actions";
+import { useSelector } from "react-redux";
 
 // components
 import Footer from "../components/Footer";
@@ -63,14 +63,14 @@ const LayoutStyled = Styled.div`
 let addedEventScroll = false;
 
 const HomeLayoutV5 = ({ children, isFullScreen }) => {
+  const Session = useSelector((state) => state.Session);
+
   const Router = useRouter();
 
   const [isHideNavbar, setIsHideNavbar] = useState(false);
   const [showBtnTop, setShowBtnTop] = useState(false);
   const [online, setOnline] = useState(true);
   const [showNotifConfirmation, setShowNotifConfirmation] = useState(false);
-
-  const session = {};
 
   // init effects
   useEffect(() => {
@@ -170,9 +170,9 @@ const HomeLayoutV5 = ({ children, isFullScreen }) => {
       {/* notification to verify email */}
       {!online ? (
         <div style={StickyNoteStyle}>
-          Jaringan kamu sedang "offline", yang sabar ya :(
+          {'Jaringan kamu sedang "offline", yang sabar ya :('}
         </div>
-      ) : !isFullScreen && session && session.id && !session.is_verified ? (
+      ) : !isFullScreen && Session && Session.id && !Session.is_verified ? (
         <div style={StickyNoteStyle}>
           Kamu belum melakukan verifikasi email, segera cek email kamu. Atau
           klik{" "}
