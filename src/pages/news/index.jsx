@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 // import { fetchBerita, fetchBeritaMore } from "./actions";
 import Dynamic from "next/dynamic";
 
@@ -18,7 +18,6 @@ const DEFAULT_REQ_QUERY_NEWS = {
 };
 
 const Limit = 6;
-let AddedEventListener = false;
 
 const Newsbox = Dynamic(import("@components/boxs/NewsBox"), {
   loading: () => <NewsLoading style={{ marginTop: "20px" }} withContainer />,

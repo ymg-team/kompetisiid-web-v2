@@ -6,11 +6,17 @@ import { setSession } from "@helpers/cookies";
 import Link from "next/link";
 import { Form, Formik } from "formik";
 
+import Script from "next/script";
 import SEO from "@components/meta/SEO";
 import FullScreen from "@components/Fullscreen";
 import InputTextV2 from "@components/form/v2/InputText";
 import { LoginStyled } from "./styled";
 import Submit from "@components/form/v2/Submit";
+
+// configs
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+const { RECHAPTCHA_SITE_KEY } = publicRuntimeConfig;
 
 // services
 import { superLogin } from "@services/super";
@@ -33,33 +39,39 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper, isDashboard }) => {
   const loginHandler = React.useCallback(
     async ({ username, password }: any) => {
       setLoading(true);
-      const Response = isSuper
-        ? await superLogin({ username, password })
-        : await login({ username, password });
+      if (grecaptcha.getResponse()) {
+        const Response = isSuper
+          ? await superLogin({ username, password })
+          : await login({ username, password });
 
-      if (Response.status) {
-        // login success, time to save session
-        setSession(Response);
-        setTimeout(() => {
-          // reload after 1.5s
-          location.href = isDashboard ? "/manage" : "/super/dashboard";
-        }, 1000);
-      } else {
-        // login error
-        setLoading(false);
+        if (Response.status) {
+          // login success, time to save session
+          setSession(Response);
+          setTimeout(() => {
+            // reload after 1.5s
+            location.href = isDashboard ? "/manage" : "/super/dashboard";
+          }, 1000);
+        } else {
+          // login error
+          setLoading(false);
+        }
+
+        return alert(
+          true,
+          Response.message,
+          Response.status === 200 ? "success" : "error"
+        );
       }
-
-      alert(
-        true,
-        Response.message,
-        Response.status === 200 ? "success" : "error"
-      );
+      // login error
+      setLoading(false);
+      return alert(true, "Rechaptcha wajib diisi", "error");
     },
     [username, password]
   );
 
   return (
     <FullScreen className={`login ${isSuper ? "login-super" : ""}`}>
+      <Script src={`https://www.google.com/recaptcha/api.js`} />
       <SEO {...Meta} />
       <LoginStyled className="login-box">
         {/* header */}
@@ -118,6 +130,12 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper, isDashboard }) => {
                 name="password"
                 label="Password"
                 required
+              />
+              <br />
+              <span
+                style={{ display: "flex", justifyContent: "center" }}
+                className="g-recaptcha"
+                data-sitekey={RECHAPTCHA_SITE_KEY}
               />
               <br />
               <Submit
