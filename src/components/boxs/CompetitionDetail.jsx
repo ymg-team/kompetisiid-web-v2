@@ -8,7 +8,6 @@ import Styled from "styled-components";
 import AddToCalendarModal from "../modals/AddToCalendar";
 import Link from "next/link";
 import BtnJoin from "../buttons/BtnJoin";
-import BtnSubscribe from "../buttons/BtnSubscribe";
 import { alert } from "../Alert";
 import BtnLike from "../buttons/BtnLikeCompetition";
 import Label from "../Label";

@@ -3,9 +3,16 @@ import { useRouter } from "next/router";
 import Styled from "styled-components";
 import { Colors } from "~/src/config/style";
 
+// redux
+import { useSelector, useDispatch } from "react-redux";
+
+// helpers
+import { clearSession } from "@helpers/cookies";
+import { alert } from "@components/Alert";
+
 // components
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { fullPageLoader } from "@components/preloaders/FullPage";
 
 const Menus = [
   {
@@ -155,8 +162,11 @@ const SearchStyled = Styled.div`
 `;
 
 const Navbar = (props) => {
+  // redux
+  const Dispatch = useDispatch();
+  const Session = useSelector((state) => state.Session);
+
   const Router = useRouter();
-  const Session = useSelector((state) => state.Session || {});
 
   const pathnameArr = Router.pathname.split("/");
 
@@ -216,6 +226,16 @@ const Navbar = (props) => {
     setKeyword("");
 
     if (close) Router.push("/browse?status=active");
+  };
+
+  // logout handler
+  const logoutHandler = () => {
+    fullPageLoader(true);
+    clearSession();
+    setTimeout(() => {
+      alert(true, "Kamu telah logout", "success");
+      location.reload();
+    }, 1000);
   };
 
   return (
@@ -383,7 +403,7 @@ const Navbar = (props) => {
                                 href="#"
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  // props.dispatch(logout());
+                                  logoutHandler();
                                 }}
                               >
                                 Logout

@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Colors } from "~/src/config/style";
 import { initModalImages } from "~/src/helpers/modal";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+
+// helpers
+import { getSession } from "@helpers/cookies";
+
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { setSession } from "@store/session/actions";
 
 // components
 import Footer from "../components/Footer";
@@ -60,9 +66,9 @@ const LayoutStyled = Styled.div`
   }
 `;
 
-let addedEventScroll = false;
-
 const HomeLayoutV5 = ({ children, isFullScreen }) => {
+  // redux
+  const Dispatch = useDispatch();
   const Session = useSelector((state) => state.Session);
 
   const Router = useRouter();
@@ -73,8 +79,14 @@ const HomeLayoutV5 = ({ children, isFullScreen }) => {
   const [showNotifConfirmation, setShowNotifConfirmation] = useState(false);
 
   // init effects
+
   useEffect(() => {
     // componentDidMount
+
+    // get session from cookies
+    const session = getSession();
+    // save session to redux store
+    Dispatch(setSession({ session }));
 
     // init modal images
     initModalImages();
