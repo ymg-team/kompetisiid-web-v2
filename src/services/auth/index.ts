@@ -6,13 +6,28 @@ import fetchModule from "~/src/helpers/apiCaller";
  * @param {string} password
  */
 export const login = ({ username, password }: any) => {
-  const endpoint = `/v2/login`;
   return fetchModule({
-    endpoint,
+    endpoint: `/v2/login`,
     method: "post",
     jsonBody: {
       username,
       password,
     },
+  });
+};
+
+/**
+ * service to do register
+ * @param {string} fullname
+ * @param {string} username
+ * @param {string} email
+ * @param {string} phone
+ * @param {string} password
+ */
+export const register = (params: any) => {
+  return fetchModule({
+    endpoint: "/v2/register",
+    method: "post",
+    jsonBody: params,
   });
 };

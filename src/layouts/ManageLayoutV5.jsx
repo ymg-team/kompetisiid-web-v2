@@ -50,7 +50,11 @@ const ManageLayoutV5 = ({ children }) => {
         location.href = "/manage";
       }
       // handle not login but open manage pages
-      if (Session.status !== 200 && Router.asPath !== "/login")
+      if (
+        Session.status !== 200 &&
+        Router.asPath !== "/login" &&
+        Router.asPath !== "/register"
+      )
         return (location.href = "/login");
     }, 1000);
   }, [Session]);

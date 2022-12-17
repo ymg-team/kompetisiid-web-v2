@@ -25,7 +25,7 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper, isDashboard }) => {
   // === initial memos ===
   const Meta = React.useMemo(() => {
     return {
-      title: isSuper ? "Halaman Super" : "Login Untuk ",
+      title: isSuper ? "Halaman Super" : "Login",
       description: "Login dan tetap jaga privasi anda ya",
     };
   }, [isSuper]);
