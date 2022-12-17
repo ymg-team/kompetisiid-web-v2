@@ -28,7 +28,7 @@ const initialFormValues = {
   password_conf: "",
 };
 
-const Register: React.FC = () => {
+const Register = () => {
   // === initial states ===
   const [loading, setLoading] = React.useState(false);
 
@@ -42,7 +42,7 @@ const Register: React.FC = () => {
   }, []);
 
   // === initial callbacks ===
-  const registerHandler = React.useCallback(async (values: any) => {
+  const registerHandler = React.useCallback(async (values) => {
     setLoading(true);
     if (grecaptcha.getResponse()) {
       const Response = await register(values);
@@ -91,7 +91,7 @@ const Register: React.FC = () => {
               password,
               password_conf,
             }) => {
-              const errors: any = {};
+              const errors = {};
 
               // required validation
               if (!username) errors.username = "Wajib diisi";

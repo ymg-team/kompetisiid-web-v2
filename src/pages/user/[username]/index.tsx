@@ -5,7 +5,7 @@ import { fetchUserDetail } from "@services/user";
 
 // components
 import SEO from "@components/meta/SEO";
-import { UserDetailStyled } from "./styled";
+import UserDetailStyled from "./styled";
 
 const UserDetailPage = ({ username, serverData = {} }: any) => {
   const profile = React.useMemo(() => {

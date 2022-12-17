@@ -22,7 +22,7 @@ const { RECHAPTCHA_SITE_KEY } = publicRuntimeConfig;
 import { superLogin } from "@services/super";
 import { login } from "@services/auth";
 
-const Login: React.FC<LoginComponentInterface> = ({ isSuper, isDashboard }) => {
+const Login = ({ isSuper, isDashboard }) => {
   // === initial states ===
   const [loading, setLoading] = React.useState(false);
   const [username, setUsername] = React.useState("");
@@ -37,7 +37,7 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper, isDashboard }) => {
   }, [isSuper]);
 
   const loginHandler = React.useCallback(
-    async ({ username, password }: any) => {
+    async ({ username, password }) => {
       setLoading(true);
       if (grecaptcha.getResponse()) {
         const Response = isSuper
@@ -109,7 +109,7 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper, isDashboard }) => {
               return loginHandler(values);
             }}
             validate={(values) => {
-              const errors: any = {};
+              const errors = {};
 
               // title validation
               if (!values.username) errors.username = "Required";

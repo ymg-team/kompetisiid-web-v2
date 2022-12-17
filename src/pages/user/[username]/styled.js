@@ -1,7 +1,7 @@
 import Styled from "styled-components";
 import { Colors } from "~/src/config/style";
 
-export const UserDetailStyled = Styled.div`
+const UserDetailStyled = Styled.div`
 &.profile {
     .profile__cover {
       display: block;
@@ -51,3 +51,5 @@ export const UserDetailStyled = Styled.div`
     }
   }
 `;
+
+export default UserDetailStyled;
