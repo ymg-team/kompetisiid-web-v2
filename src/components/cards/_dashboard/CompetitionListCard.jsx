@@ -23,7 +23,7 @@ const CompetitionListCard = (props) => {
             <span>Dipost {epochToRelativeTime(n.created_at)}</span> oleh{" "}
             <Link
               title={n.author.username}
-              href={`/dashboard/user/${n.author.username}`}
+              href={`/manage/user/${n.author.username}`}
             >
               <a>{n.author.username}</a>
             </Link>

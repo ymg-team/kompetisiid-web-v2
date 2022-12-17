@@ -128,11 +128,11 @@ const Header = (props) => {
                       </li>
                       {["admin", "moderator"].includes(session.level) ? (
                         <li>
-                          <a href={`/super/dashboard`}>Super</a>
+                          <a href={`/super/manage`}>Super</a>
                         </li>
                       ) : null}
                       <li>
-                        <a href={`/dashboard`}>Dashboard</a>
+                        <a href={`/manage`}>Dashboard</a>
                       </li>
                       <li>
                         <a href="/settings/profile">Pengaturan Profil</a>

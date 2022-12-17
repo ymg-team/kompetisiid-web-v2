@@ -21,6 +21,7 @@
     "react-is": "^18.2.0",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0",
+    "redux-logger": "^3.0.6",
     "seal-middleware": "^0.1.2",
     "string-manager": "^3.0.0",
     "styled-components": "^5.3.5"

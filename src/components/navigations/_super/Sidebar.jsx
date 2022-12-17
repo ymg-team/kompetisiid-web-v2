@@ -12,7 +12,7 @@ const SuperSidebar = (props) => {
   const Menus = [
     {
       title: "Dashboard",
-      to: "/super/dashboard",
+      to: "/super/manage",
     },
     {
       title: "Kompetisi",

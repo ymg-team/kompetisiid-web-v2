@@ -101,7 +101,7 @@ const AddCompetition = () => {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    location.href = "/dashboard/competition/create";
+                    location.href = "/manage/competition/create";
                   }}
                   className="btn btn-white"
                   title="klik untuk pasang cepat"

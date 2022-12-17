@@ -5,6 +5,7 @@ import { Colors } from "~/src/config/style";
 
 // components
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const Menus = [
   {
@@ -155,8 +156,8 @@ const SearchStyled = Styled.div`
 
 const Navbar = (props) => {
   const Router = useRouter();
+  const Session = useSelector((state) => state.Session || {});
 
-  const session = {};
   const pathnameArr = Router.pathname.split("/");
 
   // initial states
@@ -223,7 +224,7 @@ const Navbar = (props) => {
       className={`${sticky ? "sticky" : ""}`}
     >
       <div>
-        <NavbarStyled session={session} className={`${props.className} row`}>
+        <NavbarStyled session={Session} className={`${props.className} row`}>
           {search ? (
             <SearchStyled>
               <div className="col-xs-12">
@@ -331,11 +332,11 @@ const Navbar = (props) => {
                   </li>
 
                   {/* auth */}
-                  {typeof session.id !== "undefined" ? (
+                  {typeof Session.data !== "undefined" ? (
                     <div
                       key="loggedin"
                       style={{
-                        marginTop: -3,
+                        marginTop: -6,
                         marginRight: 35,
                         padding: "5px 10px",
                         float: "right",
@@ -353,24 +354,26 @@ const Navbar = (props) => {
                           <img
                             className="dropdown-button"
                             alt="dropdown button"
-                            src={session.avatar.small}
+                            src={Session.data.avatar.small}
                             data-target="avatar-menu"
                           />
                         </a>
                         <div className="dropdown-items" id="avatar-menu">
                           <ul>
                             <li>
-                              <a href={`/user/${session.username}`}>
+                              <a href={`/user/${Session.data.username}`}>
                                 Profil saya
                               </a>
                             </li>
-                            {["admin", "moderator"].includes(session.level) ? (
+                            {["admin", "moderator"].includes(
+                              Session.data.level
+                            ) ? (
                               <li>
-                                <a href={`/super/dashboard`}>Super</a>
+                                <a href={`/super/manage`}>Super</a>
                               </li>
                             ) : null}
                             <li>
-                              <a href={`/dashboard`}>Dashboard</a>
+                              <a href={`/manage`}>Dashboard</a>
                             </li>
                             <li>
                               <a href="/settings/profile">Pengaturan Profil</a>
@@ -392,11 +395,16 @@ const Navbar = (props) => {
                     </div>
                   ) : (
                     <>
-                      {/* <li key="public">
-                       <Link href="/login">
-                         <a>Login</a>
-                       </Link>
-                     </li> */}
+                      <li key="login">
+                        <Link href="/login">
+                          <a>Login</a>
+                        </Link>
+                      </li>
+                      <li key="register">
+                        <Link href="/register">
+                          <a>Register</a>
+                        </Link>
+                      </li>
                     </>
                   )}
                   {/* end of auth */}
