@@ -159,18 +159,27 @@ const Login: React.FC<LoginComponentInterface> = ({ isSuper, isDashboard }) => {
               <a>ke Home</a>
             </Link>
             &nbsp;|&nbsp;
-            <a target="_blank" href="https://goo.gl/forms/kMGGZQXJCjoyKThj1">
+            <a
+              target="_blank"
+              href="https://goo.gl/forms/kMGGZQXJCjoyKThj1"
+              rel="noopener noreferrer"
+            >
               Kontak
             </a>
             &nbsp;|&nbsp;
             <a
               href="https://kompetisi.id/news/TVRjPQ/Privacy-Policy"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Privacy
             </a>
             &nbsp;|&nbsp;
-            <a href="https://kompetisi.id/news/TXpVPQ/About" target="_blank">
+            <a
+              href="https://kompetisi.id/news/TXpVPQ/About"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               About
             </a>
           </small>

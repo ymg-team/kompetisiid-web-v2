@@ -5,7 +5,7 @@ import fetchModule from "~/src/helpers/apiCaller";
  * @param {string} username
  * @param {string} password
  */
-export const login = ({ username, password }) => {
+export const login = ({ username, password }: any) => {
   const endpoint = `/v2/login`;
   return fetchModule({
     endpoint,
