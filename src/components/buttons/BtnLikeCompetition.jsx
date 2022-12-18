@@ -29,7 +29,7 @@ const BtnLikeCompetition = (props) => {
         setIsLiked(Response.liked);
         alert(true, `${Response.liked ? "Like" : "Dislike"} sukses`, "success");
       } else {
-        alert(true, `Like/Dislike gagal, silahkan coba lagi!`, "success");
+        alert(true, `Like/Dislike gagal, silahkan coba lagi!`, "error");
       }
     } else {
       setStorage("history_back", Router.asPath);
