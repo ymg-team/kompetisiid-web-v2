@@ -34,10 +34,6 @@ const IndexApi = async (req, res) => {
 
       const URL_TARGET = `${URL_KI_BE}${endpoint}`;
 
-      // used this because, not support receive key 'User-Key' from client
-      headers["User-Key"] = headers.user_key || "";
-      delete headers.user_key;
-
       let ReqArgs = {
         method,
         headers,
