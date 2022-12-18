@@ -1,5 +1,4 @@
 import getConfig from "next/config";
-import { modifyRouteRegex } from "next/dist/lib/load-custom-routes";
 const { publicRuntimeConfig } = getConfig();
 const { URL_KI_BE } = publicRuntimeConfig;
 
@@ -43,6 +42,8 @@ const IndexApi = async (req, res) => {
         ReqArgs.headers["Content-Type"] = "application/json";
         ReqArgs.body = JSON.stringify(body);
       }
+
+      console.log("ReqArgs", ReqArgs);
 
       const Res = await fetch(URL_TARGET, ReqArgs);
       const ResText = await Res.text();
