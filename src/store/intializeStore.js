@@ -18,7 +18,9 @@ const Middlewares = applyMiddleware(...usedMiddlewares);
 
 // root of store, store initialized here
 const initializeStore = (initialState = {}) => {
-  return createStore(rootReducer, initialState, Middlewares);
+  const Store = createStore(rootReducer, initialState, Middlewares);
+  if (typeof window !== "undefined") window.__STORE__ = Store;
+  return Store;
 };
 
 export default initializeStore;

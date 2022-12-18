@@ -1,6 +1,5 @@
 import React from "react";
 import { alert } from "~/src/components/Alert";
-import { LoginComponentInterface } from "./interfaces";
 import { setSession } from "@helpers/cookies";
 
 import Link from "next/link";
@@ -12,6 +11,9 @@ import FullScreen from "@components/Fullscreen";
 import InputTextV2 from "@components/form/v2/InputText";
 import { LoginStyled } from "./styled";
 import Submit from "@components/form/v2/Submit";
+
+// helpers
+import { getStorage, setStorage } from "@helpers/localStorage";
 
 // configs
 import getConfig from "next/config";
@@ -49,7 +51,11 @@ const Login = ({ isSuper, isDashboard }) => {
           setSession(Response);
           setTimeout(() => {
             // reload after 1.5s
-            location.href = isDashboard ? "/manage" : "/super/dashboard";
+            const historyBack = getStorage("history_back");
+            if (historyBack) setStorage("history_back", "");
+            location.href = isDashboard
+              ? historyBack || "/manage"
+              : "/super/dashboard";
           }, 1000);
         } else {
           // login error

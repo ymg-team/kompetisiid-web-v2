@@ -42,3 +42,15 @@ export const fetchCompetitionCategories = () => {
     endpoint: `/v2/maincategories`,
   });
 };
+
+/**
+ * service to like competition by logged in user
+ * @param {string} competition_id
+ * @param {userkey} user_key
+ */
+export const likeDislikeCompetition = ({ competition_id }) => {
+  return fetchModule({
+    endpoint: `/v2/competition/like/${competition_id}`,
+    method: "POST",
+  });
+};

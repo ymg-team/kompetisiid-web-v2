@@ -17,6 +17,14 @@ const fetchModule = ({
 }) => {
   return new Promise(async (resolve) => {
     if (typeof fetch !== "undefined") {
+      // get session
+      if (typeof window !== "undefined") {
+        const Session = window.__STORE__.getState().Session;
+        if (Session.status === 200) {
+          headers["user_key"] = Session.data.user_key;
+        }
+      }
+
       // normalize method
       method = method.toUpperCase();
 

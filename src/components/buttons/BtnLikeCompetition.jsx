@@ -1,20 +1,41 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 // import { likeActionCompetition } from "../../pages/competition/actions";
+import { setStorage } from "@helpers/localStorage";
+import { alert } from "@components/Alert";
+
+// services
+import { likeDislikeCompetition } from "@services/competition";
 
 const BtnLikeCompetition = (props) => {
+  const Router = useRouter();
+
+  // initial redux
+  const Session = useSelector((state) => state.Session);
+
   const [isLiked, setIsLiked] = useState(props.isLiked);
   const [total, setTotal] = useState(props.total);
 
-  const clickHandler = () => {
-    // if (props.session && props.session.id) {
-    //   const nextTotal = isLiked ? total - 1 : total + 1
-    //   setTotal(nextTotal)
-    //   setIsLiked(!isLiked)
-    //   return props.dispatch(likeActionCompetition(props.competition_id))
-    // } else {
-    //   return window.transitionTo("/login")
-    // }
-  };
+  // initial callbacks
+  const clickHandler = React.useCallback(async () => {
+    if (Session.status === 200) {
+      const Response = await likeDislikeCompetition({
+        competition_id: props.competition_id,
+      });
+
+      if (typeof Response.liked !== "undefined") {
+        setTotal(Response.liked ? total + 1 : total - 1);
+        setIsLiked(Response.liked);
+        alert(true, `${Response.liked ? "Like" : "Dislike"} sukses`, "success");
+      } else {
+        alert(true, `Like/Dislike gagal, silahkan coba lagi!`, "success");
+      }
+    } else {
+      setStorage("history_back", Router.asPath);
+      Router.push("/login");
+    }
+  }, [Session, isLiked, total]);
 
   return (
     <a
