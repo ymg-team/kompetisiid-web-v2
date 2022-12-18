@@ -5,8 +5,8 @@
   "scripts": {
     "local": "pnpm dev",
     "dev": "next dev -p 20222",
-    "build": "NODE_ENV=production next build",
-    "start": "NODE_ENV=production next start -p 20222",
+    "build": "NODE_TLS_REJECT_UNAUTHORIZED='0' NODE_ENV=production next build",
+    "start": "NODE_TLS_REJECT_UNAUTHORIZED='0' NODE_ENV=production next start -p 20222",
     "lint": "next lint",
     "check-typing": "tsc"
   },
