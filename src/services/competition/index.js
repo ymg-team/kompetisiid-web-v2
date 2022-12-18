@@ -46,7 +46,6 @@ export const fetchCompetitionCategories = () => {
 /**
  * service to like competition by logged in user
  * @param {string} competition_id
- * @param {userkey} user_key
  */
 export const likeDislikeCompetition = ({ competition_id }) => {
   return fetchModule({
