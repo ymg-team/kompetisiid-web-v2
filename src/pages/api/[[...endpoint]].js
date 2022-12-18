@@ -45,6 +45,8 @@ const IndexApi = async (req, res) => {
 
       ReqArgs.headers.user_key = headers.super_spell;
 
+      console.log("reqargs", ReqArgs);
+
       const Res = await fetch(URL_TARGET, ReqArgs);
       const ResText = await Res.text();
       try {
