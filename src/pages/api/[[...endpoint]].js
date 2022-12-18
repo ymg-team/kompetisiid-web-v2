@@ -43,7 +43,7 @@ const IndexApi = async (req, res) => {
         ReqArgs.body = JSON.stringify(body);
       }
 
-      ReqArgs.headers.user_key = userkey;
+      ReqArgs.headers.user_key = headers.userkey;
 
       console.log("reqargs", ReqArgs);
 

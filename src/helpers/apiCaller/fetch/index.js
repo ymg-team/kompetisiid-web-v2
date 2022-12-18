@@ -21,7 +21,7 @@ const fetchModule = ({
       if (typeof window !== "undefined" && window.__STORE__) {
         const Session = window.__STORE__.getState().Session;
         if (Session.status === 200) {
-          headers["super_spell"] = Session.data.user_key;
+          headers["userkey"] = Session.data.user_key;
         }
       }
 
