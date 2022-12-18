@@ -32,13 +32,7 @@ const Regulation = (props) => {
   }, []);
 
   return (
-    <RegulationStyled
-      className="competition-regulation"
-      onMouseDown={(e) => {
-        e.preventDefault();
-        alert(true, "Select is disabled", "error");
-      }}
-    >
+    <RegulationStyled className="competition-regulation">
       <h2>Peraturan kompetisi</h2>
       <p className="text-muted">
         Sebelum mengikuti kompetisi ini, wajib untuk membaca dan mentaati setiap
@@ -46,6 +40,10 @@ const Regulation = (props) => {
       </p>
       <hr />
       <article
+        onMouseDown={(e) => {
+          e.preventDefault();
+          alert(true, "Select is disabled", "error");
+        }}
         style={{ lineHeight: 1.8 }}
         dangerouslySetInnerHTML={{ __html: textParser(props.html) }}
       />

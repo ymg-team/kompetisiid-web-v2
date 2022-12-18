@@ -241,7 +241,7 @@ const CompetitionListCard = (props) => {
                 Media Partner
               </Label>
             ) : null}
-            {n.is_support ? (
+            {n.is_manage_by_ki ? (
               <Label title="Kompetisi ini bisa diikuti melalui KI" type="blue">
                 <i className="fa fa-check" />
               </Label>

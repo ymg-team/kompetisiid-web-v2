@@ -75,7 +75,7 @@ const AlertBoxData = {
     type: "blue",
     body: `Di kompetisi ini, <strong>Kompetisi Id </strong> berlaku sebagai <strong>Media Partner</strong>, jika ada pertanyaan lebih lanjut mengenai kompetisi ini, bisa ditanyakan langsung ke penyelenggara atau melalui tab diskusi.`,
   },
-  supported: {
+  manage: {
     type: "blue",
     body: `Kompetisi ini bisa diikuti langsung di <strong>Kompetisi Id</strong>, silahkan login dan klik tombol "ikuti kompetisi".`,
   },
@@ -140,10 +140,10 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
 
   // save selected AlertBox data
   const selectedAlertBoxData = React.useMemo(() => {
-    const { is_mediapartner, is_support } = respCompetition.data || {};
+    const { is_mediapartner, is_manage_by_ki } = respCompetition.data || {};
 
     return AlertBoxData[
-      is_support ? "supported" : is_mediapartner ? "mediaPartner" : "default"
+      is_manage_by_ki ? "manage" : is_mediapartner ? "mediaPartner" : "default"
     ];
   }, [respCompetition.data]);
 

@@ -7,8 +7,8 @@ const CompetitionTags = (props) => {
       {props.tags ? (
         props.tags.map((n, key) => {
           return (
-            <Link href={`/browse/tag/${n}`} key={key}>
-              <a className="btn btn-white">{n}</a>
+            <Link href={`/browse/tag/${n.trim()}`} key={key}>
+              <a className="btn btn-white">{n.trim()}</a>
             </Link>
           );
         })

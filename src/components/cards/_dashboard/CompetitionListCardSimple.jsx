@@ -68,7 +68,9 @@ class CompetitionListCard extends React.Component {
             {n.is_mediapartner ? (
               <Label type="green" text="media partner" />
             ) : null}
-            {n.is_support ? <Label type="green" text="support" /> : null}
+            {n.is_manage_by_ki ? (
+              <Label type="green" text="manage by KI" />
+            ) : null}
             <Label
               type="red"
               text={

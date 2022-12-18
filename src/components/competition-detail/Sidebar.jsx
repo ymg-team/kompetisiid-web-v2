@@ -48,7 +48,7 @@ const Sidebar = ({ data }) => {
           text="Media Partner"
         />
       ) : null}
-      {data.is_support ? (
+      {data.is_manage_by_ki ? (
         <Label
           type="gray"
           title="kompetisi ini bisa diikuti melalui KI"

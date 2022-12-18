@@ -81,7 +81,7 @@ class CompetitionForm extends React.Component {
         contacts: competitionData.contacts,
         link_source: competitionData.link_source,
         link_join: competitionData.link_join,
-        link_join: competitionData.link_join,
+        link_source: competitionData.link_source,
         prize_total: competitionData.content,
         tags: competitionData.tag.split(","),
         is_guaranteed: competitionData.is_garansi,

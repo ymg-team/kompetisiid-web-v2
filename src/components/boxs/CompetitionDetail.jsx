@@ -202,7 +202,7 @@ const CompetitionDetailBox = (props) => {
               <div className="m-30" />
 
               {/* button to join competition */}
-              <BtnJoin data={data} />
+              <BtnJoin {...{ data }} />
               {/* end of button to join competition */}
 
               {/* subscribe button */}

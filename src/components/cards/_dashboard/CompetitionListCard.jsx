@@ -54,7 +54,7 @@ const CompetitionListCard = (props) => {
           {n.is_draft ? <Label type="gray">draft</Label> : null}
           {n.is_garansi ? <Label type="blue">garansi</Label> : null}
           {n.is_mediapartner ? <Label type="green">media partner</Label> : null}
-          {n.is_support ? <Label type="green">support</Label> : null}
+          {n.is_manage_by_ki ? <Label type="green">manage by KI</Label> : null}
           <Label type="ref">
             {n.is_berakhir
               ? n.sisapengumuman != "berakhir"
