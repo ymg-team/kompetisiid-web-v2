@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSession } from "@store/session/actions";
 
 // components
+import GlobalLoader from "@components/preloaders/GlobalLoader";
 import { alert } from "../components/Alert";
 import { fullPageLoader } from "../components/preloaders/FullPage";
 
@@ -56,7 +57,7 @@ const ManageLayoutV5 = ({ children }) => {
         Router.asPath !== "/register"
       )
         return (location.href = "/login");
-    }, 1000);
+    }, 500);
   }, [Session]);
 
   // function to handlong logout action
@@ -80,7 +81,13 @@ const ManageLayoutV5 = ({ children }) => {
         <div
           className={Session.status === 200 ? "col-md-9 col-sm-12" : "col-12"}
         >
-          {children}
+          {!Session.status &&
+          Router.asPath !== "/login" &&
+          Router.asPath !== "/register" ? (
+            <GlobalLoader />
+          ) : (
+            children
+          )}
         </div>
       </div>
     </div>

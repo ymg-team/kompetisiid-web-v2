@@ -66,6 +66,8 @@ const LayoutStyled = Styled.div`
   }
 `;
 
+const RoutesNoGAds = ["/login", "/register"];
+
 const HomeLayoutV5 = ({ children, isFullScreen }) => {
   // redux
   const Dispatch = useDispatch();
@@ -142,7 +144,7 @@ const HomeLayoutV5 = ({ children, isFullScreen }) => {
         {children}
 
         {/* gads */}
-        {!isFullScreen && (
+        {!isFullScreen && !RoutesNoGAds.includes(Router.asPath) && (
           <div className="col-md-12 align-center">
             <GAds
               adClient="ca-pub-4468477322781117"
