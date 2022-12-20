@@ -321,7 +321,7 @@ const CompetitionListCard = (props) => {
                 </Link>{" "}
                 {epochToRelativeTime(n.created_at)}
                 <br />
-                penyelenggara {n.organizer} <br />
+                Penyelenggara {n.organizer} <br />
                 {n.stats.views || 1} views &nbsp;•&nbsp;
                 {n.stats.likes || 0} likes
               </small>
