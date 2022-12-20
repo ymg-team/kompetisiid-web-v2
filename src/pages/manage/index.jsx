@@ -61,7 +61,11 @@ const ManageDashboardPage = () => {
           />
         </div>
         {BOX_AS_PARTICIPANTS.map((n) => (
-          <div style={{ marginTop: 20 }} className="col-md-3 col-xs-6">
+          <div
+            key={n.link}
+            style={{ marginTop: 20 }}
+            className="col-md-3 col-xs-6"
+          >
             <CountBox count={n.count} text={n.text} link={n.link} />
           </div>
         ))}
@@ -79,7 +83,11 @@ const ManageDashboardPage = () => {
           />
         </div>
         {BOX_AS_ORGANIZER.map((n) => (
-          <div style={{ marginTop: 20 }} className="col-md-3 col-xs-6">
+          <div
+            key={n.link}
+            style={{ marginTop: 20 }}
+            className="col-md-3 col-xs-6"
+          >
             <CountBox count={n.count} text={n.text} link={n.link} />
           </div>
         ))}
