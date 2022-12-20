@@ -41,7 +41,7 @@ const ManageLayoutV5 = ({ children }) => {
   React.useEffect(() => {
     clearTimeout(sessionChecker);
     sessionChecker = setTimeout(() => {
-      console.log(Router.asPath);
+      console.log(Router.asPath, Session);
 
       // handle already login and in login / register page
       if (
@@ -55,10 +55,11 @@ const ManageLayoutV5 = ({ children }) => {
         Session.status !== 200 &&
         Router.asPath !== "/login" &&
         Router.asPath !== "/register"
-      )
-        return (location.href = "/login");
+      ) {
+        // location.href = "/login";
+      }
     }, 500);
-  }, [Session]);
+  }, [Session, Router.asPath]);
 
   // function to handlong logout action
   const handleLogout = () => {
@@ -70,23 +71,29 @@ const ManageLayoutV5 = ({ children }) => {
     }, 1000);
   };
 
+  const showSidebar = React.useMemo(() => {
+    return (
+      Session.status === 200 &&
+      Router.asPath !== "/login" &&
+      Router.asPath !== "/register"
+    );
+  }, [Router.asPath, Session]);
+
   return (
     <div className="container">
       <div className="row m-t-2em">
-        {Session.status === 200 && (
+        {showSidebar && (
           <div className="col-md-3 col-sm-12">
             <Sidebar handleLogout={() => handleLogout()} stats={{}} />
           </div>
         )}
-        <div
-          className={Session.status === 200 ? "col-md-9 col-sm-12" : "col-12"}
-        >
+        <div className={showSidebar ? "col-md-9 col-sm-12" : "col-12"}>
           {!Session.status &&
           Router.asPath !== "/login" &&
           Router.asPath !== "/register" ? (
             <GlobalLoader />
           ) : (
-            children
+            <div style={{ paddingTop: 10 }}>{children}</div>
           )}
         </div>
       </div>

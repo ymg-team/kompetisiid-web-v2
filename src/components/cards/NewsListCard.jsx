@@ -33,7 +33,7 @@ const NewsListCard = (props) => {
   return (
     <CardCompetitionStyled
       className={
-        props.size == "small" ? "col-md-3 col-xs-6" : "col-md-4 col-xs-6"
+        props.size == "small" ? "col-md-3 col-xs-12" : "col-md-4 col-xs-12"
       }
     >
       <div

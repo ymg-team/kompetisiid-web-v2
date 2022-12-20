@@ -24,7 +24,7 @@ const SuperLayout = ({ children }) => {
 
     // redirect handler
     if (SessionFromCookies.status === 200 && Router.pathname === "/super")
-      Router.push("/super/manage");
+      Router.push("/super/dashboard");
 
     if (SessionFromCookies.status !== 200 && Router.pathname !== "/super")
       Router.push("/super");

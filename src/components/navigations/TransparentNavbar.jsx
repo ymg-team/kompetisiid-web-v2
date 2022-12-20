@@ -75,6 +75,7 @@ const NavbarStyled = Styled.div`
   #btn-sidebar {
     font-size: 32px;
     display: none;
+    margin-top: -2px;
   }
 
   padding: .5em 0;
@@ -301,12 +302,10 @@ const Navbar = (props) => {
               <div className="col-xs-6">
                 <ul className="inline-list inline-list-left">
                   {/* button to toggle sidebar on super and dashboard */}
-                  {["super", "dashboard", "settings"].includes(
-                    pathnameArr[1]
-                  ) ? (
+                  {["super", "manage", "settings"].includes(pathnameArr[1]) ? (
                     <li style={{ padding: "0 12px 0 0" }}>
                       <a href="#" id="btn-sidebar">
-                        <i className="fas fa-bars" style={{ paddingTop: 6 }} />
+                        <i className="fas fa-bars" />
                       </a>
                     </li>
                   ) : null}
@@ -389,11 +388,11 @@ const Navbar = (props) => {
                               Session.data.level
                             ) ? (
                               <li>
-                                <a href={`/super/manage`}>Super</a>
+                                <a href={`/super/dashboard`}>Super</a>
                               </li>
                             ) : null}
                             <li>
-                              <a href={`/manage`}>Dashboard</a>
+                              <a href={`/manage`}>Manage</a>
                             </li>
                             <li>
                               <a href="/settings/profile">Pengaturan Profil</a>

@@ -1,4 +1,3 @@
-import React from "react";
 import Styled from "styled-components";
 import { Colors } from "~/src/config/style";
 

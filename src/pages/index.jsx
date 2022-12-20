@@ -6,7 +6,6 @@ import Dynamic from "next/dynamic";
 
 // helpers
 import { fetchCompetitions } from "@services/competition";
-import { fetchNews } from "@services/news";
 
 // components
 import SEO from "@components/meta/SEO";
@@ -14,7 +13,6 @@ import Link from "next/link";
 import HomeStyled from "./home/styled";
 import EmptyLoading from "@components/preloaders/EmptyLoader";
 import Loading from "@components/preloaders/GlobalLoader";
-// import NewsLoading from "@components/preloaders/NewsCardLoader";
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
 import SubHeaderHome from "@components/headers/HomeSubHeader";
 import SubHeaderTitle from "@components/headers/SubHeader";
@@ -22,15 +20,9 @@ import GAds from "@components/cards/GoogleAds";
 import AddCompetitionButton from "@components/buttons/AddCompetitionButton";
 
 // split components
-// const NewsBox = Dynamic(import("@components/boxs/NewsBox"), {
-//   loading: () => <NewsLoading withContainer />,
-// });
 const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
   loading: () => <CompetitionLoading withContainer />,
 });
-const BtnGroupCompetition = Dynamic(
-  import("@components/buttons/ButtonGroupBrowseSpecial")
-);
 const MediapartnerBox = Dynamic(import("@components/boxs/MediapartnerBox"), {
   loading: Loading,
 });
@@ -135,22 +127,6 @@ const Home = ({ serverData = {} }) => {
       {/* end of competition */}
 
       {/* <div className="m-b-50" /> */}
-
-      {/* news */}
-      {/* <div className="m-b-50" style={{ borderBottom: "1px solid #e4e4e4" }}>
-        <SubHeaderTitle
-          title="Kabar Baru"
-          text="Update dengan kabar baru seputar kompetisi di Indonesia."
-        />
-      </div> */}
-
-      {/* <NewsBox subtitle={false} {...respNews} /> */}
-
-      {/* <div className="row align-center">
-        <Link href="/news">
-          <a className="btn btn-bordergray">KABAR BERIKUTNYA</a>
-        </Link>
-      </div> */}
 
       {/* media partners ads */}
       {/* <div className="container">

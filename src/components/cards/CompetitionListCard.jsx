@@ -191,7 +191,7 @@ const CompetitionListCard = (props) => {
 
   return (
     <CardCompetitionStyled
-      className={size === "large" ? "col-md-4 col-xs-6" : "col-md-3 col-xs-6"}
+      className={size === "large" ? "col-md-4 col-xs-12" : "col-md-3 col-xs-12"}
     >
       {n.is_draft ? <LabelDraft /> : is_ended ? <LabelEnd /> : null}
       <div
