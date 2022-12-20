@@ -5,7 +5,7 @@ import ManageLayout from "@layouts/ManageLayoutV5";
 
 // components
 import Spacer from "@components/boxs/Spacer";
-import HeaderDashboard from "@components/Headers/HeaderDashboard";
+import HeaderDashboard from "@components/headers/HeaderDashboard";
 import CountBox from "@components/boxs/_super/CountBox";
 
 const BOX_AS_PARTICIPANTS = [

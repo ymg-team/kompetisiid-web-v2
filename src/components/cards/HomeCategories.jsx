@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
-import SubHeader from "../Headers/SubHeader";
+import SubHeader from "../headers/SubHeader";
 
 export default class HomeCategories extends PureComponent {
   static defaultProps = {
