@@ -14,8 +14,8 @@ import HomeStyled from "./home/styled";
 import EmptyLoading from "@components/preloaders/EmptyLoader";
 import Loading from "@components/preloaders/GlobalLoader";
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
-import SubHeaderHome from "@components/headers/HomeSubHeader";
-import SubHeaderTitle from "@components/headers/SubHeader";
+import SubHeaderHome from "@components/Headers/HomeSubHeader";
+import SubHeaderTitle from "@components/Headers/SubHeader";
 import GAds from "@components/cards/GoogleAds";
 import AddCompetitionButton from "@components/buttons/AddCompetitionButton";
 
