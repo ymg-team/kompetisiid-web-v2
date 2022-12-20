@@ -47,14 +47,12 @@ const Home = ({ serverData = {} }) => {
     serverData.competitionLatest
   );
   const [respCompMP, setRespCompMP] = React.useState({});
-  const [respNews, setRespNews] = React.useState({});
 
   // === initial effects ===
 
   // componentDidMount
   React.useEffect(() => {
     doFetchCompMP();
-    doFetchNews();
   }, []);
 
   // === initial functions ===
@@ -65,15 +63,6 @@ const Home = ({ serverData = {} }) => {
         query: { limit: 7, is_mediapartner: true },
       });
       setRespCompMP(ResponseMP);
-    }
-  };
-
-  const doFetchNews = async () => {
-    if (!respNews.status) {
-      const ResponseNews = await fetchNews({
-        query: { limit: 6 },
-      });
-      setRespNews(ResponseNews);
     }
   };
 
@@ -120,7 +109,6 @@ const Home = ({ serverData = {} }) => {
       </div>
 
       {/* competition */}
-      <BtnGroupCompetition />
       <AddCompetitionButton />
       <div className="m-b-50" style={{ borderBottom: "1px solid #e4e4e4" }}>
         <SubHeaderTitle
