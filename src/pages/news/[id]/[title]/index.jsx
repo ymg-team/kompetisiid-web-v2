@@ -150,7 +150,9 @@ const NewsDetail = ({ encid, title, serverData }) => {
     if (respNews.status && respNews.status === 200) {
       title = respNews.data.title;
       description = respNews.data.title;
-      link = `/news/${respNews.data.id}/${respNews.data.nospace_title}`;
+      link = `/news/${
+        respNews.data.id
+      }/${respNews.data.nospace_title.toLowerCase()}`;
       jsonLd = generateJsonld(respNews.data, url);
 
       breadcrumb.push({
@@ -161,7 +163,7 @@ const NewsDetail = ({ encid, title, serverData }) => {
       // helmetdata = Object.assign(helmetdata, {
       //   title: respNews.data.title,
       //   description: respNews.data.contenttext,
-      //   url: `https://kompetisi.id/news/${respNews.data.id}/${respNews.data.nospace_title}`,
+      //   url: `https://kompetisi.id/news/${respNews.data.id}/${respNews.data.nospace_title.toLowerCase()}`,
       //   image: respNews.data.image.original,
       // });
 
@@ -248,7 +250,7 @@ const NewsDetail = ({ encid, title, serverData }) => {
   //   helmetdata = Object.assign(helmetdata, {
   //     title: respNews.data.title,
   //     description: respNews.data.contenttext,
-  //     url: `https://kompetisi.id/news/${respNews.data.id}/${respNews.data.nospace_title}`,
+  //     url: `https://kompetisi.id/news/${respNews.data.id}/${respNews.data.nospace_title.toLowerCase()}`,
   //     image: respNews.data.image.original,
   //   });
 

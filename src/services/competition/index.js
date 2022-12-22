@@ -17,10 +17,11 @@ export const fetchCompetitions = (args) => {
  * service to fetch competition detail by id
  * @param {string} id
  */
-export const fetchCompetitionById = ({ id }) => {
+export const fetchCompetitionById = ({ id, userKey }) => {
   return fetchModule({
     endpoint: `/v2/competition/${id}`,
     method: "get",
+    userKey,
   });
 };
 

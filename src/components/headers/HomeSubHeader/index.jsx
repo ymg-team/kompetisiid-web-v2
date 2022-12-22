@@ -86,7 +86,9 @@ HomeSubHeader.defaultProps = {
 const CompetitionSlider = (props) => {
   const Router = useRouter();
 
-  const hrefTarget = `/competition/${props.id}/regulations/${props.nospace_title}`;
+  const hrefTarget = `/competition/${
+    props.id
+  }/regulations/${props.nospace_title.toLowerCase()}`;
   return (
     <div className={`competition-slider`}>
       <div

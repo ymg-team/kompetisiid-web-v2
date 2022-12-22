@@ -59,6 +59,10 @@ const nextConfig = {
         destination: "/competitionDetail?id=:id&title=:title&type=share",
       },
       {
+        source: "/competition/:id/submission/:title",
+        destination: "/competitionDetail?id=:id&title=:title&type=submission",
+      },
+      {
         source: "/news",
         destination: "/news",
       },

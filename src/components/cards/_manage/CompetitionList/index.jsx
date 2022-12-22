@@ -1,14 +1,13 @@
 import React from "react";
-import { epochToRelativeTime } from "../../../helpers/dateTime";
+import { epochToRelativeTime } from "@helpers/dateTime";
 
 // components
 import Link from "next/link";
-import Label from "../../Label";
+import Label from "@components/Label";
 
-const CompetitionListCard = (props) => {
-  const { n } = props;
+const CompetitionListCard = ({ type, n }) => {
   const linkEdit = `/${
-    props.type == "super" ? "super" : "dashboard"
+    type == "super" ? "super" : "dashboard"
   }/competition/update/${n.id}`;
   return (
     <div className="competition-items">
@@ -65,31 +64,35 @@ const CompetitionListCard = (props) => {
           {/* end of competition label */}
         </div>
         <div className="item__right">
-          {/* stats count */}
-          <div className="item__right-item">
-            <h4
-              style={{
-                color:
-                  n.content.split(" ").length < 300 ? "#cf3030" : "inherit",
-              }}
-              title="total kata dalam deskripsi"
-            >
-              <span>
-                <i className="fa fa-file" />
-                &nbsp;
-                {n.content.split(" ").length}
-              </span>
-            </h4>
-          </div>{" "}
-          <div className="item__right-item">
-            <h4 title="total views">
-              <span>
-                <i className="fa fa-eye" />
-                &nbsp;
-                {n.stats.views}
-              </span>
-            </h4>
-          </div>
+          {type === "as_super" && (
+            <>
+              {/* stats count */}
+              <div className="item__right-item">
+                <h4
+                  style={{
+                    color:
+                      n.content.split(" ").length < 300 ? "#cf3030" : "inherit",
+                  }}
+                  title="total kata dalam deskripsi"
+                >
+                  <span>
+                    <i className="fa fa-file" />
+                    &nbsp;
+                    {n.content.split(" ").length}
+                  </span>
+                </h4>
+              </div>{" "}
+              <div className="item__right-item">
+                <h4 title="total views">
+                  <span>
+                    <i className="fa fa-eye" />
+                    &nbsp;
+                    {n.stats.views}
+                  </span>
+                </h4>
+              </div>
+            </>
+          )}
           {/* end of stats count */}
           {/* dropdown menus */}
           <div className="item__right-item">
@@ -107,7 +110,9 @@ const CompetitionListCard = (props) => {
                     <a
                       target="_blank"
                       rel="noreferrer noopener"
-                      href={`/competition/${n.id}/regulations/${n.nospace_title}`}
+                      href={`/competition/${
+                        n.id
+                      }/regulations/${n.nospace_title.toLowerCase()}`}
                     >
                       Preview
                     </a>

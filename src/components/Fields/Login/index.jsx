@@ -47,16 +47,20 @@ const Login = ({ isSuper, isDashboard }) => {
           : await login({ username, password });
 
         if (Response.status) {
-          // login success, time to save session
-          setSession(Response);
-          setTimeout(() => {
-            // reload after 1.5s
-            const historyBack = getStorage("history_back");
-            if (historyBack) setStorage("history_back", "");
-            location.href = isDashboard
-              ? historyBack || "/manage"
-              : "/super/dashboard";
-          }, 1000);
+          if (Response.status === 200) {
+            // login success set new session
+            setSession(Response);
+            setTimeout(() => {
+              // reload after 1.5s
+              const historyBack = getStorage("history_back");
+              if (historyBack) setStorage("history_back", "");
+              location.href = isDashboard
+                ? historyBack || "/manage"
+                : "/super/dashboard";
+            }, 1000);
+          } else {
+            setLoading(false);
+          }
         } else {
           // login error
           setLoading(false);

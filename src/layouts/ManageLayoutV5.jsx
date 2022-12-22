@@ -56,7 +56,7 @@ const ManageLayoutV5 = ({ children }) => {
         Router.asPath !== "/login" &&
         Router.asPath !== "/register"
       ) {
-        // location.href = "/login";
+        location.href = "/login";
       }
     }, 500);
   }, [Session, Router.asPath]);

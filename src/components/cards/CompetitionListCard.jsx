@@ -187,7 +187,9 @@ const CompetitionListCard = (props) => {
     n.deadline_at,
     n.announcement_at
   );
-  const target = `/competition/${n.id}/regulations/${n.nospace_title}`;
+  const target = `/competition/${
+    n.id
+  }/regulations/${n.nospace_title.toLowerCase()}`;
 
   return (
     <CardCompetitionStyled

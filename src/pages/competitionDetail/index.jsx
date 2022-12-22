@@ -3,9 +3,13 @@ import Dynamic from "next/dynamic";
 import { nl2br } from "../../helpers/string";
 import { toCamelCase } from "string-manager";
 
+// config
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 const { URL_KI_WEB } = publicRuntimeConfig;
+
+// helpers
+import { getSession } from "@helpers/cookies";
 
 // services
 import { fetchCompetitionById } from "@services/competition";
@@ -19,7 +23,7 @@ import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
 import NextPrev from "@components/navigations/NextPrev";
 import GAds from "@components/cards/GoogleAds";
 import AlertBox from "@components/commons/AlertBox";
-import { fetchCompetitionRelatedById } from "../../services/competition";
+import { fetchCompetitionRelatedById } from "@services/competition";
 import ErrorCard from "@components/cards/ErrorCard";
 
 const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
@@ -63,6 +67,7 @@ const TabNumber = {
   discussions: 3,
   contacts: 4,
   share: 5,
+  submission: 6,
 };
 
 const AlertBoxData = {
@@ -77,7 +82,7 @@ const AlertBoxData = {
   },
   manage: {
     type: "blue",
-    body: `Kompetisi ini bisa diikuti langsung di <strong>Kompetisi Id</strong>, silahkan login dan klik tombol "ikuti kompetisi".`,
+    body: `Kompetisi ini bisa diikuti langsung di <strong>Kompetisi Id</strong>, silahkan login dan klik tombol "Join Kompetisi".`,
   },
 };
 
@@ -125,7 +130,9 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
       title = toCamelCase(`${type + " " || ""}${respCompetition.data.title}`);
       description = respCompetition.data.sort;
       image = respCompetition.data.poster.original;
-      url = `${URL_KI_WEB}/competition/${respCompetition.data.id}/regulations/${respCompetition.data.nospace_title}`;
+      url = `${URL_KI_WEB}/competition/${
+        respCompetition.data.id
+      }/regulations/${respCompetition.data.nospace_title.toLowerCase()}`;
       jsonLd = generateJsonld(respCompetition.data, url);
     }
 
@@ -198,7 +205,6 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
               <CompetitionDetailBox
                 activeTab={ActiveTab}
                 data={respCompetition.data}
-                // authData={props.authData}
               />
               <Tab
                 active={ActiveTab}
@@ -246,9 +252,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                               return (
                                 <Regulations
                                   {...{ encid }}
-                                  nospace_title={
-                                    respCompetition.data.nospace_title
-                                  }
+                                  nospace_title={respCompetition.data.nospace_title.toLowerCase()}
                                   link_source={respCompetition.data.link_source}
                                   tags={
                                     respCompetition.data.tag
@@ -391,17 +395,24 @@ function generateJsonld(n, url) {
   }`;
 }
 
-CompetitionDetailPage.getInitialProps = async ({ query }) => {
-  const { id, type, title } = query;
+CompetitionDetailPage.getInitialProps = async (ctx) => {
+  const { id, type, title } = ctx.query;
 
-  const ResponseCompetition = await fetchCompetitionById({ id });
+  let userKey = "";
+
+  if (ctx.req) {
+    const SessionData = getSession(ctx.req.cookies);
+    userKey = SessionData.status === 200 ? SessionData.data.user_key : "";
+  }
+
+  const competitions = (await fetchCompetitionById({ id, userKey })) || {};
 
   return {
     encid: id,
     type,
     title,
     serverData: {
-      competitions: ResponseCompetition,
+      competitions,
     },
   };
 };

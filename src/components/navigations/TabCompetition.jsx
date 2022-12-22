@@ -3,58 +3,6 @@ import Link from "next/link";
 import Label from "../Label";
 import { TabStyled } from "../navigations/Tab";
 
-const TabCompetition = (props) => {
-  const n_pengumuman = props.data ? props.data.announcement.length : 0;
-  const n_kontak = props.data ? props.data.contacts.length : 0;
-
-  return (
-    <TabStyled
-      id="container-competition-tab"
-      className="row no-margin container-competition-tab"
-    >
-      <div className="container">
-        <div className="row">
-          <div className="col-md-10 col-md-push-1">
-            <div className="tab-competition">
-              <ul className="horizontal-menu">
-                {tab.map((n, key) => (
-                  <li key={key} className={props.active == key ? "active" : ""}>
-                    <Link
-                      href={`/competition/${props.data.id}/${tab[key].link}/${props.data.nospace_title}`}
-                      scroll={false}
-                    >
-                      <a>
-                        {n.name}
-                        &nbsp;
-                        {/* count announcements */}
-                        {n.name == "pengumuman" && n_pengumuman > 0 && (
-                          <Label
-                            type={props.active - 1 == key ? "red" : "white"}
-                            text={n_pengumuman}
-                          />
-                        )}
-                        {/* count contacts */}
-                        {n.name == "kontak" && n_kontak > 0 && (
-                          <Label
-                            type={props.active - 1 == key ? "red" : "white"}
-                            text={n_kontak}
-                          />
-                        )}
-                      </a>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </TabStyled>
-  );
-};
-
-export default TabCompetition;
-
 export const tab = [
   {
     name: "hadiah",
@@ -81,3 +29,76 @@ export const tab = [
     link: "share",
   },
 ];
+
+const TabCompetition = ({ data, active }) => {
+  const n_pengumuman = React.useMemo(() => {
+    return data ? data.announcement.length : 0;
+  }, [data]);
+
+  const n_kontak = React.useMemo(() => {
+    return data ? data.contacts.length : 0;
+  }, [data]);
+
+  const tabList = React.useMemo(() => {
+    const tabList = tab;
+
+    // if (data.is_manage_by_ki && data.is_joined) {
+    if (data.is_manage_by_ki) {
+      tabList.push({
+        name: "Submission",
+        link: "submission",
+      });
+    }
+
+    return tabList;
+  }, [data]);
+
+  return (
+    <TabStyled
+      id="container-competition-tab"
+      className="row no-margin container-competition-tab"
+    >
+      <div className="container">
+        <div className="row">
+          <div className="col-md-10 col-md-push-1">
+            <div className="tab-competition">
+              <ul className="horizontal-menu">
+                {tabList.map((n, key) => (
+                  <li key={key} className={active == key ? "active" : ""}>
+                    <Link
+                      href={`/competition/${data.id}/${
+                        tab[key].link
+                      }/${data.nospace_title.toLowerCase()}`}
+                      scroll={false}
+                    >
+                      <a>
+                        {n.name}
+                        &nbsp;
+                        {/* count announcements */}
+                        {n.name == "pengumuman" && n_pengumuman > 0 && (
+                          <Label
+                            type={active - 1 == key ? "red" : "white"}
+                            text={n_pengumuman}
+                          />
+                        )}
+                        {/* count contacts */}
+                        {n.name == "kontak" && n_kontak > 0 && (
+                          <Label
+                            type={active - 1 == key ? "red" : "white"}
+                            text={n_kontak}
+                          />
+                        )}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </TabStyled>
+  );
+};
+
+export default TabCompetition;

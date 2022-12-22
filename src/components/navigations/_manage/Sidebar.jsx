@@ -58,55 +58,59 @@ const DashboardSidebar = (props) => {
     //   ],
     // },
     {
-      title: "Sebagai Peserta",
+      title: "Join Kompetisi",
       child: [
         {
-          title: "Kompetisi Diikuti",
-          to: "/manage/competition/joined",
+          title: "Berlangsung",
+          to: "/manage/competition/as-participant/live",
         },
         {
-          title: "Kompetisi Menang",
-          to: "/manage/competition/won",
+          title: "Selesai",
+          to: "/manage/competition/as-participant/end",
         },
         {
-          title: "Kompetisi Kalah",
-          to: "/manage/competition/loose",
+          title: "Menang",
+          to: "/manage/competition/as-participant/won",
+        },
+        {
+          title: "Gagal",
+          to: "/manage/competition/as-participant/lost",
         },
       ],
     },
-    {
-      title: "Kompetisi Lainnya",
-      child: [
-        {
-          title: "Kompetisi di Subscribe",
-          to: "/manage/competition/subscribed",
-        },
-        {
-          title: "Liked Competition",
-          to: "/manage/competition/liked",
-        },
-      ],
-    },
-    {
-      title: "Pengaturan",
-      child: [
-        {
-          title: "Pengaturan Profil",
-          to: "/settings/profile",
-        },
-        // {
-        //   title: "Pengaturan Akun",
-        //   to: "/settings/account",
-        // },
-        {
-          title: "Logout",
-          to: "#",
-          onClick: () => {
-            props.handleLogout();
-          },
-        },
-      ],
-    },
+    // {
+    //   title: "Kompetisi Lainnya",
+    //   child: [
+    //     {
+    //       title: "Kompetisi di Subscribe",
+    //       to: "/manage/competition/subscribed",
+    //     },
+    //     {
+    //       title: "Liked Competition",
+    //       to: "/manage/competition/liked",
+    //     },
+    //   ],
+    // },
+    // {
+    //   title: "Pengaturan",
+    //   child: [
+    //     {
+    //       title: "Pengaturan Profil",
+    //       to: "/settings/profile",
+    //     },
+    //     {
+    //       title: "Pengaturan Akun",
+    //       to: "/settings/account",
+    //     },
+    //     {
+    //       title: "Logout",
+    //       to: "#",
+    //       onClick: () => {
+    //         props.handleLogout();
+    //       },
+    //     },
+    //   ],
+    // },
   ];
 
   return <Sidebar menus={Menus} />;

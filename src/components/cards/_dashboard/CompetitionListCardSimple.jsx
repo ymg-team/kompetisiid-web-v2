@@ -23,7 +23,9 @@ class CompetitionListCard extends React.Component {
             <h4>
               <a
                 title="ke halaman kompetisi"
-                href={`/competition/${n.id}/regulations/${n.nospace_title}`}
+                href={`/competition/${
+                  n.id
+                }/regulations/${n.nospace_title.toLowerCase()}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >

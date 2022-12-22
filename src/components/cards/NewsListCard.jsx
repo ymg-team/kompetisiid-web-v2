@@ -29,7 +29,7 @@ const LabelDraft = () => (
 
 const NewsListCard = (props) => {
   const { n } = props;
-  const target = `/news/${n.id}/${n.nospace_title}`;
+  const target = `/news/${n.id}/${n.nospace_title.toLowerCase()}`;
   return (
     <CardCompetitionStyled
       className={

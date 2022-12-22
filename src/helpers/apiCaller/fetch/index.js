@@ -14,14 +14,20 @@ const fetchModule = ({
   jsonBody = {},
   formData,
   headers = {},
+  userKey = "",
 }) => {
   return new Promise(async (resolve) => {
     if (typeof fetch !== "undefined") {
-      // get session
-      if (typeof window !== "undefined" && window.__STORE__) {
-        const Session = window.__STORE__.getState().Session;
-        if (Session.status === 200) {
-          headers["userkey"] = Session.data.user_key;
+      // force push userKey, used on server side call
+      if (userKey) {
+        headers["userkey"] = userKey;
+      } else {
+        // get session
+        if (typeof window !== "undefined" && window.__STORE__) {
+          const Session = window.__STORE__.getState().Session;
+          if (Session.status === 200) {
+            headers["userkey"] = Session.data.user_key;
+          }
         }
       }
 

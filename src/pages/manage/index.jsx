@@ -31,23 +31,23 @@ const BOX_AS_PARTICIPANTS = [
   },
 ];
 
-const BOX_AS_ORGANIZER = [
-  {
-    text: "Menunggu",
-    count: 0,
-    link: "/manage/competition/as-organizer/waiting",
-  },
-  {
-    text: "Terpublikasi",
-    count: 0,
-    link: "/manage/competition/as-organizer/published",
-  },
-  {
-    text: "Ditolak",
-    count: 0,
-    link: "/manage/competition/as-organizer/rejected",
-  },
-];
+// const BOX_AS_ORGANIZER = [
+//   {
+//     text: "Menunggu",
+//     count: 0,
+//     link: "/manage/competition/as-organizer/waiting",
+//   },
+//   {
+//     text: "Terpublikasi",
+//     count: 0,
+//     link: "/manage/competition/as-organizer/published",
+//   },
+//   {
+//     text: "Ditolak",
+//     count: 0,
+//     link: "/manage/competition/as-organizer/rejected",
+//   },
+// ];
 
 const ManageDashboardPage = () => {
   return (
@@ -56,8 +56,8 @@ const ManageDashboardPage = () => {
       <div className="row">
         <div className="col-md-12">
           <HeaderDashboard
-            title="Sebagai Peserta"
-            text="Seluruh kompetisi yang kamu ikuti sebagai peserta"
+            title="Join Kompetisi"
+            text="Seluruh kompetisi yang kamu ikuti"
           />
         </div>
         {BOX_AS_PARTICIPANTS.map((n) => (
@@ -75,7 +75,7 @@ const ManageDashboardPage = () => {
       <Spacer size="large" />
 
       {/* box as organizer */}
-      <div className="row">
+      {/* <div className="row">
         <div className="col-md-12">
           <HeaderDashboard
             title="Sebagai Penyelenggara"
@@ -91,7 +91,7 @@ const ManageDashboardPage = () => {
             <CountBox count={n.count} text={n.text} link={n.link} />
           </div>
         ))}
-      </div>
+      </div> */}
       {/* end of box as organizer */}
     </ManageLayout>
   );
