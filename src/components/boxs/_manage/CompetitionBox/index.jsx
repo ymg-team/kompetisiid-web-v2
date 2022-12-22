@@ -24,7 +24,7 @@ const CompetitionBox = ({ data, type }) => {
   return (
     <>
       {data.map((n, key) => (
-        <CompetitionList {...{ n, key, type }} />
+        <CompetitionList key={key} {...{ n, type }} />
       ))}
     </>
   );
