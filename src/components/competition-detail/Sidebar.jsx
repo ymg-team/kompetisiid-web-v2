@@ -6,7 +6,8 @@ import MediaPartnerAds from "../cards/MediaPartnerAds";
 import GAds from "../cards/GoogleAds";
 import Label from "../Label";
 
-const Sidebar = ({ data }) => {
+const Sidebar = ({ data, submissionFields }) => {
+  console.log("submissionFields"), submissionFields;
   return (
     <div className="col-sm-4">
       <div className="competition-detail--meta">
@@ -21,16 +22,24 @@ const Sidebar = ({ data }) => {
         </h3>
         <h3 className="total-view">
           {epochToRelativeTime(data.deadline_at)}
-          <small className="text-muted">{`deadline (${epochToDMY(
+          <small className="text-muted">{`Deadline (${epochToDMY(
             data.deadline_at * 1000
           )})`}</small>
         </h3>
         <h3 className="total-view">
           {epochToRelativeTime(data.announcement_at)}
-          <small className="text-muted">{`pengumuman (${epochToDMY(
+          <small className="text-muted">{`Pengumuman (${epochToDMY(
             data.announcement_at * 1000
           )})`}</small>
         </h3>
+        {submissionFields.open_registration_at && (
+          <h3 className="total-view">
+            {epochToRelativeTime(submissionFields.open_registration_at)}
+            <small className="text-muted">{`Pendaftaran dibuka (${epochToDMY(
+              submissionFields.open_registration_at * 1000
+            )})`}</small>
+          </h3>
+        )}
       </div>
       <hr />
       <h4>Kompetisi ini bersifat</h4>
@@ -71,6 +80,11 @@ const Sidebar = ({ data }) => {
       {/* end of GAds */}
     </div>
   );
+};
+
+Sidebar.defaultProps = {
+  data: {},
+  submissionFields: {},
 };
 
 export default Sidebar;

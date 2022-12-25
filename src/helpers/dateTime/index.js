@@ -3,18 +3,18 @@
  */
 
 export const Month = [
-  ["jan", "januari"],
-  ["feb", "februari"],
-  ["mar", "maret"],
-  ["apr", "april"],
-  ["mei", "mei"],
-  ["jun", "juni"],
-  ["jul", "juli"],
-  ["agu", "agustus"],
-  ["sep", "september"],
-  ["okt", "oktober"],
-  ["nov", "november"],
-  ["des", "desember"],
+  ["Jan", "Januari"],
+  ["Feb", "Februari"],
+  ["Mar", "Maret"],
+  ["Apr", "April"],
+  ["Mei", "Mei"],
+  ["Jun", "Juni"],
+  ["Jul", "Juli"],
+  ["Agu", "Agustus"],
+  ["Sep", "September"],
+  ["Okt", "Oktober"],
+  ["Nov", "November"],
+  ["Des", "Desember"],
 ];
 
 // ref : https://www.samclarke.com/javascript-convert-time-ago-future/

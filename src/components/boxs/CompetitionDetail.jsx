@@ -80,8 +80,7 @@ const hashtagGenerators = (tags) => {
   }
 };
 
-const CompetitionDetailBox = (props) => {
-  const { data } = props;
+const CompetitionDetailBox = ({ data, submissionFields }) => {
   const link_competition = `https://kompetisi.id/c/${data.id}`;
 
   const BreadcrumbData = [
@@ -202,7 +201,7 @@ const CompetitionDetailBox = (props) => {
               <div className="m-30" />
 
               {/* button to join competition */}
-              <BtnJoin {...{ data }} />
+              <BtnJoin {...{ submissionFields }} competitionData={data} />
               {/* end of button to join competition */}
 
               {/* subscribe button */}

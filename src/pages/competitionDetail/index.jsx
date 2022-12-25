@@ -13,6 +13,8 @@ import { getSession } from "@helpers/cookies";
 
 // services
 import { fetchCompetitionById } from "@services/competition";
+import { fetchCompetitionSubmissionField } from "../../services/competition-submission-field";
+import { fetchCompetitionRelatedById } from "@services/competition";
 
 // components
 import SEO from "@components/meta/SEO";
@@ -23,7 +25,6 @@ import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
 import NextPrev from "@components/navigations/NextPrev";
 import GAds from "@components/cards/GoogleAds";
 import AlertBox from "@components/commons/AlertBox";
-import { fetchCompetitionRelatedById } from "@services/competition";
 import ErrorCard from "@components/cards/ErrorCard";
 
 const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
@@ -119,6 +120,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
     serverData.competitions || {}
   );
   const [respRelatedCompetition, setRelatedCompetition] = React.useState({});
+  const [respSubmissionFields, setRespSubmissionField] = React.useState({});
 
   let NextPrevProps = {},
     helmetdata = {
@@ -165,8 +167,8 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
   }, [type]);
 
   React.useEffect(() => {
-    fetchData();
     fetchRelatedData();
+    fetchSubmissionField();
   }, [encid]);
 
   React.useEffect(() => {
@@ -185,18 +187,18 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
 
   // === initial functions ===
 
-  const fetchData = React.useCallback(async () => {
-    if (firstRender.current) return (firstRender.current = false);
-    setRespCompetition({});
-    const Resp = await fetchCompetitionById({ id: encid });
-    setRespCompetition(Resp);
-  }, [encid]);
-
   const fetchRelatedData = React.useCallback(async () => {
     if (firstRender.current) return (firstRender.current = false);
     setRelatedCompetition({});
     const Resp = await fetchCompetitionRelatedById({ id: encid });
     setRelatedCompetition(Resp);
+  }, [encid]);
+
+  const fetchSubmissionField = React.useCallback(async () => {
+    const Resp = await fetchCompetitionSubmissionField({
+      competition_id: encid,
+    });
+    setRespSubmissionField(Resp);
   }, [encid]);
 
   return (
@@ -211,6 +213,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
               <CompetitionDetailBox
                 activeTab={ActiveTab}
                 data={respCompetition.data}
+                submissionFields={respSubmissionFields.data || {}}
               />
               <Tab
                 active={ActiveTab}
@@ -307,7 +310,11 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                                 />
                               );
                             case 6:
-                              return <Submission />;
+                              return (
+                                <Submission
+                                  submissionFields={respSubmissionFields}
+                                />
+                              );
                             default:
                               return null;
                           }
@@ -315,7 +322,10 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                       </div>
 
                       {/* show sidebar info */}
-                      <Sidebar {...respCompetition} />
+                      <Sidebar
+                        {...respCompetition}
+                        submissionFields={respSubmissionFields.data || {}}
+                      />
                       {/* end of show sidebar info */}
                     </div>
                   </div>
