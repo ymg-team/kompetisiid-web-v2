@@ -237,7 +237,7 @@ const CompetitionListCard = (props) => {
                 title="kompetisi sudah diverifikasi keberadaannya oleh kru KI"
                 type="green"
               >
-                Garansi
+                <i className="fa fa-check" />
               </Label>
             ) : null}
             {n.is_mediapartner ? (
@@ -250,7 +250,7 @@ const CompetitionListCard = (props) => {
             ) : null}
             {n.is_manage_by_ki ? (
               <Label title="Kompetisi ini bisa diikuti melalui KI" type="blue">
-                <i className="fa fa-check" />
+                Manage on KI
               </Label>
             ) : null}
             {is_ended ? (

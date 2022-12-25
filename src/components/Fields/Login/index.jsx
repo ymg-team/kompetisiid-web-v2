@@ -5,12 +5,12 @@ import { setSession } from "@helpers/cookies";
 import Link from "next/link";
 import { Form, Formik } from "formik";
 
-import Script from "next/script";
 import SEO from "@components/meta/SEO";
 import FullScreen from "@components/Fullscreen";
 import InputTextV2 from "@components/form/v2/InputText";
 import { LoginStyled } from "./styled";
 import Submit from "@components/form/v2/Submit";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // helpers
 import { getStorage, setStorage } from "@helpers/localStorage";
@@ -38,6 +38,17 @@ const Login = ({ isSuper, isDashboard }) => {
     };
   }, [isSuper]);
 
+  // === initial effects ===
+  React.useEffect(() => {
+    // reset rechaptcha
+    setTimeout(() => {
+      if (window.grecaptcha) {
+        window.grecaptcha.reset();
+        setLoading(false);
+      }
+    }, 500);
+  }, []);
+
   const loginHandler = React.useCallback(
     async ({ username, password }) => {
       setLoading(true);
@@ -53,6 +64,7 @@ const Login = ({ isSuper, isDashboard }) => {
             setTimeout(() => {
               // reload after 1.5s
               const historyBack = getStorage("history_back");
+              // always reset make sure, not used in next login
               if (historyBack) setStorage("history_back", "");
               location.href = isDashboard
                 ? historyBack || "/manage"
@@ -81,7 +93,6 @@ const Login = ({ isSuper, isDashboard }) => {
 
   return (
     <FullScreen className={`login ${isSuper ? "login-super" : ""}`}>
-      <Script src={`https://www.google.com/recaptcha/api.js`} />
       <SEO {...Meta} />
       <LoginStyled className="login-box">
         {/* header */}
@@ -142,11 +153,7 @@ const Login = ({ isSuper, isDashboard }) => {
                 required
               />
               <br />
-              <span
-                style={{ display: "flex", justifyContent: "center" }}
-                className="g-recaptcha"
-                data-sitekey={RECHAPTCHA_SITE_KEY}
-              />
+              <ReCAPTCHA sitekey={RECHAPTCHA_SITE_KEY} />
               <br />
               <Submit
                 className="btn btn-gray"

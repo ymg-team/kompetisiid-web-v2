@@ -1,6 +1,10 @@
 import React from "react";
 import { pushScript } from "../../helpers/domEvents";
 
+// components
+import HeaderDashboard from "@components/headers/HeaderDashboard";
+import Spacer from "@components/boxs/Spacer";
+
 const Discussions = (props) => {
   React.useEffect(() => {
     // disquss js sdk
@@ -12,7 +16,6 @@ const Discussions = (props) => {
   }, []);
 
   const resetDisqus = () => {
-    console.log("reset Disqus...");
     if (window.DISQUS) {
       DISQUS.reset({
         reload: true,
@@ -32,13 +35,14 @@ const Discussions = (props) => {
 
   return (
     <>
-      <h2>Diskusi kompetisi</h2>
-      <p className="text-muted">
-        Untuk mendapatkan info lebih lanjut, mari sampaikan melalui menu diskusi
+      <Spacer size="medium" />
+      <HeaderDashboard
+        title="Diskusi Kompetisi"
+        text="Untuk mendapatkan info lebih lanjut, mari sampaikan melalui menu diskusi
         ini. Diskusi bisa dijawab oleh peserta lain atau bahkan penyelenggara
-        kompetisi sendiri.
-      </p>
-      <hr />
+        kompetisi sendiri."
+      />
+      <Spacer size="small" />
       <div id="disqus_thread" />
     </>
   );

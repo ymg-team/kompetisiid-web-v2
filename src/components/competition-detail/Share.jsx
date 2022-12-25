@@ -1,12 +1,16 @@
+// components
+import HeaderDashboard from "@components/headers/HeaderDashboard";
+import Spacer from "@components/boxs/Spacer";
+
 const Share = (props) => {
   const { title, desc, link } = props;
   return (
-    <div>
-      <h2>Share kompetisi</h2>
-      <p className="text-muted">
-        Bagikan ke teman-temanmu untuk meramaikan kompetisi ini.
-      </p>
-      <hr />
+    <>
+      <Spacer size="medium" />
+      <HeaderDashboard
+        title="Share Kompetisi"
+        text=" Bagikan ke teman-temanmu untuk meramaikan kompetisi ini."
+      />
 
       {/* click to share on Facebook */}
       <a
@@ -70,7 +74,7 @@ const Share = (props) => {
         <div className="share__count">Share ke Linkedin</div>
       </a>
       {/* end of click to share on Linkedin */}
-    </div>
+    </>
   );
 };
 export default Share;

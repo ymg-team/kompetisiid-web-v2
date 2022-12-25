@@ -1,5 +1,5 @@
 // components
-import Login from "~/src/components/Fields/Login";
+import Login from "~/src/components/fields/Login";
 import SuperLayout from "@layouts/SuperLayoutV5";
 
 const SuperLoginPage = () => {

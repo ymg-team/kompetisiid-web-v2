@@ -1,4 +1,9 @@
-import { generateLink } from "../../helpers/linkGenerator";
+// helpers
+import { generateLink } from "@helpers/linkGenerator";
+
+// components
+import HeaderDashboard from "@components/headers/HeaderDashboard";
+import Spacer from "@components/boxs/Spacer";
 
 const Type = [
   { icon: "" },
@@ -15,12 +20,12 @@ const Type = [
 
 const Contacts = (props) => (
   <>
-    <h2>Kontak kompetisi</h2>
-    <p className="text-muted">
-      Ada pertanyaan atau ingin info lebih lanjut langsung dari penyelenggara,
-      silahkan sampaikan melalui kontak dibawah ini.
-    </p>
-    <hr />
+    <Spacer size="medium" />
+    <HeaderDashboard
+      title="Kontak Kompetisi"
+      text="Ada pertanyaan atau ingin info lebih lanjut langsung dari penyelenggara,
+      silahkan sampaikan melalui kontak dibawah ini."
+    />
     {props.data && props.data.length > 0 ? (
       props.data.map((n, key) => {
         return (
