@@ -1,4 +1,8 @@
 import { useEffect } from "react";
+
+// components
+import HeaderDashboard from "@components/headers/HeaderDashboard";
+import Spacer from "@components/boxs/Spacer";
 import Styled from "styled-components";
 import Tags from "../buttons/CompetitionTags";
 import { textParser } from "../../helpers/string";
@@ -33,12 +37,12 @@ const Regulation = (props) => {
 
   return (
     <RegulationStyled className="competition-regulation">
-      <h2>Peraturan kompetisi</h2>
-      <p className="text-muted">
-        Sebelum mengikuti kompetisi ini, wajib untuk membaca dan mentaati setiap
-        peraturan yang berlaku
-      </p>
-      <hr />
+      <Spacer size="medium" />
+      <HeaderDashboard
+        title="Peraturan Kompetisi"
+        text="Sebelum mengikuti kompetisi ini, wajib untuk membaca dan mentaati setiap
+        peraturan yang berlaku"
+      />
       <article
         onMouseDown={(e) => {
           e.preventDefault();

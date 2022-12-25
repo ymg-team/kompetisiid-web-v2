@@ -43,7 +43,7 @@ const TabCompetition = ({ data, active }) => {
     const tabList = tab;
 
     // if (data.is_manage_by_ki && data.is_joined) {
-    if (data.is_manage_by_ki) {
+    if (data.is_manage_by_ki && tabList.length < 7) {
       tabList.push({
         name: "Submission",
         link: "submission",

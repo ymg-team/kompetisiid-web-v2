@@ -52,7 +52,7 @@ const Sidebar = ({ data }) => {
         <Label
           type="gray"
           title="kompetisi ini bisa diikuti melalui KI"
-          text="Support"
+          text="Manage on KI"
         />
       ) : null}
       <br />

@@ -1,11 +1,16 @@
+// components
+import HeaderDashboard from "@components/headers/HeaderDashboard";
+import Spacer from "@components/boxs/Spacer";
+
 const Announcements = (props) => (
   <>
-    <h2>Pengumuman kompetisi</h2>
-    <p className="text-muted">
-      Berisi pengumuman jika terjadi perubahan peraturan, detail hadiah, atau
-      hal penting lainnya pada kompetisi ini.
-    </p>
-    <hr />
+    <Spacer size="medium" />
+    <HeaderDashboard
+      title="Pengumuman Kompetisi"
+      text="Berisi pengumuman jika terjadi perubahan peraturan, detail hadiah, atau
+      hal penting lainnya pada kompetisi ini."
+    />
+
     {props.data && props.data.length > 0 ? (
       props.data.map((n, key) => {
         return (

@@ -59,6 +59,12 @@ const Discussions = Dynamic(
 const Sidebar = Dynamic(import("@components/competition-detail/Sidebar"), {
   loading: Loading,
 });
+const Submission = Dynamic(
+  import("@components/competition-detail/Submission"),
+  {
+    loading: Loading,
+  }
+);
 
 const TabNumber = {
   prizes: 0,
@@ -300,6 +306,8 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                                   link={helmetdata.url}
                                 />
                               );
+                            case 6:
+                              return <Submission />;
                             default:
                               return null;
                           }

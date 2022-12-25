@@ -1,11 +1,16 @@
+// components
+import HeaderDashboard from "@components/headers/HeaderDashboard";
+import Spacer from "@components/boxs/Spacer";
+
 const Prizes = ({ html }) => (
   <>
-    <h2>Hadiah kompetisi</h2>
-    <p className="text-muted">
-      Berikut adalah hadiah-hadiah yang bisa dimenangkan para pemenang, semoga
-      beruntung
-    </p>
-    <hr />
+    <Spacer size="medium" />
+    <HeaderDashboard
+      title="Hadiah Kompetisi"
+      text=" Berikut adalah hadiah-hadiah yang bisa dimenangkan para pemenang, semoga
+      beruntung"
+    />
+    <Spacer size="small" />
     <article>{html}</article>
   </>
 );

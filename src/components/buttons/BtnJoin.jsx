@@ -21,7 +21,7 @@ const BtnJoin = ({ data }) => {
         return alert(true, "Pendaftaran sudah ditutup", "error");
       }
 
-      // competition is manage by KI
+      // competition is manage on KI
       if (data.is_manage_by_ki) {
         return Router.push(
           `/competition/${
