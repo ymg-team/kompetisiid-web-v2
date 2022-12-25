@@ -7,7 +7,6 @@ import GAds from "../cards/GoogleAds";
 import Label from "../Label";
 
 const Sidebar = ({ data, submissionFields }) => {
-  console.log("submissionFields"), submissionFields;
   return (
     <div className="col-sm-4">
       <div className="competition-detail--meta">

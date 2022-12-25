@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { getCompetitionStatus } from "@helpers/dateTime";
 import { alert } from "@components/Alert";
-import { epochToDMY } from "../../helpers/dateTime";
+import { epochToDMY } from "@helpers/dateTime";
 
 const BtnJoin = ({ competitionData, submissionFields }) => {
   const Router = useRouter();

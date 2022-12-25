@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 
+const { queryToObj } = require("string-manager");
+
 const publicRuntimeConfig = {
   NODE_ENV: process.env.NODE_ENV || "production",
   URL_KI_BE: process.env.URL_KI_BE || "https://apiv4.kompetisi.id",
@@ -65,6 +67,16 @@ const nextConfig = {
       {
         source: "/news",
         destination: "/news",
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        permanent: false,
+        source: "/mgws-rf500-2022",
+        destination:
+          "/competition/TVRnek53PT0/regulations/ikutan-rapha-festive-500-bisa-dapat-saldo-linkaja-dari-maugowes",
       },
     ];
   },

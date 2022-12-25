@@ -312,7 +312,9 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                             case 6:
                               return (
                                 <Submission
-                                  submissionFields={respSubmissionFields}
+                                  submissionFields={
+                                    respSubmissionFields.data || {}
+                                  }
                                 />
                               );
                             default:

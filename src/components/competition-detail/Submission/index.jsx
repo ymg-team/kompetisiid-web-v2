@@ -2,6 +2,7 @@ import React from "react";
 
 // helpers
 import { setStorage } from "@helpers/localStorage";
+import { epochToDMY } from "@helpers/dateTime";
 
 // components
 import HeaderDashboard from "@components/headers/HeaderDashboard";
@@ -19,7 +20,7 @@ const SUBMISSION_STATUS = {
   failed: {},
 };
 
-const SubmissionCompetition = () => {
+const SubmissionCompetition = ({ submissionFields }) => {
   // initial global
   const Router = useRouter();
   const Session = useSelector((state) => state.Session || {});
@@ -70,13 +71,36 @@ const SubmissionCompetition = () => {
         </p>
       ) : (
         <>
-          {" "}
-          {state === "list" && <SubmissionListBox userData={Session} />}
-          {(state === "create" || state === "edit") && <SubmissionListBox />}
+          {submissionFields.open_registration_at ? (
+            <>
+              {new Date().getTime() <
+              submissionFields.open_registration_at * 1000 ? (
+                <p className="text-muted">{`Pendaftaran belum dibuka. Silahkan melakukan pendaftaran pada ${epochToDMY(
+                  submissionFields.open_registration_at * 1000
+                )}`}</p>
+              ) : (
+                <>
+                  {state === "list" && <SubmissionListBox userData={Session} />}
+                  {(state === "create" || state === "edit") && (
+                    <SubmissionListBox />
+                  )}
+                </>
+              )}
+            </>
+          ) : (
+            <p className="text-muted">
+              Penyelenggara belum membuat field submission, silahkan kunjungi
+              beberapa saat lagi.
+            </p>
+          )}
         </>
       )}
     </div>
   );
+};
+
+SubmissionCompetition.defaultProps = {
+  submissionFields: {},
 };
 
 export default SubmissionCompetition;
