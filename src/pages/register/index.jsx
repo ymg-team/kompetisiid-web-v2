@@ -1,6 +1,6 @@
 // components
 import ManageLayout from "@layouts/ManageLayoutV5";
-import RegisterForm from "@components/Fields/Register";
+import RegisterForm from "@components/fields/Register";
 
 const RegisterPage = () => {
   return (
