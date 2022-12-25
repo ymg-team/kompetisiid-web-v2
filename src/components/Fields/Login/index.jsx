@@ -38,17 +38,6 @@ const Login = ({ isSuper, isDashboard }) => {
     };
   }, [isSuper]);
 
-  // === initial effects ===
-  React.useEffect(() => {
-    // reset rechaptcha
-    setTimeout(() => {
-      if (window.grecaptcha) {
-        window.grecaptcha.reset();
-        setLoading(false);
-      }
-    }, 500);
-  }, []);
-
   const loginHandler = React.useCallback(
     async ({ username, password }) => {
       setLoading(true);

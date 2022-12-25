@@ -9,6 +9,7 @@ import FullScreen from "@components/Fullscreen";
 import InputTextV2 from "@components/form/v2/InputText";
 import { LoginStyled } from "./styled";
 import Submit from "@components/form/v2/Submit";
+import ReCAPTCHA from "react-google-recaptcha";
 
 // helpers
 import { getStorage } from "@helpers/localStorage";
@@ -33,17 +34,6 @@ const initialFormValues = {
 const Register = () => {
   // === initial states ===
   const [loading, setLoading] = React.useState(false);
-
-  // === initial effects ===
-  React.useEffect(() => {
-    // reset rechaptcha
-    setTimeout(() => {
-      if (window.grecaptcha) {
-        window.grecaptcha.reset();
-        setLoading(false);
-      }
-    }, 500);
-  }, []);
 
   // === initial memos ===
   const Meta = React.useMemo(() => {
