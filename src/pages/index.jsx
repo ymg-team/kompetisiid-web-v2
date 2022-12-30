@@ -32,9 +32,7 @@ const MediaPartnerAds = Dynamic(import("@components/cards/MediaPartnerAds"), {
 
 const Home = ({ serverData = {} }) => {
   // === initial states ===
-  const [respCompPopular, setRespCompPopular] = React.useState(
-    serverData.competitionPopular
-  );
+  const [respCompPopular, setRespCompPopular] = React.useState({});
   const [respCompLatest, setRespCompLatest] = React.useState(
     serverData.competitionLatest
   );
@@ -50,12 +48,15 @@ const Home = ({ serverData = {} }) => {
   // === initial functions ===
 
   const doFetchCompMP = async () => {
-    if (!respCompMP.status) {
-      const ResponseMP = await fetchCompetitions({
-        query: { limit: 7, is_mediapartner: true },
-      });
-      setRespCompMP(ResponseMP);
-    }
+    const ResponsePopular = await fetchCompetitions({
+      query: { limit: 7, is_popular: true, status: "active" },
+    });
+    setRespCompPopular(ResponsePopular);
+
+    const ResponseMP = await fetchCompetitions({
+      query: { limit: 7, is_mediapartner: true },
+    });
+    setRespCompMP(ResponseMP);
   };
 
   return (
@@ -146,16 +147,12 @@ const Home = ({ serverData = {} }) => {
 };
 
 Home.getInitialProps = async (ctx) => {
-  const competitionPopular = await fetchCompetitions({
-    query: { limit: 7, is_popular: true, status: "active" },
-  });
   const competitionLatest = await fetchCompetitions({
     query: { limit: 9, status: "active" },
   });
   // const newsLatest = await
   return {
     serverData: {
-      competitionPopular,
       competitionLatest,
     },
   };
