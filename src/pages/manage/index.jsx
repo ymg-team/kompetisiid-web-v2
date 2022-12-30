@@ -54,7 +54,7 @@ const ManageDashboardPage = () => {
     <ManageLayout>
       {/* box as participant */}
       <div className="row">
-        <div className="col-md-12">
+        {/* <div className="col-md-12">
           <HeaderDashboard
             title="Join Kompetisi"
             text="Seluruh kompetisi yang kamu ikuti"
@@ -68,7 +68,8 @@ const ManageDashboardPage = () => {
           >
             <CountBox count={n.count} text={n.text} link={n.link} />
           </div>
-        ))}
+        ))} */}
+        <h1>Welcome, Fitur Manage Sedang Tahap Pembangunan</h1>
       </div>
       {/* end of box as participant */}
 
