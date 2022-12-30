@@ -5,4 +5,5 @@ export interface InputTextInterface {
   placeholder?: string;
   required?: boolean;
   noLabel?: boolean;
+  disabled?: boolean;
 }

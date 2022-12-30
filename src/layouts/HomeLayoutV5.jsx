@@ -66,7 +66,7 @@ const LayoutStyled = Styled.div`
   }
 `;
 
-const RoutesNoGAds = ["/login", "/register"];
+export const RoutesNoGAds = ["/login", "/register"];
 
 const HomeLayoutV5 = ({ children, isFullScreen }) => {
   // redux
@@ -78,7 +78,7 @@ const HomeLayoutV5 = ({ children, isFullScreen }) => {
   const [isHideNavbar, setIsHideNavbar] = useState(false);
   const [showBtnTop, setShowBtnTop] = useState(false);
   const [online, setOnline] = useState(true);
-  const [showNotifConfirmation, setShowNotifConfirmation] = useState(false);
+  // const [showNotifConfirmation, setShowNotifConfirmation] = useState(false);
 
   // init effects
 

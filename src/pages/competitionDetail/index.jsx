@@ -13,7 +13,7 @@ import { getSession } from "@helpers/cookies";
 
 // services
 import { fetchCompetitionById } from "@services/competition";
-import { fetchCompetitionSubmissionField } from "../../services/competition-submission-field";
+import { fetchCompetitionSubmissionField } from "../../services/competition_submission_field";
 import { fetchCompetitionRelatedById } from "@services/competition";
 
 // components
@@ -315,6 +315,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                                   submissionFields={
                                     respSubmissionFields.data || {}
                                   }
+                                  competitionData={respCompetition.data}
                                 />
                               );
                             default:

@@ -8,6 +8,7 @@ const InputTextV2: React.FC<InputTextInterface> = ({
   placeholder,
   required,
   noLabel,
+  disabled,
 }) => {
   return (
     <Field name={name}>
@@ -22,7 +23,7 @@ const InputTextV2: React.FC<InputTextInterface> = ({
               {label || name} {required && <span className="text-red">*</span>}
             </label>
           )}
-          <input {...{ type, placeholder }} {...field} />
+          <input {...{ type, placeholder, disabled }} {...field} />
           {meta.touched && meta.error && <small>{meta.error}</small>}
         </div>
       )}
@@ -34,6 +35,7 @@ InputTextV2.defaultProps = {
   type: "text",
   noLabel: false,
   required: false,
+  disabled: false,
 };
 
 export default InputTextV2;

@@ -17,7 +17,7 @@ import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
 import SubHeaderHome from "@components/headers/HomeSubHeader";
 import SubHeaderTitle from "@components/headers/SubHeader";
 import GAds from "@components/cards/GoogleAds";
-import AddCompetitionButton from "@components/buttons/AddCompetitionButton";
+import AddCompetitionButton from "@components/buttons/ButtonAddCompetition";
 
 // split components
 const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {

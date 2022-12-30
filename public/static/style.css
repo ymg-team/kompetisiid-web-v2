@@ -1043,7 +1043,8 @@ form.form-ki .form-child, form.form-ki label, form.form-ki input[type='file'] {
 form.form-ki .form-child {
   padding: 10px 0; }
   form.form-ki .form-child input[type='text']:read-only, form.form-ki .form-child input[type='number']:read-only, form.form-ki .form-child input[type='email']:read-only, form.form-ki .form-child input[type='link']:read-only, form.form-ki .form-child input[type='password']:read-only, form.form-ki .form-child textarea:read-only {
-    background-color: #F4F4F4;
+    background: #FFFFFF;
+    color: gray;
     cursor: not-allowed; }
   form.form-ki .form-child.error label, form.form-ki .form-child.error small, form.form-ki .form-child.error input::placeholder, form.form-ki .form-child.error textarea::placeholder {
     color: #cf3030 !important; }
@@ -1051,6 +1052,7 @@ form.form-ki .form-child {
     border-bottom: 2px solid #cf3030 !important; }
     form.form-ki .form-child.error input[type='text']:focus, form.form-ki .form-child.error input[type='number']:focus, form.form-ki .form-child.error input[type='email']:focus, form.form-ki .form-child.error input[type='link']:focus, form.form-ki .form-child.error input[type='password']:focus, form.form-ki .form-child.error textarea:focus {
       border-bottom: 2px solid #cf3030 !important; }
+
 
 form.form-ki label {
   margin: 10px 0;

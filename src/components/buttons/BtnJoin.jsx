@@ -54,7 +54,7 @@ const BtnJoin = ({ competitionData, submissionFields }) => {
         return Router.push(
           `/competition/${
             competitionData.id
-          }/submission/${competitionData.nospace_title.toLowerCase()}`
+          }/submission/${competitionData.nospace_title.toLowerCase()}#competition-submission`
         );
       } else {
         return window.open(competitionData.link_join);

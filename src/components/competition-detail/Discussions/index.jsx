@@ -1,5 +1,5 @@
 import React from "react";
-import { pushScript } from "../../helpers/domEvents";
+import { pushScript } from "@helpers/domEvents";
 
 // components
 import HeaderDashboard from "@components/headers/HeaderDashboard";

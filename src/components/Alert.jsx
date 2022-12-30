@@ -5,7 +5,8 @@ import { Colors } from "~/src/config/style";
 const AlertStyled = Styled.div`
   display: block;
   position: fixed;
-  width: 400px;
+  width: 500px;
+  max-width: 100%;
   left: 50%;
   bottom: -100px;
   margin-left: -200px;

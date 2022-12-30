@@ -94,6 +94,13 @@ export function epochToDMY(epochtime) {
   return `${d.getDate()} ${Month[d.getMonth()][1]} ${d.getFullYear()}`;
 }
 
+export function epochToDMYHIS(epochtime) {
+  const d = new Date(epochtime);
+  return `${d.getDate()} ${
+    Month[d.getMonth()][1]
+  } ${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+}
+
 export function strToDateTime(str) {
   return "";
 }

@@ -1,10 +1,10 @@
-import { nominalToText } from "../../helpers/number";
-import { epochToDMY, epochToRelativeTime } from "../../helpers/dateTime";
+import { nominalToText } from "@helpers/number";
+import { epochToDMY, epochToRelativeTime } from "@helpers/dateTime";
 
 // components
-import MediaPartnerAds from "../cards/MediaPartnerAds";
-import GAds from "../cards/GoogleAds";
-import Label from "../Label";
+import MediaPartnerAds from "@components/cards/MediaPartnerAds";
+import GAds from "@components/cards/GoogleAds";
+import Label from "@components/Label";
 
 const Sidebar = ({ data, submissionFields }) => {
   return (

@@ -5,22 +5,27 @@ import { setStorage } from "@helpers/localStorage";
 import { epochToDMY } from "@helpers/dateTime";
 
 // components
+import Loading from "@components/preloaders/GlobalLoader";
 import HeaderDashboard from "@components/headers/HeaderDashboard";
 import Spacer from "@components/boxs/Spacer";
-import Label from "@components/Label";
-import SubmissionListBox from "../../boxs/_manage/SubmissionListBox";
 import { useSelector } from "react-redux";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import Dynamic from "next/dynamic";
 
-const SUBMISSION_STATUS = {
-  checking: {},
-  valid: {},
-  won: {},
-  failed: {},
-};
+const SubmissionListBox = Dynamic(
+  () => import("@components/boxs/_manage/SubmissionListBox"),
+  {
+    loading: Loading,
+  }
+);
+const SubmissionForm = Dynamic(
+  () => import("@components/fields/_manage/SubmissionForm"),
+  {
+    loading: Loading,
+  }
+);
 
-const SubmissionCompetition = ({ submissionFields }) => {
+const SubmissionCompetition = ({ submissionFields, competitionData }) => {
   // initial global
   const Router = useRouter();
   const Session = useSelector((state) => state.Session || {});
@@ -29,6 +34,7 @@ const SubmissionCompetition = ({ submissionFields }) => {
 
   // current state, one of "list" | "create" | "edit", use this because not use custom page
   const [state, setState] = React.useState("list");
+  const [selectedSubmission, setSelectedSubmission] = React.useState({});
 
   const loginRegisterHandler = React.useCallback(
     (e, href) => {
@@ -80,9 +86,24 @@ const SubmissionCompetition = ({ submissionFields }) => {
                 )}`}</p>
               ) : (
                 <>
-                  {state === "list" && <SubmissionListBox userData={Session} />}
-                  {(state === "create" || state === "edit") && (
-                    <SubmissionListBox />
+                  {state === "list" && (
+                    <SubmissionListBox
+                      userData={Session}
+                      {...{
+                        setState,
+                        setSelectedSubmission,
+                        submissionFields,
+                        competitionData,
+                      }}
+                    />
+                  )}
+                  {(state === "create" || state === "view") && (
+                    <SubmissionForm
+                      onBack={() => setState("list")}
+                      userData={Session}
+                      submissionData={selectedSubmission}
+                      {...{ submissionFields, state }}
+                    />
                   )}
                 </>
               )}
@@ -101,6 +122,7 @@ const SubmissionCompetition = ({ submissionFields }) => {
 
 SubmissionCompetition.defaultProps = {
   submissionFields: {},
+  competitionData: {},
 };
 
 export default SubmissionCompetition;

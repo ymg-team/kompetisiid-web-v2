@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import HeaderDashboard from "@components/headers/HeaderDashboard";
 import Spacer from "@components/boxs/Spacer";
 import Styled from "styled-components";
-import Tags from "../buttons/CompetitionTags";
-import { textParser } from "../../helpers/string";
-import { alert } from "../Alert";
+import Tags from "@components/buttons/CompetitionTags";
+import { textParser } from "@helpers/string";
+import { alert } from "@components/Alert";
 
 const RegulationStyled = Styled.div`
 article {
