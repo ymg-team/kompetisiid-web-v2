@@ -105,6 +105,12 @@ const Register = () => {
               if (!password) errors.password = "Wajib diisi";
               if (!password_conf) errors.password_conf = "Wajib diisi";
 
+              // username format validation
+              if (!username.match(/^\S*$/) || username.match(/[A-Z]/g)) {
+                errors.username =
+                  'Username hanya boleh huruf kecil, angka dan symbol "_", dan tidak ada spasi';
+              }
+
               // phone number format validation
               if (!phone.match(/[628][0-9]{6,18}/)) {
                 errors.phone = "Format no.telp tidak valid, Wajib 628****";

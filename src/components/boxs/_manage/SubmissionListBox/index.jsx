@@ -25,7 +25,7 @@ const SubmissionListBox = ({
   const [loading, setLoading] = React.useState(false);
 
   // initial memos
-  const disabledButton = React.useMemo(() => {
+  const disabledButtonNewSubmission = React.useMemo(() => {
     const Now = new Date().getTime();
     const Deadline = competitionData.deadline_at * 1000;
     return (
@@ -107,9 +107,9 @@ const SubmissionListBox = ({
       )}
 
       <Button
-        disabled={disabledButton}
+        disabled={disabledButtonNewSubmission}
         onClick={() => setState("create")}
-        text="Submision Baru"
+        text="Submission Baru"
         size="large"
         fullWidth
       />
