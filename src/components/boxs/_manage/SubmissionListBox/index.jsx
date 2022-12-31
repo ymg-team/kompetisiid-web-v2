@@ -25,16 +25,20 @@ const SubmissionListBox = ({
   const [loading, setLoading] = React.useState(false);
 
   // initial memos
-  const disabledButtonNewSubmission = React.useMemo(() => {
-    const Now = new Date().getTime();
-    const Deadline = competitionData.deadline_at * 1000;
+  const isDisabledCreateSubmission = React.useMemo(() => {
     return (
       (response?.data?.submissions?.length > 0 &&
         submissionFields?.submit_type === "single") ||
-      Now >= Deadline ||
       loading
     );
   }, [response, submissionFields, loading]);
+
+  const isCompetitionEnded = React.useMemo(() => {
+    const Now = new Date().getTime();
+    const Deadline = competitionData.deadline_at * 1000;
+
+    return Now > Deadline;
+  }, [competitionData]);
 
   // initial effects
   React.useEffect(() => {
@@ -99,6 +103,7 @@ const SubmissionListBox = ({
               data={n}
               onView={viewHandler}
               onDelete={deleteHandler}
+              {...{ isCompetitionEnded }}
             />
           ))}
         </>
@@ -106,13 +111,15 @@ const SubmissionListBox = ({
         <p>{response.message}</p>
       )}
 
-      <Button
-        disabled={disabledButtonNewSubmission}
-        onClick={() => setState("create")}
-        text="Submission Baru"
-        size="large"
-        fullWidth
-      />
+      {!isCompetitionEnded && (
+        <Button
+          disabled={isDisabledCreateSubmission}
+          onClick={() => setState("create")}
+          text="Submission Baru"
+          size="large"
+          fullWidth
+        />
+      )}
     </>
   );
 };

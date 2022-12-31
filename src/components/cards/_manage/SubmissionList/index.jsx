@@ -11,7 +11,7 @@ const LABEL_COLORS = {
   failed: "red",
 };
 
-const SubmissionList = ({ data, onView, onDelete }) => {
+const SubmissionList = ({ data, onView, onDelete, isCompetitionEnded }) => {
   return (
     <SubmissionListStyled>
       <div className="submission-list__header">
@@ -33,16 +33,19 @@ const SubmissionList = ({ data, onView, onDelete }) => {
           >
             <span className="far fa-eye" />
           </a>
-          <a
-            title="Hapus submission"
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              onDelete({ id: data.id });
-            }}
-          >
-            <span className="fas fa-times" />
-          </a>
+          {/* can't delete submission if competition ended */}
+          {!isCompetitionEnded && (
+            <a
+              title="Hapus submission"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                onDelete({ id: data.id });
+              }}
+            >
+              <span className="fas fa-times" />
+            </a>
+          )}
         </div>
       </div>
       <div className="submission-list__body">

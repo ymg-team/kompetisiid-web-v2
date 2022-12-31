@@ -38,7 +38,7 @@ const CompetitionDetailStyled = Styled.div`
     }
   }
   .small-stats-icon {
-    margin-right: 10px;
+    margin-right: 15px;
     cursor: default;
   }
   .competition-detail__left {
@@ -191,6 +191,11 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
                   <span className="small-stats-icon" title="Total views">
                     <i className="far fa-eye" /> {data.stats.views || 0}
                   </span>
+                  {data.is_manage_by_ki && (
+                    <span className="small-stats-icon" title="Total joined">
+                      <i className="fas fa-users" /> {data.stats.joined || 0}
+                    </span>
+                  )}
                 </p>
                 <div className="m-20" />
                 <p>

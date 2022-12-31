@@ -18,6 +18,8 @@ const BtnLikeCompetition = (props) => {
   const [total, setTotal] = useState(props.total);
 
   // initial callbacks
+
+  // function to handling like/dislike action
   const clickHandler = React.useCallback(async () => {
     if (Session.status === 200) {
       const Response = await likeDislikeCompetition({

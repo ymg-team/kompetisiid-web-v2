@@ -1,11 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { getCompetitionStatus } from "@helpers/dateTime";
 import { alert } from "@components/Alert";
+
+// helpers
+import { setStorage } from "@helpers/localStorage";
 import { epochToDMY } from "@helpers/dateTime";
+import { getCompetitionStatus } from "@helpers/dateTime";
 
 const BtnJoin = ({ competitionData, submissionFields }) => {
   const Router = useRouter();
+  const Session = useSelector((State) => State.Session);
 
   // competition status generator
   const status = React.useMemo(() => {
@@ -27,8 +32,27 @@ const BtnJoin = ({ competitionData, submissionFields }) => {
         return alert(true, "Pendaftaran sudah ditutup", "error");
       }
 
-      // competition is manage on KI
       if (competitionData.is_manage_by_ki) {
+        const submissionPage = `/competition/${
+          competitionData.id
+        }/submission/${competitionData.nospace_title.toLowerCase()}#competition-submission`;
+
+        // competition is manage by ki
+
+        // check is login or not
+        if (Session.status !== 200) {
+          // save submission page as back history
+          setStorage("history_back", Router.asPath);
+
+          // redirect to login page
+          Router.push("/login");
+          return alert(
+            true,
+            "Silahkan login Terlebih Dahulu untuk mengikuti kompetisi ini",
+            "error"
+          );
+        }
+
         // competition submission field not available
         if (!submissionFields.open_registration_at)
           return alert(
@@ -36,7 +60,6 @@ const BtnJoin = ({ competitionData, submissionFields }) => {
             "Penyelenggara belum membuat submission field",
             "error"
           );
-        console.log(submissionFields);
 
         // check is registration open
         const openRegistrationAtToMs =
@@ -51,12 +74,9 @@ const BtnJoin = ({ competitionData, submissionFields }) => {
         }
 
         // registration already open
-        return Router.push(
-          `/competition/${
-            competitionData.id
-          }/submission/${competitionData.nospace_title.toLowerCase()}#competition-submission`
-        );
+        return Router.push(submissionPage);
       } else {
+        // competition not manage by ki
         return window.open(competitionData.link_join);
       }
     },

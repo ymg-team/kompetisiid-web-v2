@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Link from "next/link";
 import Label from "../Label";
 import { TabStyled } from "../navigations/Tab";
@@ -31,6 +32,8 @@ export const tab = [
 ];
 
 const TabCompetition = ({ data, active }) => {
+  const Session = useSelector((State) => State.Session);
+
   const n_pengumuman = React.useMemo(() => {
     return data ? data.announcement.length : 0;
   }, [data]);
@@ -42,16 +45,15 @@ const TabCompetition = ({ data, active }) => {
   const tabList = React.useMemo(() => {
     const tabList = tab;
 
-    // if (data.is_manage_by_ki && data.is_joined) {
-    if (data.is_manage_by_ki && tabList.length < 7) {
+    if (data.is_manage_by_ki && tabList.length < 7 && Session.status === 200) {
       tabList.push({
-        name: "Submission",
+        name: "My Submission",
         link: "submission",
       });
     }
 
     return tabList;
-  }, [data]);
+  }, [data, Session]);
 
   return (
     <TabStyled
