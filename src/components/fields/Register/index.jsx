@@ -129,7 +129,7 @@ const Register = () => {
               }
 
               // password format validation
-              if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$/))
+              if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/))
                 errors.password =
                   "Format password tidak valid, minimal karakter mengandung huruf dan angka";
 
