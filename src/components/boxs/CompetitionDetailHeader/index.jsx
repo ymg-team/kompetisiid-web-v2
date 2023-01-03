@@ -1,70 +1,18 @@
 import React from "react";
-import { eventFire } from "../../helpers/domEvents";
-import { getCompetitionStatus } from "../../helpers/dateTime";
+import { eventFire } from "@helpers/domEvents";
+import { getCompetitionStatus } from "@helpers/dateTime";
 import copy from "copy-to-clipboard";
-import Styled from "styled-components";
+import { CompetitionDetailHeaderStyled } from "./styled";
 
 // components
-import AddToCalendarModal from "../modals/AddToCalendar";
+import AddToCalendarModal from "@components/modals/AddToCalendar";
 import Link from "next/link";
-import BtnJoin from "../buttons/BtnJoin";
-import { alert } from "../Alert";
-import BtnLike from "../buttons/BtnLikeCompetition";
-import Label from "../Label";
-import Breadcrumb from "../navigations/Breadcrumb";
-
-const CompetitionDetailStyled = Styled.div`
-  .competition-detail--title {
-    line-height: 1.3;
-    h1 {
-      font-size: 2.5em;
-      line-height: 1.2;
-    }
-    h1, p {
-      margin: 0;
-    }
-  }
-  img {
-    max-width: 100% !important;
-  }
-  .alert {
-    margin-top: 2em;
-  }
-  .competition-author {
-    img {
-      width: 50px !important;
-      height: 50px !important;
-      border-radius: 30px !important;
-    }
-  }
-  .small-stats-icon {
-    margin-right: 15px;
-    cursor: default;
-  }
-  .competition-detail__left {
-    padding: 0;
-  }
-  .competition-detail__right {
-    padding:  0 0 0 40px;
-  }
-
-  // reponsivenes
-  /* Large desktop */
-  // @media (min-width: 1200px) { ... }
-  
-  /* Portrait tablet to landscape and desktop */
-  // @media (min-width: 768px) and (max-width: 979px) { ... }
-  
-  /* Landscape phone to portrait tablet */
-  @media (max-width: 767px) { 
-    .competition-detail__right {
-      padding:  0;
-    }
-  }
-  
-  /* Landscape phones and down */
-  @media (max-width: 480px) { }
-`;
+import BtnJoin from "@components/buttons/BtnJoin";
+import { alert } from "@components/Alert";
+import BtnLike from "@components/buttons/BtnLikeCompetition";
+import Label from "@components/Label";
+import Breadcrumb from "@components/navigations/Breadcrumb";
+import WinnerBox from "@components/boxs/CompetitionWinner";
 
 const hashtagGenerators = (tags) => {
   if (tags) {
@@ -104,7 +52,10 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
   );
 
   return (
-    <CompetitionDetailStyled id="competition-detail" className="container">
+    <CompetitionDetailHeaderStyled
+      id="competition-detail"
+      className="container"
+    >
       <div className="row">
         <div className="row m-30" />
 
@@ -205,6 +156,13 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
               </div>
               <div className="m-30" />
 
+              {/* winner, only show if competition manage by ki and ended */}
+              {data.is_manage_by_ki && is_ended && (
+                <WinnerBox competition_id={data.id} />
+              )}
+
+              {/* end of winner */}
+
               {/* button to join competition */}
               <BtnJoin {...{ submissionFields }} competitionData={data} />
               {/* end of button to join competition */}
@@ -290,7 +248,7 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
 
       {/* modal save to calendar */}
       <AddToCalendarModal data={data} />
-    </CompetitionDetailStyled>
+    </CompetitionDetailHeaderStyled>
   );
 };
 

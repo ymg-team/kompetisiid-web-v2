@@ -20,7 +20,7 @@ import { fetchCompetitionRelatedById } from "@services/competition";
 import SEO from "@components/meta/SEO";
 import Loading from "@components/preloaders/GlobalLoader";
 import Tab from "@components/navigations/TabCompetition";
-import CompetitionDetailBox from "@components/boxs/CompetitionDetail";
+import CompetitionDetailHeaderBox from "@components/boxs/CompetitionDetailHeader";
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
 import NextPrev from "@components/navigations/NextPrev";
 import GAds from "@components/cards/GoogleAds";
@@ -210,7 +210,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
         {respCompetition.status ? (
           respCompetition.status === 200 ? (
             <>
-              <CompetitionDetailBox
+              <CompetitionDetailHeaderBox
                 activeTab={ActiveTab}
                 data={respCompetition.data}
                 submissionFields={respSubmissionFields.data || {}}
