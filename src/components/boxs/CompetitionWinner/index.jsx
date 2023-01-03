@@ -39,7 +39,7 @@ const CompetitionWinnerBox = ({ competition_id }) => {
             </Link>
           ))
         ) : (
-          <p>{respWinners.message}</p>
+          <p className="text-muted">{respWinners.message}</p>
         )}
       </div>
     </CompetitionWinnerStyled>
