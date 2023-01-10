@@ -94,12 +94,10 @@ const BtnJoin = ({ competitionData, submissionFields }) => {
         target="_blank"
         rel="noreferrer noopener"
         className={`btn btn-join btn-lg ${
-          status.is_ended || status.is_waiting ? "btn-gray" : "btn-green"
+          status.is_closed ? "btn-gray" : "btn-green"
         }`}
       >
-        {status.is_ended || status.is_waiting
-          ? "Pendaftaran Ditutup"
-          : "Join Kompetisi"}
+        {status.is_closed ? "Pendaftaran Ditutup" : "Join Kompetisi"}
       </a>
     )
   );

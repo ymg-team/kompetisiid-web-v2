@@ -78,10 +78,11 @@ export function getCompetitionStatus(deadline_at, announcement_at) {
   const now = d.getTime();
   deadline_at = deadline_at * 1000;
   announcement_at = announcement_at * 1000;
-  const is_ended = deadline_at < now && announcement_at < now;
-  const is_waiting = deadline_at < now && announcement_at > now;
+  const is_closed = deadline_at < now;
+  const is_ended = is_closed && announcement_at < now;
+  const is_waiting = is_closed && announcement_at > now;
 
-  return { is_ended, is_waiting, now, deadline_at, announcement_at };
+  return { is_closed, is_ended, is_waiting, now, deadline_at, announcement_at };
 }
 
 export function datetimeToRelativeTime(datetime) {
