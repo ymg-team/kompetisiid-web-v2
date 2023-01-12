@@ -36,18 +36,19 @@ const Home = ({ serverData = {} }) => {
   const [respCompLatest, setRespCompLatest] = React.useState(
     serverData.competitionLatest
   );
+  const [respCompManageByKI, setRespCompManageByKI] = React.useState({});
   const [respCompMP, setRespCompMP] = React.useState({});
 
   // === initial effects ===
 
   // componentDidMount
   React.useEffect(() => {
-    doFetchCompMP();
+    doFetchData();
   }, []);
 
   // === initial functions ===
 
-  const doFetchCompMP = async () => {
+  const doFetchData = async () => {
     const ResponsePopular = await fetchCompetitions({
       query: { limit: 7, is_popular: true, status: "active" },
     });
@@ -57,6 +58,11 @@ const Home = ({ serverData = {} }) => {
       query: { limit: 7, is_mediapartner: true },
     });
     setRespCompMP(ResponseMP);
+
+    const ResponseManaged = await fetchCompetitions({
+      query: { limit: 9, is_manage: true },
+    });
+    setRespCompManageByKI(ResponseManaged);
   };
 
   return (
@@ -118,6 +124,24 @@ const Home = ({ serverData = {} }) => {
         </Link>
       </div>
 
+      <div className="m-b-50" />
+
+      {/* competition manage by ki */}
+      <div className="m-b-50" style={{ borderBottom: "1px solid #e4e4e4" }}>
+        <SubHeaderTitle
+          title="Kompetisi Manage oleh KI"
+          text="Kompetisi yang bisa diikuti secara langsung di Kompetisi Id, cukup login dan klik join kompetisi."
+        />
+      </div>
+
+      <CompetitionBox subtitle={false} {...respCompManageByKI} />
+
+      {/* <div className="row align-center">
+        <Link href="/browse?is_manage=true">
+          <a className="btn btn-bordergray">JELAJAH KOMPETISI</a>
+        </Link>
+      </div> */}
+
       {/* media partners ads */}
       <div className="container">
         <div className="col-md-12">
@@ -150,10 +174,14 @@ Home.getInitialProps = async (ctx) => {
   const competitionLatest = await fetchCompetitions({
     query: { limit: 9, status: "active" },
   });
+  // const competitionManageByKI = await fetchCompetitions({
+  //   query: { limit: 9, is_manage: 1 },
+  // });
   // const newsLatest = await
   return {
     serverData: {
       competitionLatest,
+      // competitionManageByKI,
     },
   };
 };
