@@ -77,6 +77,7 @@ export function getCompetitionStatus(deadline_at, announcement_at) {
   d.setHours(0, 0, 0, 0);
   const now = d.getTime();
   deadline_at = deadline_at * 1000;
+
   announcement_at = announcement_at * 1000;
   const is_closed = deadline_at < now;
   const is_ended = is_closed && announcement_at < now;
