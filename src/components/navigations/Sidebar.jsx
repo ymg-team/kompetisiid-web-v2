@@ -22,6 +22,7 @@ export const SidebarStyled = Styled.div`
 ul {
   list-style: none;
   padding: 0;
+  margin-top:0;
   li {
     padding: 0.5em 0;
     strong {

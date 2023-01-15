@@ -1,10 +1,14 @@
+// layouts
+import SuperLayout from "@layouts/SuperLayoutV5";
+
 // components
 import Login from "~/src/components/fields/Login";
-import SuperLayout from "@layouts/SuperLayoutV5";
+import SEO from "@components/meta/SEO";
 
 const SuperLoginPage = () => {
   return (
     <SuperLayout>
+      <SEO title={"Super Login"} />
       <Login isSuper />
     </SuperLayout>
   );
