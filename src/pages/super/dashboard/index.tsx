@@ -73,6 +73,7 @@ const SuperDashboardPage: React.FC = () => {
                 {n.childs.map((m: any) => {
                   return (
                     <div
+                      key={m}
                       style={{ marginBottom: 20 }}
                       className="col-md-3 col-xs-6"
                     >
