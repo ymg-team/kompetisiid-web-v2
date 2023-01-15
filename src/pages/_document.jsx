@@ -38,10 +38,12 @@ export default function KIDocument() {
           <>
             <script
               async
+              defer
               src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
             ></script>
             <script
               async
+              defer
               src="https://www.googletagmanager.com/gtag/js?id=G-6SDWQ9RSGC"
             ></script>
             <script

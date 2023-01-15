@@ -185,8 +185,12 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
 
               {/* more menus */}
               <div className="dropdown">
-                <a
-                  className="fa fa-ellipsis-h dropdown-button btn"
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                  }}
+                  className="fa fa-ellipsis-h dropdown-button btn btn-white btn-transparent"
                   data-target="action-competition"
                   style={{ fontSize: 25, padding: "5px 10px" }}
                 />

@@ -1230,6 +1230,9 @@ form.form-ki.form-ki__white .form-child small {
     .btn.btn-black:hover {
       background-color: #20243c;
       color: #ffffff; }
+  .btn.btn-transparent {
+    border: none;
+  }
 
 .btn-sm {
   padding: 5px 10px;
