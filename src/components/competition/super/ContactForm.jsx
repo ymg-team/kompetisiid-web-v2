@@ -1,79 +1,79 @@
-import React from "react"
-import Button from "../../buttons/index"
+import React from "react";
+import Button from "../../buttons/index";
 
 const CONTACT_TYPE = [
   {
-    id: 1,
-    type: "Web Link",
-    icon: ""
+    valueKey: 1,
+    textKey: "Web Link",
+    icon: "",
   },
   {
-    id: 2,
-    type: "Facebook",
-    icon: ""
+    valueKey: 2,
+    textKey: "Facebook",
+    icon: "",
   },
   {
-    id: 3,
-    type: "Twitter",
-    icon: ""
+    valueKey: 3,
+    textKey: "Twitter",
+    icon: "",
   },
   {
-    id: 4,
-    type: "Instagram",
-    icon: ""
+    valueKey: 4,
+    textKey: "Instagram",
+    icon: "",
   },
   {
-    id: 5,
-    type: "Google Plus",
-    icon: ""
+    valueKey: 5,
+    textKey: "Google Plus",
+    icon: "",
   },
   {
-    id: 6,
-    type: "Email",
-    icon: ""
+    valueKey: 6,
+    textKey: "Email",
+    icon: "",
   },
   {
-    id: 7,
-    type: "Alamat",
-    icon: ""
+    valueKey: 7,
+    textKey: "Alamat",
+    icon: "",
   },
   {
-    id: 8,
-    type: "Youtube",
-    icon: ""
+    valueKey: 8,
+    textKey: "Youtube",
+    icon: "",
   },
   {
-    id: 9,
-    type: "Telepon",
-    icon: ""
-  }
-]
+    valueKey: 9,
+    textKey: "Telepon",
+    icon: "",
+  },
+];
 
 class ContactForm extends React.Component {
   addContactHandler = () => {
-    let { contacts } = this.props
-    contacts.push({ type: 1, value: "" })
-    return this.props.setState({contacts})
-  }
+    let { contacts } = this.props;
+    contacts.push({ textKey: 1, value: "" });
+    return this.props.setState({ contacts });
+  };
 
-  removeContactHandler = key => {
-    let { contacts } = this.props
-    contacts.splice(key, 1)
-    return this.props.setState(contacts)
-  }
+  removeContactHandler = (key) => {
+    let { contacts } = this.props;
+    contacts.splice(key, 1);
+    return this.props.setState(contacts);
+  };
 
   changeSelectHandler = (e, key) => {
-    let { contacts } = this.props
-    contacts[key].type = e.target.value 
+    let { contacts } = this.props;
+    contacts[key].type = e.target.value;
 
-    return this.props.setState({contacts})
-  }
+    return this.props.setState({ contacts });
+  };
 
   changeInputHandler = (e, key) => {
-    let { contacts } = this.props
-    contacts[key].value = e.target.value 
-    return this.props.setState({contacts})
-  }
+    let { contacts } = this.props;
+    contacts[key].value = e.target.value;
+    return this.props.setState({ contacts });
+  };
 
   itemGenerator = (n = {}, key) => {
     return (
@@ -81,7 +81,7 @@ class ContactForm extends React.Component {
         <div style={{ paddingLeft: 0 }} className="col-xs-4">
           <select
             className="form-child"
-            onChange={e => this.changeSelectHandler(e, key)}
+            onChange={(e) => this.changeSelectHandler(e, key)}
             value={n.type || ""}
           >
             {CONTACT_TYPE.map((n, key) => {
@@ -89,13 +89,13 @@ class ContactForm extends React.Component {
                 <option key={key} value={n.id}>
                   {n.type}
                 </option>
-              )
+              );
             })}
           </select>
         </div>
         <div className="col-xs-6">
           <input
-            onChange={e => this.changeInputHandler(e, key)}
+            onChange={(e) => this.changeInputHandler(e, key)}
             style={{ padding: 0, margin: 0 }}
             className="form-child"
             type="text"
@@ -108,25 +108,25 @@ class ContactForm extends React.Component {
           </Button>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   render = () => {
     return (
       <React.Fragment>
         {this.props.contacts.map((n, key) => {
-          return this.itemGenerator(n, key)
+          return this.itemGenerator(n, key);
         })}
         <div style={{ paddingLeft: 0 }} className="row col-xs-12">
           {this.props.contacts.length > 0 ? <br /> : null}
-          <Button onClick={() => this.addContactHandler()}>
+          <Button type="button" onClick={() => this.addContactHandler()}>
             {" "}
             + Tambahkan Kontak
           </Button>
         </div>
       </React.Fragment>
-    )
-  }
+    );
+  };
 }
 
-export default ContactForm
+export default ContactForm;

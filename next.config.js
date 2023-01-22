@@ -68,6 +68,14 @@ const nextConfig = {
         source: "/news",
         destination: "/news",
       },
+      {
+        source: "/super/competitions/:status",
+        destination: "/super/competitions?status=:status",
+      },
+      {
+        source: "/super/competitions/edit/:id",
+        destination: "/super/competitions/create?competition_id=:id",
+      },
     ];
   },
   async redirects() {

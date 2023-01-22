@@ -67,7 +67,7 @@ const SuperDashboardPage: React.FC = () => {
             return (
               <div key={n.key} className="row">
                 <div className="col-md-12">
-                  <HeaderDashboard title={n.title} text={n.desc} />
+                  <HeaderDashboard title={n.title} text={n.desc} asSubHeader />
                   <Spacer size="medium" />
                 </div>
                 {n.childs.map((m: any) => {
@@ -80,7 +80,7 @@ const SuperDashboardPage: React.FC = () => {
                       <CountBox
                         count={respStats[n.key][m]}
                         text={m}
-                        link={`/super/${n.link}/${m}`}
+                        link={`/super${n.link}/${m}`}
                       />
                     </div>
                   );

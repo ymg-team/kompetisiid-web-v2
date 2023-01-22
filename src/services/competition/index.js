@@ -2,6 +2,28 @@ import fetchModule from "~/src/helpers/apiCaller";
 import { objToQuery } from "string-manager";
 
 /**
+ * service to post competition
+ */
+export const createCompetition = async (payload = {}) => {
+  return fetchModule({
+    endpoint: `/v22/competition`,
+    method: "post",
+    jsonBody: payload,
+  });
+};
+
+/**
+ * service to update competition
+ */
+export const updateCompetition = async (payload = {}) => {
+  return fetchModule({
+    endpoint: `/v22/competition/${payload.competition_id}`,
+    method: "put",
+    jsonBody: payload,
+  });
+};
+
+/**
  * service to fetch list of competition
  */
 export const fetchCompetitions = (args) => {

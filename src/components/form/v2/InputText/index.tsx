@@ -1,7 +1,7 @@
-import { Field, FormikContextType } from "formik";
-import { InputTextInterface } from "./interfaces";
+import { Field } from "formik";
+import { InputTextProps } from "./types";
 
-const InputTextV2: React.FC<InputTextInterface> = ({
+const InputTextV2: React.FC<InputTextProps> = ({
   label,
   name,
   type,
@@ -11,10 +11,10 @@ const InputTextV2: React.FC<InputTextInterface> = ({
   disabled,
 }) => {
   return (
-    <Field name={name}>
+    <Field {...{ name }}>
       {({
         field, // { name, value, onChange, onBlur }
-        form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+        // form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
         meta,
       }: any) => (
         <div className={`form-child ${meta.touched && meta.error && "error"} `}>

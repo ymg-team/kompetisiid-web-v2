@@ -113,8 +113,8 @@ const Sidebar = (props) => {
               <li>
                 {!n.child ? (
                   n.to !== "#" ? (
-                    <Link onClick={() => toggleMenus()} href={n.to}>
-                      <a>{n.title}</a>
+                    <Link href={n.to}>
+                      <a onClick={() => toggleMenus()}>{n.title}</a>
                     </Link>
                   ) : (
                     <a
@@ -148,13 +148,12 @@ const Sidebar = (props) => {
                             {m.title}
                           </a>
                         ) : (
-                          <Link
-                            onClick={() => {
-                              toggleMenus();
-                            }}
-                            href={m.to}
-                          >
-                            <a>
+                          <Link href={m.to}>
+                            <a
+                              onClick={() => {
+                                toggleMenus();
+                              }}
+                            >
                               {m.icon && <i className={m.icon} />} {m.title}
                               {m.label && m.label.text && (
                                 <>

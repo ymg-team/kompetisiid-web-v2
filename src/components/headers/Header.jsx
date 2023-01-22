@@ -41,6 +41,8 @@ const Header = (props) => {
     }
   }, [logout]);
 
+  console.log("session", session);
+
   return (
     <nav>
       <div style={{ top: q ? "-50px" : "0px" }} className="nav-header">

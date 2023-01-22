@@ -1,9 +1,9 @@
 import React from "react";
 
 // components
-import Sidebar from "../Sidebar";
+import Sidebar from "../../Sidebar";
 
-const SuperSidebar = (props) => {
+const SuperSidebar = (props: any) => {
   const stats = React.useMemo(() => {
     return props.stats && props.stats.status === 200
       ? props.stats
@@ -21,43 +21,31 @@ const SuperSidebar = (props) => {
         child: [
           {
             title: "Tambah Kompetisi",
-            to: "/super/competition/create",
+            to: "/super/competitions/create",
             icon: "fas fa-plus",
           },
           {
-            title: "Menunggu",
-            // hide: !stats.competition.waiting,
-            to: "/super/competition/waiting",
+            title: "All",
+            to: "/super/competitions",
             label: stats.competition.waiting
               ? {
                   color: "red",
-                  text: stats.competition.waiting,
+                  text: stats.competition.all,
                 }
               : undefined,
           },
           {
-            title: "Berlangsung",
-            to: "/super/competition/live",
-            label: {
-              color: "blue",
-              text: stats.competition.live,
-            },
+            title: "Waiting",
+            // hide: !stats.competition.waiting,
+            to: "/super/competitions/waiting",
           },
           {
-            title: "Dipublikasi",
-            to: "/super/competition/posted",
-            label: {
-              color: "blue",
-              text: stats.competition.posted,
-            },
+            title: "Active",
+            to: "/super/competitions/active",
           },
           {
-            title: "Ditolak",
-            to: "/super/competition/rejected",
-            label: {
-              color: "gray",
-              text: stats.competition.reject,
-            },
+            title: "End",
+            to: "/super/competitions/end",
           },
         ],
       },

@@ -4,7 +4,7 @@ import { Colors } from "~/src/config/style";
 
 // components
 import Link from "next/link";
-import Label from "../Label";
+import Label from "../../Label";
 
 export const TabStyled = Styled.div`
   &.container-competition-tab {

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 import Label from "../Label";
-import { TabStyled } from "../navigations/Tab";
+import { TabStyled } from "@components/tabs/base";
 
 export const tab = [
   {

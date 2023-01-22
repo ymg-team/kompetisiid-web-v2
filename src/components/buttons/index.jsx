@@ -69,7 +69,7 @@ const ButtonStyled = Styled.button`
   }}
 `;
 
-const Button = (props) => {
+const Button = ({ loading, ...props }) => {
   let style = {};
   if (props.loading) {
     style.opacity = 0.4;
@@ -98,6 +98,9 @@ Button.defaultProps = {
   color: "white",
   fullWidth: false,
   onClick: () => {},
+  style: {},
+  className: "",
+  loading: false,
 };
 
 export default Button;

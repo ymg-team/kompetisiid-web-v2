@@ -29,7 +29,7 @@ const SuperLayout = ({ children }) => {
     // user is not admin
     if (
       SessionFromCookies.status === 200 &&
-      SessionFromCookies.data.level !== "admin"
+      !["admin", "moderator"].includes(SessionFromCookies.data.level)
     ) {
       Router.push("/");
     }
@@ -58,7 +58,8 @@ const SuperLayout = ({ children }) => {
   return (
     <div className="container">
       {(!session.status && Router.asPath !== "/super") ||
-      (session.status === 200 && session.data.level !== "admin") ? (
+      (session.status === 200 &&
+        !["admin", "moderator"].includes(session.data.level)) ? (
         <Loading />
       ) : (
         <>

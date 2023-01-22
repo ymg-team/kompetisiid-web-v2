@@ -8,7 +8,7 @@ const AlertStyled = Styled.div`
   width: 500px;
   max-width: 100%;
   left: 50%;
-  bottom: -100px;
+  bottom: -500px;
   margin-left: -200px;
   z-index: 100; 
   padding: 10px;

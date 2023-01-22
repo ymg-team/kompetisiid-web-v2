@@ -1,4 +1,4 @@
-export interface LoginComponentInterface {
+export type LoginComponentInterface = {
   isSuper?: boolean;
   isDashboard?: boolean;
-}
+};

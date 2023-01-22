@@ -110,6 +110,10 @@ export function strToDateTime(str) {
 export function dateToFormat(date, format) {
   const d = new Date(date);
   switch (format) {
+    case "Y-m-d h:i:s":
+      return `${d.getFullYear()}-${
+        d.getMonth() < 10 ? `0${d.getMonth() + 1}` : d.getMonth() + 1
+      }-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
     case "Y-m-d":
     default:
       return `${d.getFullYear()}-${

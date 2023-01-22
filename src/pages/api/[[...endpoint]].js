@@ -1,13 +1,14 @@
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 const { URL_KI_BE } = publicRuntimeConfig;
+import formidable from "formidable";
 
 import sealMiddleware from "~/src/helpers/seal";
 
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "3mb", // Set desired value here
+      sizeLimit: "5MB", // Set desired value here
     },
   },
 };
@@ -38,8 +39,10 @@ const IndexApi = async (req, res) => {
         headers,
       };
 
+      // return console.log("headers", headers);
+
       if (method !== "GET" && body) {
-        ReqArgs.headers["Content-Type"] = "application/json";
+        // ReqArgs.headers["Content-Type"] = "application/json";
         ReqArgs.body = JSON.stringify(body);
       }
 

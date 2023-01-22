@@ -1,4 +1,4 @@
-export interface InputTextInterface {
+export type SelectProps = {
   label?: string;
   name?: string;
   type?: string;
@@ -6,4 +6,5 @@ export interface InputTextInterface {
   required?: boolean;
   noLabel?: boolean;
   disabled?: boolean;
-}
+  options?: any[];
+};
