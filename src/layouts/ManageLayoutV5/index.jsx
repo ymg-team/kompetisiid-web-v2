@@ -10,20 +10,20 @@ import { setSession } from "@store/session/actions";
 
 // components
 import GlobalLoader from "@components/preloaders/GlobalLoader";
-import { alert } from "../components/Alert";
-import { fullPageLoader } from "../components/preloaders/FullPage";
+import { alert } from "@components/alert/Base";
+import { fullPageLoader } from "@components/preloaders/FullPage";
 
 // components
-import Loading from "../components/preloaders/FullContentLoader";
+import Loading from "@components/preloaders/FullContentLoader";
 import { useRouter } from "next/router";
 
-const Sidebar = Dynamic(import("../components/navigations/_manage/Sidebar"), {
+const Sidebar = Dynamic(import("@components/navigations/_manage/Sidebar"), {
   loading: Loading,
 });
 
 let sessionChecker;
 
-const ManageLayoutV5 = ({ children }) => {
+const Index = ({ children }) => {
   const Router = useRouter();
 
   // initial redux
@@ -101,4 +101,4 @@ const ManageLayoutV5 = ({ children }) => {
   );
 };
 
-export default ManageLayoutV5;
+export default Index;

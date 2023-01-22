@@ -8,7 +8,7 @@ import { CompetitionDetailHeaderStyled } from "./styled";
 import AddToCalendarModal from "@components/modals/AddToCalendar";
 import Link from "next/link";
 import BtnJoin from "@components/buttons/BtnJoin";
-import { alert } from "@components/Alert";
+import { alert } from "@components/alert/Base";
 import BtnLike from "@components/buttons/BtnLikeCompetition";
 import Label from "@components/Label";
 import Breadcrumb from "@components/navigations/Breadcrumb";

@@ -6,7 +6,7 @@ import Spacer from "@components/boxs/Spacer";
 import Styled from "styled-components";
 import Tags from "@components/buttons/CompetitionTags";
 import { textParser } from "@helpers/string";
-import { alert } from "@components/Alert";
+import { alert } from "@components/alert/Base";
 
 const RegulationStyled = Styled.div`
 article {

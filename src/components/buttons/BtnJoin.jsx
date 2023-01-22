@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { alert } from "@components/Alert";
+import { alert } from "@components/alert/Base";
 
 // helpers
 import { setStorage } from "@helpers/localStorage";

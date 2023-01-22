@@ -1,6 +1,6 @@
 import React from "react";
 import Styled from "styled-components";
-import { Colors } from "~/src/config/style";
+import { Colors } from "@configs/style";
 
 // components
 import Link from "next/link";
@@ -72,7 +72,7 @@ const FooterBottom = Styled.div`
   }
 `;
 
-const Footer = (props) => {
+const Index = (props) => {
   const [isLogin, setIsLogin] = React.useState(false);
 
   return (
@@ -216,7 +216,7 @@ const Footer = (props) => {
             >
               <img
                 className="footer-copyright-logo"
-                src="/static/images/icons-white/icon-72x72.png"
+                src="/images/icons-white/icon-72x72.png"
                 alt="kompetisi id icon"
               />
               <small className="footer-copyright-text">
@@ -289,7 +289,7 @@ const Footer = (props) => {
                 target="_blank"
               >
                 <img
-                  src="/static/images/icons/ymg-icon-small.png"
+                  src="/images/icons/ymg-icon-small.png"
                   alt="Yussan Media Group Small Icon"
                 />
               </a>
@@ -301,4 +301,4 @@ const Footer = (props) => {
   );
 };
 
-export default Footer;
+export default Index;

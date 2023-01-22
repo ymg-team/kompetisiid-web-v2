@@ -1,12 +1,12 @@
 import React from "react";
-import { alert } from "~/src/components/Alert";
+import { alert } from "@components/alert/Base";
 import { setSession } from "@helpers/cookies";
 
 import Link from "next/link";
 import { Form, Formik } from "formik";
 
 import SEO from "@components/meta/SEO";
-import FullScreen from "@components/Fullscreen";
+import FullScreen from "@layouts/FullScreen";
 import InputTextV2 from "@components/form/v2/InputText";
 import { LoginStyled } from "./styled";
 import Submit from "@components/form/v2/Submit";

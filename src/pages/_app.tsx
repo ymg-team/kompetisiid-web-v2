@@ -10,11 +10,11 @@ import Store from "~/src/store/intializeStore";
 const InitialStore = Store();
 
 // layouts
-import HomeLayoutV5 from "~/src/layouts/HomeLayoutV5";
+import Index from "@layouts/HomeLayoutV5";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const Layout = React.useMemo(() => {
-    return HomeLayoutV5;
+    return Index;
   }, []);
 
   const isFullScreen = React.useMemo(() => {

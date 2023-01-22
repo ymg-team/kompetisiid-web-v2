@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 // import { likeActionCompetition } from "../../pages/competition/actions";
 import { setStorage } from "@helpers/localStorage";
-import { alert } from "@components/Alert";
+import { alert } from "@components/alert/Base";
 
 // services
 import { likeDislikeCompetition } from "@services/competition";

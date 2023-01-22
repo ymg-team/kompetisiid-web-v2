@@ -3,7 +3,7 @@ import Styled from "styled-components";
 import { objToQuery } from "string-manager";
 
 // components
-import Modal from "./index";
+import Modal from "@components/modals/Base";
 
 const StyledCalendar = Styled.div`
   padding-bottom: 10px;

@@ -12,7 +12,7 @@ import {
 
 // components
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
-import Modal from "@components/modals";
+import Modal from "@components/modals/Base";
 import MediaPartnerAds from "@components/cards/MediaPartnerAds";
 import GlobalLoading from "@components/preloaders/GlobalLoader";
 import { FilterJelajahStyled } from "@components/filters/Filter.styled";

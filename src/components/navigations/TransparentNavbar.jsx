@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 // helpers
 import { clearSession } from "@helpers/cookies";
-import { alert } from "@components/Alert";
+import { alert } from "@components/alert/Base";
 
 // components
 import Link from "next/link";

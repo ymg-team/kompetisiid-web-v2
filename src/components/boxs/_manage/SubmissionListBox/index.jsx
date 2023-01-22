@@ -5,7 +5,7 @@ import SubmissionList from "@components/cards/_manage/SubmissionList";
 import GlobalLoader from "@components/preloaders/GlobalLoader";
 import Button from "@components/buttons";
 
-import { alert } from "@components/Alert";
+import { alert } from "@components/alert/Base";
 
 // services
 import {

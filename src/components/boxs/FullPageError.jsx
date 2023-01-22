@@ -1,10 +1,10 @@
 import React from "react";
-import Fullscreen from "../Fullscreen";
+import Index from "@layouts/FullScreen";
 import Link from "next/link";
 
 const FullPageError = ({ message, code }) => {
   return (
-    <Fullscreen className="error">
+    <Index className="error">
       <div className="error-box">
         <div className="error__code">
           <h1>{code || 500}</h1>
@@ -27,7 +27,7 @@ const FullPageError = ({ message, code }) => {
           </Link>
         </div>
       </div>
-    </Fullscreen>
+    </Index>
   );
 };
 

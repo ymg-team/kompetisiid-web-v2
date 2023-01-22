@@ -27,7 +27,7 @@ import CompetitionContactField from "@components/fields/CompetitionContacts";
 import CompetitionCategoryField from "@components/fields/CompetitionCategory";
 import Checkbox from "@components/form/v2/Checkbox";
 import InputTag from "@components/form/v2/InputTag";
-import { alert } from "@components/Alert";
+import { alert } from "@components/alert/Base";
 
 const Now = new Date();
 

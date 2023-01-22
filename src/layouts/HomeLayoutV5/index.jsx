@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Colors } from "~/src/config/style";
-import { initModalImages } from "~/src/helpers/modal";
+import { Colors } from "@configs/style";
+import { initModalImages } from "@helpers/modal";
 import { useRouter } from "next/router";
 
 // helpers
@@ -11,14 +11,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSession } from "@store/session/actions";
 
 // components
-import Footer from "../components/Footer";
+import Index from "@components/footers/GlobalFooter";
 import Styled from "styled-components";
-import Navbar from "../components/navigations/TransparentNavbar";
-import Alert from "../components/Alert";
-import FullScreenLoader from "../components/preloaders/FullPage";
-import ImageModal from "../components/modals/ImageModal";
-import NotificationConfirmModal from "../components/modals/NotificationConfirmation";
-import GAds from "../components/cards/GoogleAds";
+import Navbar from "@components/navigations/TransparentNavbar";
+import Alert from "@components/alert/Base";
+import FullScreenLoader from "@components/preloaders/FullPage";
+import ImageModal from "@components/modals/ImageModal";
+import NotificationConfirmModal from "@components/modals/NotificationConfirmation";
+import GAds from "@components/cards/GoogleAds";
 
 const StickyNoteStyle = {
   position: "fixed",
@@ -155,7 +155,7 @@ const HomeLayoutV5 = ({ children, isFullScreen }) => {
         )}
         {/* gads */}
 
-        {!isFullScreen && <Footer />}
+        {!isFullScreen && <Index />}
 
         {/* button click to go top */}
         <BackToTop
@@ -196,7 +196,7 @@ const HomeLayoutV5 = ({ children, isFullScreen }) => {
               // props.dispatch(resendEmailValidationToken());
             }}
             style={StickyNoteLinkStyle}
-            href="#"
+            href="src/layouts#"
           >
             kirim ulang link verifikasi
           </a>

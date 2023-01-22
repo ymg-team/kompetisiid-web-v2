@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Colors } from "~/src/config/style";
+import { Colors } from "@configs/style";
 
-const Fullscreen = styled.div`
+const Index = styled.div`
   color: #fff;
   padding: 0;
   margin: 0;
@@ -25,4 +25,4 @@ const Fullscreen = styled.div`
   }
 `;
 
-export default Fullscreen;
+export default Index;

@@ -1,5 +1,5 @@
 import React from "react";
-import { alert } from "~/src/components/Alert";
+import { alert } from "@components/alert/Base";
 
 // components
 import Submit from "@components/form/v2/Submit";

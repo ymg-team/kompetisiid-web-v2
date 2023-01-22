@@ -4,7 +4,7 @@ import Dynamic from "next/dynamic";
 
 // components
 import Loading from "@components/preloaders/GlobalLoader";
-import { alert } from "@components/Alert";
+import { alert } from "@components/alert/Base";
 import { fullPageLoader } from "@components/preloaders/FullPage";
 import { clearSession, getSession } from "@helpers/cookies";
 
