@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="618452c2-153f-4d95-9a43-d807c19bed87" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/components/Alert.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/footers/GlobalFooter/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Fullscreen.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/FullScreen/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Helmet.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Redirect.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RouterAuthorization.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tagify.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Transtition.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/boxs/CompetitionDetailHeader/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/boxs/CompetitionDetailHeader/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/boxs/FullPageError.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/boxs/FullPageError.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/boxs/_manage/SubmissionListBox/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/boxs/_manage/SubmissionListBox/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/buttons/BtnJoin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/buttons/BtnJoin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/buttons/BtnLikeCompetition.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/buttons/BtnLikeCompetition.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/competition-detail/Regulations/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/competition-detail/Regulations/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fields/Competition/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fields/Competition/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fields/Login/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fields/Login/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fields/Register/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fields/Register/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/fields/_manage/SubmissionForm/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fields/_manage/SubmissionForm/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/AddToCalendar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/AddToCalendar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/ImageModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/ImageModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/NotificationConfirmation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/NotificationConfirmation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/modals/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/modals/Base/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navigations/TransparentNavbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navigations/TransparentNavbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/EmptyLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/EmptyLayout/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/HomeLayoutV5.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/HomeLayoutV5/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/ManageLayoutV5.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/ManageLayoutV5/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/RootLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/RootLayout/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/SuperLayoutV5.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/SuperLayoutV5/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/add/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/add/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/add/send/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/add/send/index.jsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Kg8xW5iJ3ObUsoFILchxiXUv2f" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/yusufakhsanhidayat/Projects/YMG Projects/kompetisiid-web-v2",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "ts.external.directory.path": "/Users/yusufakhsanhidayat/Projects/YMG Projects/kompetisiid-web-v2/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/layouts/SuperLayoutV5" />
+      <recent name="$PROJECT_DIR$/src/layouts/RootLayout" />
+      <recent name="$PROJECT_DIR$/src/layouts/ManageLayoutV5" />
+      <recent name="$PROJECT_DIR$/src/layouts/HomeLayoutV5" />
+      <recent name="$PROJECT_DIR$/src/layouts/EmptyLayout" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="618452c2-153f-4d95-9a43-d807c19bed87" name="Changes" comment="" />
+      <created>1674385111993</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1674385111993</updated>
+      <workItem from="1674385113801" duration="2753000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
