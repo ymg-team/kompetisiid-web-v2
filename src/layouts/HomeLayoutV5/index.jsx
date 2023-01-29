@@ -147,7 +147,6 @@ const HomeLayoutV5 = ({ children, isFullScreen }) => {
         {!isFullScreen && !RoutesNoGAds.includes(Router.asPath) && (
           <div className="col-md-12 align-center">
             <GAds
-              adClient="ca-pub-4468477322781117"
               adSlot={5218613800}
               // adTest={true}
             />

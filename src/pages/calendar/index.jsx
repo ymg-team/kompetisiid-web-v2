@@ -35,7 +35,6 @@ const CalendarContainer = () => {
       <div className="row">
         <div className="col-md-12 align-center">
           <GAds
-            adClient="ca-pub-4468477322781117"
             adSlot={1041612608}
             timeout={1000}
           />

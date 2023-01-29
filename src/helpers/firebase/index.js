@@ -1,3 +1,7 @@
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+const { GOOGLE_ANALYTICS_ID } = publicRuntimeConfig;
+
 // important: only call this helper on client side
 // ref: https://firebase.google.com/docs/cloud-messaging/js/client?authuser=0
 
@@ -11,19 +15,19 @@ const firebaseConfig = {
   storageBucket: "kompetisi-id.appspot.com",
   messagingSenderId: "825189798997",
   appId: "1:825189798997:web:69ec4256ec092acf5bf0dc",
-  measurementId: "G-6SDWQ9RSGC"
-}
+  measurementId: GOOGLE_ANALYTICS_ID,
+};
 
-let messaging
+let messaging;
 
-firebase.initializeApp(firebaseConfig)
-firebase.analytics()
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 
 try {
   // fcm initial
-  messaging = firebase.messaging()
+  messaging = firebase.messaging();
 } catch (err) {
-  console.error("Firebase Messaging: ", err)
+  console.error("Firebase Messaging: ", err);
 }
 
 export function initFirebase() {
@@ -33,7 +37,7 @@ export function initFirebase() {
     Notification.permission === "granted" &&
     window.firebase
   ) {
-    return getFirebaseToken()
+    return getFirebaseToken();
   }
 }
 
@@ -47,39 +51,39 @@ function getFirebaseToken() {
     // ref: https://firebase.google.com/docs/cloud-messaging/js/client
     messaging.usePublicVapidKey(
       "BIC9HdnInlZTEmNITAQX4Uq8CiQCnRSsaaZZM5gj4xOpkaiq0XXRJd7LpKulc4IXZUoE_LKdtOASjzGG1B0amwI"
-    )
+    );
 
     // get current fcm token
     messaging
       .getToken()
-      .then(currentToken => {
+      .then((currentToken) => {
         if (process.env.NODE_ENV == "development")
-          console.log("currentToken", currentToken)
+          console.log("currentToken", currentToken);
       })
-      .catch(err => {
-        console.error("An error occurred while retrieving token. ", err)
-      })
+      .catch((err) => {
+        console.error("An error occurred while retrieving token. ", err);
+      });
 
     // token refresh listener
     messaging.onTokenRefresh(() => {
       MessageChannel.getToken()
-        .then(currentToken => {
-          console.log("fcm token is refreshed...")
+        .then((currentToken) => {
+          console.log("fcm token is refreshed...");
           if (process.env.NODE_ENV == "development")
-            console.log("currentToken", currentToken)
+            console.log("currentToken", currentToken);
         })
-        .catch(err => {
-          console.error("An error occurred while retrieving token. ", err)
-        })
-    })
+        .catch((err) => {
+          console.error("An error occurred while retrieving token. ", err);
+        });
+    });
 
     /**
      * @description function to handle incoming message
      * - the message is receive when app is focus
      * -
      */
-    messaging.onMessage(payload => {
-      console.log("Message received. ", payload)
-    })
+    messaging.onMessage((payload) => {
+      console.log("Message received. ", payload);
+    });
   }
 }

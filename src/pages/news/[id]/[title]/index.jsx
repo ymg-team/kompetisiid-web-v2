@@ -329,7 +329,6 @@ const NewsDetail = ({ encid, title, serverData }) => {
                 <div className="col-md-12 align-center">
                   <GAds
                     style={{ marginTop: 0 }}
-                    adClient="ca-pub-4468477322781117"
                     adSlot={1270681813}
                     timeout={1000}
                   />

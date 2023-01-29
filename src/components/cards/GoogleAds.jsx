@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
-const { NODE_ENV } = publicRuntimeConfig;
+const { NODE_ENV, GOOGLE_ADSENSE_CLIENT } = publicRuntimeConfig;
 
 // components
 const Ads = styled.ins`
@@ -45,7 +45,7 @@ const GoogleAds = (props) => {
       <Ads
         className="adsbygoogle"
         style={style}
-        data-ad-client={props.adClient}
+        data-ad-client={GOOGLE_ADSENSE_CLIENT}
         data-ad-slot={props.adSlot}
         data-ad-format="auto"
         data-full-width-responsive="true"
