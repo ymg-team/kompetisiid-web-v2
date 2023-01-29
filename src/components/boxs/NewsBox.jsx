@@ -1,10 +1,10 @@
-import React, { Component } from "react"
-import Styled from "styled-components"
+import React, { Component } from "react";
+import Styled from "styled-components";
 
 // components
-import GAds from "../cards/GoogleAds"
-import Card from "../cards/NewsListCard"
-import Loader from "../preloaders/NewsCardLoader"
+import GAds from "../cards/GoogleAds";
+import Card from "../cards/NewsListCard";
+import Loader from "../preloaders/NewsCardLoader";
 
 const NewsBoxStyled = Styled.div`
 .news-container__cards {
@@ -27,7 +27,7 @@ const NewsBoxStyled = Styled.div`
     margin: 0;
   }
 }
-`
+`;
 
 export default class NewsBox extends Component {
   generateList(n) {
@@ -41,22 +41,21 @@ export default class NewsBox extends Component {
           >
             <GAds
               key={`ads_key`}
-              adClient="ca-pub-4468477322781117"
               adSlot={5218613800}
               timeout={1000}
               // adTest={true}
             />
           </div>,
-          <Card key={key} n={n} size={this.props.size} />
-        ]
+          <Card key={key} n={n} size={this.props.size} />,
+        ];
       } else {
-        return <Card key={key} n={n} size={this.props.size} />
+        return <Card key={key} n={n} size={this.props.size} />;
       }
-    })
+    });
   }
 
   render() {
-    const { status, message, count, data, is_loading, subtitle } = this.props
+    const { status, message, count, data, is_loading, subtitle } = this.props;
     return (
       <NewsBoxStyled id="news-container">
         <div className="container">
@@ -93,10 +92,10 @@ export default class NewsBox extends Component {
           {is_loading || !status ? <Loader /> : null}
         </div>
       </NewsBoxStyled>
-    )
+    );
   }
 }
 
 NewsBox.defaultProps = {
-  subtitle: true
-}
+  subtitle: true,
+};

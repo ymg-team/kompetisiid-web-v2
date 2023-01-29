@@ -62,12 +62,7 @@ const MediaPartnerAds = (props) => {
   } else if (!props.noads) {
     return (
       <div className="align-center">
-        <GAds
-          adClient="ca-pub-4468477322781117"
-          adSlot={1270681813}
-          timeout={1000}
-          style={{ marginBottom: 0 }}
-        />
+        <GAds adSlot={1270681813} timeout={1000} style={{ marginBottom: 0 }} />
       </div>
     );
   } else {

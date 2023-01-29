@@ -63,12 +63,7 @@ const Sidebar = ({ data }) => {
       <MediaPartnerAds size="square" noads={true} />
 
       {/* GAds */}
-      <GAds
-        style={{ margin: 0 }}
-        adClient="ca-pub-4468477322781117"
-        adSlot={9209398500}
-        timeout={1000}
-      />
+      <GAds style={{ margin: 0 }} adSlot={9209398500} timeout={1000} />
       {/* end of GAds */}
     </div>
   );

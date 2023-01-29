@@ -1,9 +1,9 @@
-import React from "react"
+import React from "react";
 
 // components
-import GAds from "../cards/GoogleAds"
-import Card from "../cards/CompetitionListCard"
-import Loader from "../preloaders/CompetitionCardLoader"
+import GAds from "../cards/GoogleAds";
+import Card from "../cards/CompetitionListCard";
+import Loader from "../preloaders/CompetitionCardLoader";
 
 function generateList(size, n) {
   return n.map((n, key) => {
@@ -16,21 +16,20 @@ function generateList(size, n) {
         >
           <GAds
             key={`ads_${key}`}
-            adClient="ca-pub-4468477322781117"
             adSlot={2722581701}
             timeout={1000}
             // adTest={true}
           />
         </div>,
-        <Card size={size} key={key} n={n} />
-      ]
+        <Card size={size} key={key} n={n} />,
+      ];
     } else {
-      return <Card size={size} key={key} n={n} />
+      return <Card size={size} key={key} n={n} />;
     }
-  })
+  });
 }
 
-const CompetitionBox = props => {
+const CompetitionBox = (props) => {
   let {
     data,
     status,
@@ -40,10 +39,10 @@ const CompetitionBox = props => {
     size,
     count,
     meta,
-    style
-  } = props
-  if (typeof subtitle == "undefined") subtitle = true
-  if (typeof size == "undefined") size = "large"
+    style,
+  } = props;
+  if (typeof subtitle == "undefined") subtitle = true;
+  if (typeof size == "undefined") size = "large";
 
   return (
     <div id="competition-container">
@@ -77,7 +76,7 @@ const CompetitionBox = props => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CompetitionBox
+export default CompetitionBox;

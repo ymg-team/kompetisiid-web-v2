@@ -212,7 +212,6 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
               >
                 <GAds
                   style={{ marginBottom: 0 }}
-                  adClient="ca-pub-4468477322781117"
                   adSlot={9209398500}
                   timeout={1000}
                 />

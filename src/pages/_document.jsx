@@ -4,7 +4,7 @@ import { ServerStyleSheet } from "styled-components";
 
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
-const { NODE_ENV } = publicRuntimeConfig;
+const { NODE_ENV, GOOGLE_ANALYTICS_ID } = publicRuntimeConfig;
 
 export default function KIDocument() {
   return (
@@ -42,7 +42,7 @@ export default function KIDocument() {
             ></script>
             <script
               async
-              src="https://www.googletagmanager.com/gtag/js?id=G-6SDWQ9RSGC"
+              src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
             ></script>
             <script
               async
@@ -51,7 +51,7 @@ export default function KIDocument() {
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'G-6SDWQ9RSGC');`,
+    gtag('config', '${GOOGLE_ANALYTICS_ID}');`,
               }}
             ></script>
           </>

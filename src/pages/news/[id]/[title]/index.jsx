@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import Dynamic from "next/dynamic";
 import Styled from "styled-components";
 import { pushScript } from "@helpers/domEvents";
-import { topLoading } from "@components/preloaders";
 import { epochToRelativeTime } from "@helpers/dateTime";
 import { textParser } from "@helpers/string";
 
@@ -328,7 +327,6 @@ const NewsDetail = ({ encid, title, serverData }) => {
                 <div className="col-md-12 align-center">
                   <GAds
                     style={{ marginTop: 0 }}
-                    adClient="ca-pub-4468477322781117"
                     adSlot={1270681813}
                     timeout={1000}
                   />

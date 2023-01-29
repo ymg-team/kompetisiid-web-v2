@@ -106,7 +106,6 @@ const NewsList = ({ tag, serverData = {} }) => {
       <div className="col-md-12 align-center">
         {/* GA channel news list */}
         <GAds
-          adClient="ca-pub-4468477322781117"
           adSlot={7348028908}
           timeout={1000}
           dataAdFormat="auto"
