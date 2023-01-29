@@ -3,8 +3,16 @@ import { useRouter } from "next/router";
 import Styled from "styled-components";
 import { Colors } from "~/src/config/style";
 
+// redux
+import { useSelector, useDispatch } from "react-redux";
+
+// helpers
+import { clearSession } from "@helpers/cookies";
+import { alert } from "@components/alert/Base";
+
 // components
 import Link from "next/link";
+import { fullPageLoader } from "@components/preloaders/FullPage";
 
 const Menus = [
   {
@@ -67,6 +75,7 @@ const NavbarStyled = Styled.div`
   #btn-sidebar {
     font-size: 32px;
     display: none;
+    margin-top: -2px;
   }
 
   padding: .5em 0;
@@ -154,9 +163,12 @@ const SearchStyled = Styled.div`
 `;
 
 const Navbar = (props) => {
+  // redux
+  const Dispatch = useDispatch();
+  const Session = useSelector((state) => state.Session);
+
   const Router = useRouter();
 
-  const session = {};
   const pathnameArr = Router.pathname.split("/");
 
   // initial states
@@ -217,13 +229,23 @@ const Navbar = (props) => {
     if (close) Router.push("/browse?status=active");
   };
 
+  // logout handler
+  const logoutHandler = () => {
+    fullPageLoader(true);
+    clearSession();
+    setTimeout(() => {
+      alert(true, "Kamu telah logout", "success");
+      location.reload();
+    }, 1000);
+  };
+
   return (
     <StickyNavbarStyled
       style={styleNavbar}
       className={`${sticky ? "sticky" : ""}`}
     >
       <div>
-        <NavbarStyled session={session} className={`${props.className} row`}>
+        <NavbarStyled session={Session} className={`${props.className} row`}>
           {search ? (
             <SearchStyled>
               <div className="col-xs-12">
@@ -276,16 +298,14 @@ const Navbar = (props) => {
               </div>
             </SearchStyled>
           ) : (
-            <React.Fragment>
+            <>
               <div className="col-xs-6">
                 <ul className="inline-list inline-list-left">
                   {/* button to toggle sidebar on super and dashboard */}
-                  {["super", "dashboard", "settings"].includes(
-                    pathnameArr[1]
-                  ) ? (
+                  {["super", "manage", "settings"].includes(pathnameArr[1]) ? (
                     <li style={{ padding: "0 12px 0 0" }}>
                       <a href="#" id="btn-sidebar">
-                        <i className="fas fa-bars" style={{ paddingTop: 6 }} />
+                        <i className="fas fa-bars" />
                       </a>
                     </li>
                   ) : null}
@@ -331,11 +351,11 @@ const Navbar = (props) => {
                   </li>
 
                   {/* auth */}
-                  {typeof session.id !== "undefined" ? (
+                  {typeof Session.data !== "undefined" ? (
                     <div
                       key="loggedin"
                       style={{
-                        marginTop: -3,
+                        marginTop: -6,
                         marginRight: 35,
                         padding: "5px 10px",
                         float: "right",
@@ -353,24 +373,26 @@ const Navbar = (props) => {
                           <img
                             className="dropdown-button"
                             alt="dropdown button"
-                            src={session.avatar.small}
+                            src={Session.data.avatar.small}
                             data-target="avatar-menu"
                           />
                         </a>
                         <div className="dropdown-items" id="avatar-menu">
                           <ul>
                             <li>
-                              <a href={`/user/${session.username}`}>
+                              <a href={`/user/${Session.data.username}`}>
                                 Profil saya
                               </a>
                             </li>
-                            {["admin", "moderator"].includes(session.level) ? (
+                            {["admin", "moderator"].includes(
+                              Session.data.level
+                            ) ? (
                               <li>
                                 <a href={`/super/dashboard`}>Super</a>
                               </li>
                             ) : null}
                             <li>
-                              <a href={`/dashboard`}>Dashboard</a>
+                              <a href={`/manage`}>Manage</a>
                             </li>
                             <li>
                               <a href="/settings/profile">Pengaturan Profil</a>
@@ -380,7 +402,7 @@ const Navbar = (props) => {
                                 href="#"
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  // props.dispatch(logout());
+                                  logoutHandler();
                                 }}
                               >
                                 Logout
@@ -392,17 +414,22 @@ const Navbar = (props) => {
                     </div>
                   ) : (
                     <>
-                      {/* <li key="public">
-                       <Link href="/login">
-                         <a>Login</a>
-                       </Link>
-                     </li> */}
+                      <li key="login">
+                        <Link href="/login">
+                          <a>Login</a>
+                        </Link>
+                      </li>
+                      <li key="register">
+                        <Link href="/register">
+                          <a>Register</a>
+                        </Link>
+                      </li>
                     </>
                   )}
                   {/* end of auth */}
                 </ul>
               </div>
-            </React.Fragment>
+            </>
           )}
         </NavbarStyled>
       </div>

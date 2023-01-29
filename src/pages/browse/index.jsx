@@ -12,7 +12,7 @@ import {
 
 // components
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
-import Modal from "@components/modals";
+import Modal from "@components/modals/Base";
 import MediaPartnerAds from "@components/cards/MediaPartnerAds";
 import GlobalLoading from "@components/preloaders/GlobalLoader";
 import { FilterJelajahStyled } from "@components/filters/Filter.styled";
@@ -131,11 +131,10 @@ const BrowseCompetition = ({
       : {};
   }, [tag]);
 
-  const subkategories = React.useMemo(() => {
+  const subcategories = React.useMemo(() => {
     if (mainkat && categories.status) {
       const SelCategory = categories.data.find((n) => n.name === mainkat) || {};
-      console.log(SelCategory);
-      return SelCategory.subkategories || [];
+      return SelCategory.subcategories || [];
     }
 
     return [];
@@ -364,25 +363,6 @@ const BrowseCompetition = ({
               <hr />
               {categories.status && categories.status === 200 ? (
                 <ul className="vertical-menu list-categories">
-                  <li>
-                    <a
-                      href="#"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        modal("close", "select-main-kat");
-                        Router.push({
-                          pathname: `/browse`,
-                          query: {
-                            ...Router.query,
-                            ...{ mainkat: "", subkat: "" },
-                          },
-                        });
-                      }}
-                      className="text-muted"
-                    >
-                      semua kategori
-                    </a>
-                  </li>
                   {categories.data.map((n, key) => {
                     return (
                       <li key={key}>
@@ -406,6 +386,25 @@ const BrowseCompetition = ({
                       </li>
                     );
                   })}
+                  <li>
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        modal("close", "select-main-kat");
+                        Router.push({
+                          pathname: `/browse`,
+                          query: {
+                            ...Router.query,
+                            ...{ mainkat: "", subkat: "" },
+                          },
+                        });
+                      }}
+                      className="text-muted"
+                    >
+                      semua kategori
+                    </a>
+                  </li>
                 </ul>
               ) : (
                 "loading..."
@@ -422,6 +421,30 @@ const BrowseCompetition = ({
               </div>
               <hr />
               <ul className="vertical-menu list-categories">
+                {subcategories.length > 0 &&
+                  subcategories.map((n, key) => {
+                    return (
+                      <li key={key}>
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            modal("close", "select-sub-kat");
+                            Router.push({
+                              pathname: `/browse/${mainkat}/${n.name}`,
+                              query: {
+                                ...Router.query,
+                                ...{ subkat: n.name },
+                              },
+                            });
+                          }}
+                          className="text-muted"
+                        >
+                          {n.name}
+                        </a>
+                      </li>
+                    );
+                  })}
                 <li>
                   <a
                     href="#"
@@ -438,31 +461,6 @@ const BrowseCompetition = ({
                     Semua subkategori
                   </a>
                 </li>
-                {subkategories.length > 0
-                  ? subkategories.map((n, key) => {
-                      return (
-                        <li key={key}>
-                          <a
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              modal("close", "select-sub-kat");
-                              Router.push({
-                                pathname: `/browse/${mainkat}/${n.name}`,
-                                query: {
-                                  ...Router.query,
-                                  ...{ subkat: n.name },
-                                },
-                              });
-                            }}
-                            className="text-muted"
-                          >
-                            {n.name}
-                          </a>
-                        </li>
-                      );
-                    })
-                  : null}
               </ul>
             </div>
           </Modal>

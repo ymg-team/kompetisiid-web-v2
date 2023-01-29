@@ -2,6 +2,28 @@ import fetchModule from "~/src/helpers/apiCaller";
 import { objToQuery } from "string-manager";
 
 /**
+ * service to post competition
+ */
+export const createCompetition = async (payload = {}) => {
+  return fetchModule({
+    endpoint: `/v22/competition`,
+    method: "post",
+    jsonBody: payload,
+  });
+};
+
+/**
+ * service to update competition
+ */
+export const updateCompetition = async (payload = {}) => {
+  return fetchModule({
+    endpoint: `/v22/competition/${payload.competition_id}`,
+    method: "put",
+    jsonBody: payload,
+  });
+};
+
+/**
  * service to fetch list of competition
  */
 export const fetchCompetitions = (args) => {
@@ -17,10 +39,11 @@ export const fetchCompetitions = (args) => {
  * service to fetch competition detail by id
  * @param {string} id
  */
-export const fetchCompetitionById = ({ id }) => {
+export const fetchCompetitionById = ({ id, userKey }) => {
   return fetchModule({
     endpoint: `/v2/competition/${id}`,
     method: "get",
+    userKey,
   });
 };
 
@@ -40,5 +63,16 @@ export const fetchCompetitionRelatedById = ({ id }) => {
 export const fetchCompetitionCategories = () => {
   return fetchModule({
     endpoint: `/v2/maincategories`,
+  });
+};
+
+/**
+ * service to like competition by logged in user
+ * @param {string} competition_id
+ */
+export const likeDislikeCompetition = ({ competition_id }) => {
+  return fetchModule({
+    endpoint: `/v2/competition/like/${competition_id}`,
+    method: "POST",
   });
 };

@@ -6,7 +6,6 @@ import Dynamic from "next/dynamic";
 
 // helpers
 import { fetchCompetitions } from "@services/competition";
-import { fetchNews } from "@services/news";
 
 // components
 import SEO from "@components/meta/SEO";
@@ -14,17 +13,13 @@ import Link from "next/link";
 import HomeStyled from "./home/styled";
 import EmptyLoading from "@components/preloaders/EmptyLoader";
 import Loading from "@components/preloaders/GlobalLoader";
-import NewsLoading from "@components/preloaders/NewsCardLoader";
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
 import SubHeaderHome from "@components/headers/HomeSubHeader";
 import SubHeaderTitle from "@components/headers/SubHeader";
 import GAds from "@components/cards/GoogleAds";
-import AddCompetitionBox from "@components/boxs/AddCompetitionBox";
+import AddCompetitionButton from "@components/buttons/ButtonAddCompetition";
 
 // split components
-const NewsBox = Dynamic(import("@components/boxs/NewsBox"), {
-  loading: () => <NewsLoading withContainer />,
-});
 const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
   loading: () => <CompetitionLoading withContainer />,
 });
@@ -37,41 +32,37 @@ const MediaPartnerAds = Dynamic(import("@components/cards/MediaPartnerAds"), {
 
 const Home = ({ serverData = {} }) => {
   // === initial states ===
-  const [respCompPopular, setRespCompPopular] = React.useState(
-    serverData.competitionPopular
-  );
+  const [respCompPopular, setRespCompPopular] = React.useState({});
   const [respCompLatest, setRespCompLatest] = React.useState(
     serverData.competitionLatest
   );
+  const [respCompManageByKI, setRespCompManageByKI] = React.useState({});
   const [respCompMP, setRespCompMP] = React.useState({});
-  const [respNews, setRespNews] = React.useState({});
 
   // === initial effects ===
 
   // componentDidMount
   React.useEffect(() => {
-    doFetchCompMP();
-    doFetchNews();
+    doFetchData();
   }, []);
 
   // === initial functions ===
 
-  const doFetchCompMP = async () => {
-    if (!respCompMP.status) {
-      const ResponseMP = await fetchCompetitions({
-        query: { limit: 7, is_mediapartner: true },
-      });
-      setRespCompMP(ResponseMP);
-    }
-  };
+  const doFetchData = async () => {
+    const ResponsePopular = await fetchCompetitions({
+      query: { limit: 7, is_popular: true, status: "active" },
+    });
+    setRespCompPopular(ResponsePopular);
 
-  const doFetchNews = async () => {
-    if (!respNews.status) {
-      const ResponseNews = await fetchNews({
-        query: { limit: 6 },
-      });
-      setRespNews(ResponseNews);
-    }
+    const ResponseMP = await fetchCompetitions({
+      query: { limit: 7, is_mediapartner: true },
+    });
+    setRespCompMP(ResponseMP);
+
+    const ResponseManaged = await fetchCompetitions({
+      query: { limit: 9, is_manage: true },
+    });
+    setRespCompManageByKI(ResponseManaged);
   };
 
   return (
@@ -116,7 +107,7 @@ const Home = ({ serverData = {} }) => {
       </div>
 
       {/* competition */}
-      <AddCompetitionBox />
+      <AddCompetitionButton />
       <div className="m-b-50" style={{ borderBottom: "1px solid #e4e4e4" }}>
         <SubHeaderTitle
           title="Kompetisi Baru"
@@ -132,6 +123,24 @@ const Home = ({ serverData = {} }) => {
         </Link>
       </div>
 
+      <div className="m-b-50" />
+
+      {/* competition manage by ki */}
+      <div className="m-b-50" style={{ borderBottom: "1px solid #e4e4e4" }}>
+        <SubHeaderTitle
+          title="Kompetisi Manage oleh KI"
+          text="Kompetisi yang bisa diikuti secara langsung di Kompetisi Id, cukup login dan klik join kompetisi."
+        />
+      </div>
+
+      <CompetitionBox subtitle={false} {...respCompManageByKI} />
+
+      {/* <div className="row align-center">
+        <Link href="/browse?is_manage=true">
+          <a className="btn btn-bordergray">JELAJAH KOMPETISI</a>
+        </Link>
+      </div> */}
+
       {/* media partners ads */}
       <div className="container">
         <div className="col-md-12">
@@ -141,30 +150,14 @@ const Home = ({ serverData = {} }) => {
 
       {/* end of competition */}
 
-      <div className="m-b-50" />
-
-      {/* news */}
-      <div className="m-b-50" style={{ borderBottom: "1px solid #e4e4e4" }}>
-        <SubHeaderTitle
-          title="Kabar Baru"
-          text="Update dengan kabar baru seputar kompetisi di Indonesia."
-        />
-      </div>
-
-      <NewsBox subtitle={false} {...respNews} />
-
-      <div className="row align-center">
-        <Link href="/news">
-          <a className="btn btn-bordergray">KABAR BERIKUTNYA</a>
-        </Link>
-      </div>
+      {/* <div className="m-b-50" /> */}
 
       {/* media partners ads */}
-      <div className="container">
+      {/* <div className="container">
         <div className="col-md-12">
           <MediaPartnerAds />
         </div>
-      </div>
+      </div> */}
 
       {/* end of news */}
 
@@ -177,17 +170,17 @@ const Home = ({ serverData = {} }) => {
 };
 
 Home.getInitialProps = async (ctx) => {
-  const competitionPopular = await fetchCompetitions({
-    query: { limit: 7, is_popular: true, status: "active" },
-  });
   const competitionLatest = await fetchCompetitions({
     query: { limit: 9, status: "active" },
   });
+  // const competitionManageByKI = await fetchCompetitions({
+  //   query: { limit: 9, is_manage: 1 },
+  // });
   // const newsLatest = await
   return {
     serverData: {
-      competitionPopular,
       competitionLatest,
+      // competitionManageByKI,
     },
   };
 };

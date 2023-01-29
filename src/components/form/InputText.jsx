@@ -1,95 +1,65 @@
 import React, { Component } from "react";
 import { validate } from "./Validator";
 
-export default class InputText extends Component {
-  componentDidMount = () => {
-    validate(this.props);
-  };
+const is_valid = true;
 
-  // componentWillReceiveProps = np => {
-  //   // validate on edit / set default value
-  //   if (!this.props.value && np.value) validate(np)
-  // }
+const InputText = ({
+  min,
+  max,
+  initialValue,
+  label,
+  name,
+  type,
+  validate,
+  autoFocus,
+  note,
+  id,
+  required,
+  placeholder,
+  onChange,
+}) => {
+  // initial values
+  const [value, setValue] = React.useState(initialValue || "");
 
-  handleChange = (e) => {
+  const changeHandler = (e) => {
     const { value } = e.target;
-    this.props.setState(
-      {
-        [this.props.name]: value,
-      },
-      () => {
-        this.validateInput();
-      }
-    );
+    setValue(value);
+    onChange(value);
   };
 
-  validateInput(props = this.props) {
-    const result = validate(props);
-    // handle component used hooks
-    if (this.props.setValidateState) {
-      this.props.setValidateState(result);
-    } else {
-      this.props.setState({
-        [this.props.name + "_validate"]: result,
-      });
-    }
-  }
-
-  render() {
-    const {
-      min,
-      max,
-      value,
-      label,
-      name,
-      type,
-      validate,
-      autoFocus,
-      autoComplete,
-      note,
-    } = this.props;
-    const is_valid = !(!validate.is_valid && validate.message);
-    return (
-      <div className={`form-child ${!is_valid ? "error" : ""}`}>
+  return (
+    <div className={`form-child ${!is_valid ? "error" : ""}`}>
+      {label && (
         <label
-          htmlFor={this.props.id || name}
+          htmlFor={id || name}
           style={note ? { margin: "10px 0 5px" } : {}}
         >
-          {label}{" "}
-          {this.props.required ? <span className="text-red">*</span> : null}
+          {label} {required ? <span className="text-red">*</span> : null}
         </label>
-        {note ? <small>{note}</small> : null}
-        <input
-          readOnly={this.props.readOnly}
-          onInput={(e) => this.props.onInput(e)}
-          onChange={(e) => this.handleChange(e)}
-          onBlur={(e) => this.handleChange(e)}
-          type={type}
-          name={name}
-          id={this.props.id || name}
-          // value={type === "number" ? value : value.replace(/[\u200B-\u200D\uFEFF]|\s\s/g, " ")}
-          value={value}
-          autoFocus={autoFocus}
-          autoComplete={autoComplete}
-          placeholder={this.props.placeholder}
-        />
-        {max ? (
-          <small>
-            {value.length || 0}/{max} karakter <br />
-          </small>
-        ) : null}
-        {!is_valid ? <small>{validate.message}</small> : null}
-      </div>
-    );
-  }
-}
+      )}
+
+      {note && <small>{note}</small>}
+      <input
+        onInput={changeHandler}
+        onChange={changeHandler}
+        onBlur={changeHandler}
+        name={name || id}
+        id={id || name}
+        // value={type === "number" ? value : value.replace(/[\u200B-\u200D\uFEFF]|\s\s/g, " ")}
+        {...{ value, autoFocus, placeholder, value, type }}
+      />
+      {max ? (
+        <small>
+          {value.length || 0}/{max} karakter <br />
+        </small>
+      ) : null}
+      {!is_valid ? <small>{validate.message}</small> : null}
+    </div>
+  );
+};
 
 InputText.defaultProps = {
   type: "text",
-  readOnly: false,
-  required: false,
-  autoFocus: false,
-  autoComplete: "off",
-  placeholder: "",
-  onInput: () => {},
 };
+
+export default InputText;

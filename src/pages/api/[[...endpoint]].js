@@ -1,20 +1,20 @@
 import getConfig from "next/config";
-import { modifyRouteRegex } from "next/dist/lib/load-custom-routes";
 const { publicRuntimeConfig } = getConfig();
 const { URL_KI_BE } = publicRuntimeConfig;
+import formidable from "formidable";
 
 import sealMiddleware from "~/src/helpers/seal";
 
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "3mb", // Set desired value here
+      sizeLimit: "5MB", // Set desired value here
     },
   },
 };
 
 const IndexApi = async (req, res) => {
-  const { query, headers, body, files } = req;
+  const { query, headers = {}, body, files } = req;
   let { method } = req;
   const { seal } = headers;
 
@@ -34,19 +34,19 @@ const IndexApi = async (req, res) => {
 
       const URL_TARGET = `${URL_KI_BE}${endpoint}`;
 
-      let headers = {};
-
       let ReqArgs = {
         method,
         headers,
       };
 
+      // return console.log("headers", headers);
+
       if (method !== "GET" && body) {
-        ReqArgs.headers["Content-Type"] = "application/json";
+        // ReqArgs.headers["Content-Type"] = "application/json";
         ReqArgs.body = JSON.stringify(body);
       }
 
-      console.log(`REQ LOG: ${method} ${URL_TARGET}`);
+      ReqArgs.headers.user_key = headers.userkey;
 
       const Res = await fetch(URL_TARGET, ReqArgs);
       const ResText = await Res.text();

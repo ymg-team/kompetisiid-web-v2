@@ -22,6 +22,7 @@ export const SidebarStyled = Styled.div`
 ul {
   list-style: none;
   padding: 0;
+  margin-top:0;
   li {
     padding: 0.5em 0;
     strong {
@@ -112,8 +113,8 @@ const Sidebar = (props) => {
               <li>
                 {!n.child ? (
                   n.to !== "#" ? (
-                    <Link onClick={() => toggleMenus()} href={n.to}>
-                      <a>{n.title}</a>
+                    <Link href={n.to}>
+                      <a onClick={() => toggleMenus()}>{n.title}</a>
                     </Link>
                   ) : (
                     <a
@@ -147,24 +148,22 @@ const Sidebar = (props) => {
                             {m.title}
                           </a>
                         ) : (
-                          <Link
-                            onClick={() => {
-                              toggleMenus();
-                            }}
-                            href={m.to}
-                          >
-                            <a>
-                              {m.icon ? <i className={m.icon} /> : null}{" "}
-                              {m.title}
-                              {m.label ? (
-                                <React.Fragment>
+                          <Link href={m.to}>
+                            <a
+                              onClick={() => {
+                                toggleMenus();
+                              }}
+                            >
+                              {m.icon && <i className={m.icon} />} {m.title}
+                              {m.label && m.label.text && (
+                                <>
                                   &nbsp;
                                   <Label
                                     type={m.label.color || "blue"}
                                     text={m.label.text}
                                   />
-                                </React.Fragment>
-                              ) : null}
+                                </>
+                              )}
                             </a>
                           </Link>
                         )}

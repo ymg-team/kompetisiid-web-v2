@@ -1,3 +1,5 @@
+// @TODO: WILL DELETE
+
 import React from "react";
 import { epochToRelativeTime } from "../../../helpers/dateTime";
 
@@ -23,7 +25,9 @@ class CompetitionListCard extends React.Component {
             <h4>
               <a
                 title="ke halaman kompetisi"
-                href={`/competition/${n.id}/regulations/${n.nospace_title}`}
+                href={`/competition/${
+                  n.id
+                }/regulations/${n.nospace_title.toLowerCase()}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -64,11 +68,13 @@ class CompetitionListCard extends React.Component {
             </p>
 
             {/* competition label */}
-            {n.is_garansi ? <Label type="blue" text="garansi" /> : null}
+            {n.is_garansi ? <Label type="green" text="garansi" /> : null}
             {n.is_mediapartner ? (
               <Label type="green" text="media partner" />
             ) : null}
-            {n.is_support ? <Label type="green" text="support" /> : null}
+            {n.is_manage_by_ki ? (
+              <Label type="blue" text="Manage on KI" />
+            ) : null}
             <Label
               type="red"
               text={

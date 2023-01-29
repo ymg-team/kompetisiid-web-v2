@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 
 // components
@@ -8,11 +7,11 @@ import MediaPartnerCard from "../cards/MediaPartner/index";
 const MediaPartnerBox = (props) => {
   const { status, message, data } = props;
   return (
-    <React.Fragment>
+    <>
       <div className="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3 no-padding">
         <div className="row">
           <div className="media-partner align-center">
-            <h2 className="big-text">Media Partner KI</h2>
+            <h2 className="big-text">Kompetisi Id sebagai Media Partner</h2>
             <div style={{ paddingBottom: 20 }}>
               KI juga ikut berperan sebagai media partner berbagai kompetisi di
               Indonesia.{" "}
@@ -45,7 +44,7 @@ const MediaPartnerBox = (props) => {
           </Link>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

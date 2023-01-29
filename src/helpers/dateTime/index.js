@@ -3,18 +3,18 @@
  */
 
 export const Month = [
-  ["jan", "januari"],
-  ["feb", "februari"],
-  ["mar", "maret"],
-  ["apr", "april"],
-  ["mei", "mei"],
-  ["jun", "juni"],
-  ["jul", "juli"],
-  ["agu", "agustus"],
-  ["sep", "september"],
-  ["okt", "oktober"],
-  ["nov", "november"],
-  ["des", "desember"],
+  ["Jan", "Januari"],
+  ["Feb", "Februari"],
+  ["Mar", "Maret"],
+  ["Apr", "April"],
+  ["Mei", "Mei"],
+  ["Jun", "Juni"],
+  ["Jul", "Juli"],
+  ["Agu", "Agustus"],
+  ["Sep", "September"],
+  ["Okt", "Oktober"],
+  ["Nov", "November"],
+  ["Des", "Desember"],
 ];
 
 // ref : https://www.samclarke.com/javascript-convert-time-ago-future/
@@ -77,11 +77,13 @@ export function getCompetitionStatus(deadline_at, announcement_at) {
   d.setHours(0, 0, 0, 0);
   const now = d.getTime();
   deadline_at = deadline_at * 1000;
-  announcement_at = announcement_at * 1000;
-  const is_ended = deadline_at < now && announcement_at < now;
-  const is_waiting = deadline_at < now && announcement_at > now;
 
-  return { is_ended, is_waiting, now, deadline_at, announcement_at };
+  announcement_at = announcement_at * 1000;
+  const is_closed = deadline_at < now;
+  const is_ended = is_closed && announcement_at < now;
+  const is_waiting = is_closed && announcement_at > now;
+
+  return { is_closed, is_ended, is_waiting, now, deadline_at, announcement_at };
 }
 
 export function datetimeToRelativeTime(datetime) {
@@ -94,6 +96,13 @@ export function epochToDMY(epochtime) {
   return `${d.getDate()} ${Month[d.getMonth()][1]} ${d.getFullYear()}`;
 }
 
+export function epochToDMYHIS(epochtime) {
+  const d = new Date(epochtime);
+  return `${d.getDate()} ${
+    Month[d.getMonth()][1]
+  } ${d.getFullYear()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+}
+
 export function strToDateTime(str) {
   return "";
 }
@@ -101,6 +110,10 @@ export function strToDateTime(str) {
 export function dateToFormat(date, format) {
   const d = new Date(date);
   switch (format) {
+    case "Y-m-d h:i:s":
+      return `${d.getFullYear()}-${
+        d.getMonth() < 10 ? `0${d.getMonth() + 1}` : d.getMonth() + 1
+      }-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
     case "Y-m-d":
     default:
       return `${d.getFullYear()}-${

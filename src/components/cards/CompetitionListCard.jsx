@@ -94,11 +94,16 @@ export const CardCompetitionStyled = Styled.div`
     .card-competition__author {
       display: flex;
       align-items: center;
-      img.card-competition__author__avatar {
+      .card-competition__author__avatar {
         width: 40px;
         height: 40px;
-        border-radius: 50%;
         margin-right: 10px;
+        img {
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+        }
+        
       }
     }
     
@@ -182,11 +187,13 @@ const CompetitionListCard = (props) => {
     n.deadline_at,
     n.announcement_at
   );
-  const target = `/competition/${n.id}/regulations/${n.nospace_title}`;
+  const target = `/competition/${
+    n.id
+  }/regulations/${n.nospace_title.toLowerCase()}`;
 
   return (
     <CardCompetitionStyled
-      className={size === "large" ? "col-md-4 col-xs-6" : "col-md-3 col-xs-6"}
+      className={size === "large" ? "col-md-4 col-xs-12" : "col-md-3 col-xs-12"}
     >
       {n.is_draft ? <LabelDraft /> : is_ended ? <LabelEnd /> : null}
       <div
@@ -230,7 +237,7 @@ const CompetitionListCard = (props) => {
                 title="kompetisi sudah diverifikasi keberadaannya oleh kru KI"
                 type="green"
               >
-                Garansi
+                <i className="fa fa-check" />
               </Label>
             ) : null}
             {n.is_mediapartner ? (
@@ -241,9 +248,9 @@ const CompetitionListCard = (props) => {
                 Media Partner
               </Label>
             ) : null}
-            {n.is_support ? (
+            {n.is_manage_by_ki ? (
               <Label title="Kompetisi ini bisa diikuti melalui KI" type="blue">
-                <i className="fa fa-check" />
+                Manage on KI
               </Label>
             ) : null}
             {is_ended ? (
@@ -296,22 +303,32 @@ const CompetitionListCard = (props) => {
           ) : null}
           <br />
           {/* author */}
-          <Link href={`/user/${n.author.username}`}>
-            <a className="card-competition__author">
-              <img
-                className="card-competition__author__avatar"
-                src={
-                  n.author.avatar.small || `/assets/4.2/img/avatar-default.jpg`
-                }
-                alt={`avatar ${n.author.username}`}
-              />
-              <div style={{ lineHeight: "17px" }}>
-                <small>
-                  {n.author.username} <br /> {epochToRelativeTime(n.created_at)}
-                </small>
-              </div>
-            </a>
-          </Link>
+          <div className="card-competition__author">
+            <Link href={`/user/${n.author.username}`}>
+              <a className="card-competition__author__avatar">
+                <img
+                  src={
+                    n.author.avatar.small ||
+                    `/assets/4.2/img/avatar-default.jpg`
+                  }
+                  alt={`avatar ${n.author.username}`}
+                />
+              </a>
+            </Link>
+            <div style={{ lineHeight: "17px" }}>
+              <small>
+                Diposting&nbsp;
+                <Link href={`/user/${n.author.username}`}>
+                  <a>{n.author.username}</a>
+                </Link>{" "}
+                {epochToRelativeTime(n.created_at)}
+                <br />
+                Oleh {n.organizer} <br />
+                {n.stats.views || 1} views &nbsp;•&nbsp;
+                {n.stats.likes || 0} likes
+              </small>
+            </div>
+          </div>
           {/* end of author */}
         </div>
       </div>

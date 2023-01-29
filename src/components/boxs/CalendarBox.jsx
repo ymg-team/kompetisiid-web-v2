@@ -312,7 +312,9 @@ const CalendarBox = (props) => {
         if (!found) {
           NextDataDeadline[Filter].push({
             id_competition: n.id,
-            link: `/competition/${n.id}/regulations/${n.nospace_title}`,
+            link: `/competition/${
+              n.id
+            }/regulations/${n.nospace_title.toLowerCase()}`,
             title: n.title,
             type: "deadline",
           });
@@ -341,7 +343,9 @@ const CalendarBox = (props) => {
         if (!found) {
           NextDataAnnouncements[Filter].push({
             id_competition: n.id,
-            link: `/competition/${n.id}/regulations/${n.nospace_title}`,
+            link: `/competition/${
+              n.id
+            }/regulations/${n.nospace_title.toLowerCase()}`,
             title: n.title,
             type: "announcement",
           });

@@ -5,7 +5,7 @@ import Styled from "styled-components";
 import SEO from "@components/meta/SEO";
 import Link from "next/link";
 import Subheader from "@components/Subheader";
-import { alert } from "@components/Alert";
+import { alert } from "@components/alert/Base";
 
 const ChooseMethodStyled = Styled.div`
   .add-competition {
@@ -101,7 +101,7 @@ const AddCompetition = () => {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    location.href = "/dashboard/competition/create";
+                    location.href = "/manage/competition/create";
                   }}
                   className="btn btn-white"
                   title="klik untuk pasang cepat"

@@ -28,7 +28,9 @@ const MediaParnerCard = ({ data }) => {
           </Link>
         </div>
         <Link
-          href={`/competition/${data.id}/regulations/${data.nospace_title}`}
+          href={`/competition/${
+            data.id
+          }/regulations/${data.nospace_title.toLowerCase()}`}
         >
           <a>
             <h3>{data.title}</h3>

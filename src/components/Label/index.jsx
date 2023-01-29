@@ -1,27 +1,27 @@
-import React from "react"
-import LabelStyled from "./index.styled"
+import React from "react";
+import LabelStyled from "./index.styled";
 
-const Label = props => {
+const Label = ({ noMargin, circle, size, type, text, children }) => {
   return (
     <LabelStyled
       title=""
-      className={`label ${props.circle ? "label-circle" : ""} ${
-        props.size === "large" ? "label-lg" : ""
-      } label-${props.type}`}
+      className={`label ${circle ? "label-circle" : ""} ${
+        size === "large" ? "label-lg" : ""
+      } label-${type}`}
+      {...{ noMargin }}
     >
-      {typeof props.text !== "undefined"
-        ? props.text.toString()
-        : props.children}
+      {typeof text !== "undefined" ? text.toString() : children}
     </LabelStyled>
-  )
-}
+  );
+};
 
 Label.defaultProps = {
   type: "gray",
   size: "",
   circle: false,
   children: null,
-  title: ""
-}
+  title: "",
+  noMargin: false,
+};
 
-export default Label
+export default Label;

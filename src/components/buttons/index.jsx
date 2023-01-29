@@ -6,6 +6,7 @@ const ButtonStyled = Styled.button`
   border-radius: 5px;
   font-weight: bold;
   letter-spacing: .5px;
+  width: ${(props) => (props.fullWidth ? "100%" : "auto")};
   ${(props) => {
     switch (props.size) {
       case "medium":
@@ -68,7 +69,7 @@ const ButtonStyled = Styled.button`
   }}
 `;
 
-const Button = (props) => {
+const Button = ({ loading, ...props }) => {
   let style = {};
   if (props.loading) {
     style.opacity = 0.4;
@@ -88,13 +89,18 @@ Button.propTypes = {
   size: PropTypes.oneOf(["small", "medium", "large"]),
   color: PropTypes.oneOf(["white", "red", "green", "white-transparent"]),
   loading: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
 
 Button.defaultProps = {
   text: "Button Text",
   size: "medium",
   color: "white",
+  fullWidth: false,
   onClick: () => {},
+  style: {},
+  className: "",
+  loading: false,
 };
 
 export default Button;

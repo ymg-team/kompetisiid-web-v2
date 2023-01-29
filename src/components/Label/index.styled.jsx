@@ -9,8 +9,8 @@ const LabelStyled = Styled.div`
     font-weight: bold;
     border-radius: 0.5em;
     color: ${Colors.mainWhite};
-    margin-right: 0.5em;
-    margin-bottom: 0.5em;
+    margin-right: ${(props) => (props.noMargin ? 0 : "0.5em")} ;
+    margin-bottom:  ${(props) => (props.noMargin ? 0 : "0.5em")} ;
     background-color:  ${Colors.mainGray};
     &.label-circle {
         border-radius: 100px;

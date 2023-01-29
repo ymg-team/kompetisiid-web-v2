@@ -1,30 +1,30 @@
-import React from "react"
-import { getCategories } from "../../../pages/competition/actions"
-import { dateToFormat } from "../../../helpers/dateTime"
+import React from "react";
+import { getCategories } from "../../../pages/competition/actions";
+import { dateToFormat } from "../../../helpers/dateTime";
 import {
   createCompetition,
-  updateCompetition
-} from "../../../pages/competition/actions"
+  updateCompetition,
+} from "../../../pages/competition/actions";
 
 // components
-import Tab from "../../navigations/Tab"
-import TitleLevel2Box from "../../boxs/TitleLevel2"
-import HeaderDashboard from "../../cards/HeaderDashboard"
-import Helmet from "../../Helmet"
-import Input from "../../form/InputText"
-import Textarea from "../../form/Textarea"
-import InputFile from "../../form/InputFile"
-import InputTags from "../../form/InputTags"
-import Select from "../../form/Select"
-import DatePicker from "../../form/DatePicker"
-import BtnSubmit from "../../form/Submit"
-import Spacer from "../../boxs/Spacer"
-import Contact from "./ContactForm"
-import Editor from "../../form/Editor"
-import Checkbox from "../../form/Checkbox"
+import Tab from "../../navigations/Tab";
+import TitleLevel2Box from "../../boxs/TitleLevel2";
+import HeaderDashboard from "../../cards/HeaderDashboard";
+import Helmet from "../../Helmet";
+import Input from "../../form/InputText";
+import Textarea from "../../form/Textarea";
+import InputFile from "../../form/InputFile";
+import InputTags from "../../form/InputTags";
+import Select from "../../form/Select";
+import DatePicker from "../../form/DatePicker";
+import BtnSubmit from "../../form/Submit";
+import Spacer from "../../boxs/Spacer";
+import Contact from "./ContactForm";
+import Editor from "../../form/Editor";
+import Checkbox from "../../form/Checkbox";
 
 class CompetitionForm extends React.Component {
-  state = {}
+  state = {};
 
   submitHandler = (status = "posted") => {
     let formdata = {
@@ -44,32 +44,34 @@ class CompetitionForm extends React.Component {
       tags: this.state.tags ? this.state.tags.toString() : "",
       content: this.state.content,
       is_guaranteed: this.state.is_guaranteed || false,
-      is_mediapartner: this.state.is_mediapartner || false
-    }
+      is_mediapartner: this.state.is_mediapartner || false,
+    };
 
-    if (this.state.poster) formdata.poster = this.state.poster
+    if (this.state.poster) formdata.poster = this.state.poster;
 
     if (status) {
       if (status == "draft") {
-        formdata.draft = true
+        formdata.draft = true;
       } else {
-        formdata.status = status
+        formdata.status = status;
       }
     }
 
     // request to save data to api
     if (this.props.competitionId) {
       // update competition by competitionId
-      this.props.dispatch(updateCompetition(formdata, this.props.competitionId))
+      this.props.dispatch(
+        updateCompetition(formdata, this.props.competitionId)
+      );
     } else {
       // create new competition
-      this.props.dispatch(createCompetition(formdata))
+      this.props.dispatch(createCompetition(formdata));
     }
-  }
+  };
 
   componentDidMount = () => {
-    this.props.dispatch(getCategories())
-    const { competitionData, competitionId } = this.props
+    this.props.dispatch(getCategories());
+    const { competitionData, competitionId } = this.props;
     if (competitionId && competitionData) {
       // set state to edit competition
       let nextState = {
@@ -79,7 +81,7 @@ class CompetitionForm extends React.Component {
         contacts: competitionData.contacts,
         link_source: competitionData.link_source,
         link_join: competitionData.link_join,
-        link_join: competitionData.link_join,
+        link_source: competitionData.link_source,
         prize_total: competitionData.content,
         tags: competitionData.tag.split(","),
         is_guaranteed: competitionData.is_garansi,
@@ -92,26 +94,26 @@ class CompetitionForm extends React.Component {
         maincat: competitionData.main_category.id,
         subcat: competitionData.sub_category.id,
         is_guaranteed: competitionData.is_garansi,
-        is_mediapartner: competitionData.is_mediapartner
-      }
+        is_mediapartner: competitionData.is_mediapartner,
+      };
 
-      this.setState(nextState)
+      this.setState(nextState);
     }
-  }
+  };
 
   render = () => {
-    const { competitionId, response, competitionData, session } = this.props
+    const { competitionId, response, competitionData, session } = this.props;
     const loading =
-      response.is_loading || response.status === 201 || response.status === 200
+      response.is_loading || response.status === 201 || response.status === 200;
     let title = "",
-      tabContents = []
+      tabContents = [];
 
     if (["moderator", "admin"].includes(session.level)) {
       tabContents = [
         {
           text: "Peraturan",
           is_active: true,
-          target: `/super/competition/update/${competitionId}`
+          target: `/super/competition/update/${competitionId}`,
         },
         {
           text: "Pengumuman",
@@ -119,15 +121,15 @@ class CompetitionForm extends React.Component {
             ? competitionData.announcement.length
             : 0,
           is_active: false,
-          target: `/super/competition/update/${competitionId}/announcements`
-        }
-      ]
+          target: `/super/competition/update/${competitionId}/announcements`,
+        },
+      ];
     } else {
       tabContents = [
         {
           text: "Peraturan",
           is_active: true,
-          target: `/dashboard/competition/update/${competitionId}`
+          target: `/manage/competition/update/${competitionId}`,
         },
         {
           text: "Pengumuman",
@@ -135,15 +137,15 @@ class CompetitionForm extends React.Component {
             ? competitionData.announcement.length
             : 0,
           is_active: false,
-          target: `/dashboard/competition/update/${competitionId}/announcements`
-        }
-      ]
+          target: `/manage/competition/update/${competitionId}/announcements`,
+        },
+      ];
     }
 
     if (competitionId) {
-      title = "Update Kompetisi"
+      title = "Update Kompetisi";
     } else {
-      title = "Tambah Kompetisi"
+      title = "Tambah Kompetisi";
     }
 
     return (
@@ -162,8 +164,8 @@ class CompetitionForm extends React.Component {
         <form
           className="form-ki no-padding col-md-8"
           action="#"
-          onSubmit={e => {
-            e.preventDefault()
+          onSubmit={(e) => {
+            e.preventDefault();
           }}
           method="post"
         >
@@ -233,7 +235,7 @@ class CompetitionForm extends React.Component {
             validate={this.state.deadline_validate || {}}
             required={true}
             config={{
-              minDate: new Date()
+              minDate: new Date(),
             }}
             setState={(n, cb) => this.setState(n, cb)}
           />
@@ -247,7 +249,7 @@ class CompetitionForm extends React.Component {
             validate={this.state.announcement_validate || {}}
             required={true}
             config={{
-              minDate: this.state.deadline || new Date()
+              minDate: this.state.deadline || new Date(),
             }}
             setState={(n, cb) => this.setState(n, cb)}
           />
@@ -280,8 +282,9 @@ class CompetitionForm extends React.Component {
               name="subcat"
               required={true}
               options={
-                this.props.categories.data.find(n => n.id == this.state.maincat)
-                  .subcategories
+                this.props.categories.data.find(
+                  (n) => n.id == this.state.maincat
+                ).subcategories
               }
               value={this.state.subcat}
               valueKey="id"
@@ -460,7 +463,7 @@ class CompetitionForm extends React.Component {
               className="btn btn-red"
               wrapperStyle={{
                 display: "inline-block",
-                width: "initial"
+                width: "initial",
               }}
               disabled={loading}
               text={loading ? "loading..." : "Tolak"}
@@ -473,8 +476,8 @@ class CompetitionForm extends React.Component {
           {/* end of submit form */}
         </form>
       </React.Fragment>
-    )
-  }
+    );
+  };
 }
 
-export default CompetitionForm
+export default CompetitionForm;

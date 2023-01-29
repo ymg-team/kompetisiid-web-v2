@@ -1,5 +1,5 @@
 import React from "react";
-import { alert } from "@components/Alert";
+import { alert } from "@components/alert/Base";
 import { Formik, Form } from "formik";
 import Script from "next/script";
 

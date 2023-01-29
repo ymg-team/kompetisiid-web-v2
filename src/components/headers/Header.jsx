@@ -41,6 +41,8 @@ const Header = (props) => {
     }
   }, [logout]);
 
+  console.log("session", session);
+
   return (
     <nav>
       <div style={{ top: q ? "-50px" : "0px" }} className="nav-header">
@@ -132,7 +134,7 @@ const Header = (props) => {
                         </li>
                       ) : null}
                       <li>
-                        <a href={`/dashboard`}>Dashboard</a>
+                        <a href={`/manage`}>Manage</a>
                       </li>
                       <li>
                         <a href="/settings/profile">Pengaturan Profil</a>

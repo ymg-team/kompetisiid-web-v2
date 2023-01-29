@@ -6,12 +6,14 @@ import HomeSliderStyled from "./styled";
 // components
 import Loader from "../../preloaders/GlobalLoader";
 
+let IntervalSlider = null;
+
 const HomeSubHeader = ({ slider }) => {
   const [sliderStart, setSliderStart] = useState(false);
   const [sliderShow, setSliderShow] = useState(false);
 
   const renderSlider = React.useCallback(() => {
-    setTimeout(() => {
+    IntervalSlider = setInterval(() => {
       if (window && window.Glide && slider.status === 200 && !sliderStart) {
         new Glide("#homepage-subheader", {
           type: "carousel",
@@ -21,10 +23,11 @@ const HomeSubHeader = ({ slider }) => {
           animationDuration: 500,
           autoplay: 5000,
         }).mount();
+        clearInterval(IntervalSlider);
         setSliderStart(true);
         setSliderShow(true);
       }
-    }, 200);
+    }, 100);
   }, [slider, sliderStart]);
 
   useEffect(() => {
@@ -86,7 +89,9 @@ HomeSubHeader.defaultProps = {
 const CompetitionSlider = (props) => {
   const Router = useRouter();
 
-  const hrefTarget = `/competition/${props.id}/regulations/${props.nospace_title}`;
+  const hrefTarget = `/competition/${
+    props.id
+  }/regulations/${props.nospace_title.toLowerCase()}`;
   return (
     <div className={`competition-slider`}>
       <div

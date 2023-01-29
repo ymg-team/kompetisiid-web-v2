@@ -1,23 +1,21 @@
-import React, { Component } from "react"
-import List from "../../rows/_super/RequestRow"
-import Loading from "../../preloaders/GlobalLoader"
-
-let Limit = 20
+import { Component } from "react";
+import List from "../../rows/_super/RequestRow";
+import Loading from "../../preloaders/GlobalLoader";
 
 class RequestBox extends Component {
   handleLoadMore() {
     // get last if of requets
-    const { data } = this.props.data || {}
-    const lastid = data[data.length - 1].id
+    const { data } = this.props.data || {};
+    const lastid = data[data.length - 1].id;
     // start to request more data
-    this.props.handleLoadMore(lastid)
+    this.props.handleLoadMore(lastid);
   }
 
   render() {
-    const { data } = this.props
+    const { data } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         {data && data.status ? (
           <div className="p-b-50">
             {/* data count status */}
@@ -31,7 +29,7 @@ class RequestBox extends Component {
             {/* rows literation */}
             {data.data
               ? data.data.map((n, key) => {
-                  return <List key={key} {...n} />
+                  return <List key={key} {...n} />;
                 })
               : null}
 
@@ -42,8 +40,8 @@ class RequestBox extends Component {
                   className="btn btn-white"
                   href="#"
                   onClick={(e) => {
-                    e.preventDefault()
-                    this.handleLoadMore()
+                    e.preventDefault();
+                    this.handleLoadMore();
                   }}
                 >
                   Request berikutnya <i className="fa fa-angle-down" />
@@ -62,10 +60,12 @@ class RequestBox extends Component {
               <div className="muted align-center">{data.message}</div>
             ) : null}
           </div>
-        ) : <Loading />}
-      </React.Fragment>
-    )
+        ) : (
+          <Loading />
+        )}
+      </>
+    );
   }
 }
 
-export default RequestBox
+export default RequestBox;

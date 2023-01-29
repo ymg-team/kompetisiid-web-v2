@@ -1,6 +1,6 @@
 import React from "react";
 import Styled from "styled-components";
-import { ModalStyled } from "./index";
+import { ModalStyled } from "@components/modals/Base";
 
 const ImageModalStyled = Styled(ModalStyled)`
   transition: opacity .2s linear;

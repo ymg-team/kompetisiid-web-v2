@@ -1,13 +1,13 @@
-import React from "react"
+import React from "react";
 
-const Loader = props => {
-  let childs = []
+const Loader = (props) => {
+  let childs = [];
   for (let n = 0; n < props.total; n++) {
     childs.push(
       <div
         key={n}
         className={`${
-          props.size == "large" ? "col-md-4 col-xs-6" : "col-md-3"
+          props.size == "large" ? "col-md-4 col-xs-12" : "col-md-3"
         } ${n > 0 ? "hide-mobile" : ""}`}
       >
         <div className="competition-loader">
@@ -31,22 +31,22 @@ const Loader = props => {
           </div>
         </div>
       </div>
-    )
+    );
   }
   if (props.withContainer) {
     return (
       <div className="container">
         <div className="row">{childs}</div>
       </div>
-    )
+    );
   } else {
-    return <div className="row">{childs}</div>
+    return <div className="row">{childs}</div>;
   }
-}
+};
 
 Loader.defaultProps = {
   total: 3,
-  size: "large"
-}
+  size: "large",
+};
 
-export default Loader
+export default Loader;

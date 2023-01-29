@@ -38,11 +38,13 @@ export default function KIDocument() {
           <>
             <script
               async
+              defer
               src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
             ></script>
             <script
               async
               src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}
+              defer
             ></script>
             <script
               async

@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /super/
+Disallow: /manage/
+Disallow: /settings/
+
+User-agent: *
+Allow: /

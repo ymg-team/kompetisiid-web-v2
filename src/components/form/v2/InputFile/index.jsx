@@ -1,8 +1,41 @@
-import { Field, Form } from "formik";
+import React from "react";
+import { Field } from "formik";
 
-const InputFileV2 = ({ label, name, type, placeholder, required }) => {
+const BrowseAccept = {
+  image: "image/*",
+};
+
+const InputFileV2 = ({
+  label,
+  name,
+  fileType,
+  placeholder,
+  required,
+  accept,
+  initialPreview,
+}) => {
+  // initial states
+  const [preview, setPreview] = React.useState(initialPreview || "");
+
+  const changeHandler = React.useCallback((e, form) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    if (file) {
+      const Reader = new FileReader();
+      Reader.readAsDataURL(file);
+      Reader.onload = () => {
+        setPreview(Reader.result);
+        // generate next value
+        form.setFieldValue(name, Reader.result);
+      };
+      Reader.onerror = () => {
+        console.error("Something wrong with input file");
+      };
+    }
+  }, []);
+
   return (
-    <Field name={name}>
+    <Field {...{ name }}>
       {({
         field, // { name, value, onChange, onBlur }
         form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
@@ -19,13 +52,20 @@ const InputFileV2 = ({ label, name, type, placeholder, required }) => {
                 {required && <span className="text-red">*</span>}
               </label>
             )}
+            {fileType === "image" && preview && (
+              <img
+                src={preview}
+                alt="preview"
+                style={{ maxWidth: 200, maxHeight: 200, marginBottom: 10 }}
+              />
+            )}
             <input
               {...{ placeholder }}
               {...field}
               type="file"
+              accept={accept || BrowseAccept[fileType] || "*"}
               onChange={(e) => {
-                e.preventDefault();
-                form.setFieldValue("poster", e.target.files[0]);
+                changeHandler(e, form);
               }}
             />
             {meta.touched && meta.error && <small>{meta.error}</small>}
@@ -36,6 +76,8 @@ const InputFileV2 = ({ label, name, type, placeholder, required }) => {
   );
 };
 
-InputFileV2.defaultProps = {};
+InputFileV2.defaultProps = {
+  placeholder: "",
+};
 
 export default InputFileV2;

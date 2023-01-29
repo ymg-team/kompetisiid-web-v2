@@ -20,15 +20,13 @@ const Submit: React.FC<SubmitProps> = ({
   style,
 }) => {
   return (
-    <div className="form-child">
-      <button
-        {...{ onClick, id, type, style }}
-        className={`${className} ${loading ? "loading" : ""}`}
-        disabled={disabled || loading}
-      >
-        {loading ? "Memproses permintaan..." : text}
-      </button>
-    </div>
+    <button
+      {...{ onClick, id, type, style }}
+      className={`${className} ${loading ? "loading" : ""}`}
+      disabled={disabled || loading}
+    >
+      {loading ? "Memproses permintaan..." : text}
+    </button>
   );
 };
 

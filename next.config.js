@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 
+const { queryToObj } = require("string-manager");
+
 const publicRuntimeConfig = {
   NODE_ENV: process.env.NODE_ENV || "production",
   URL_KI_BE: process.env.URL_KI_BE || "https://apiv4.kompetisi.id",
@@ -8,6 +10,7 @@ const publicRuntimeConfig = {
   GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
   GOOGLE_ADSENSE_CLIENT: process.env.GOOGLE_ADSENSE_CLIENT,
   ROLLBAR_ACCESS_TOKEN: process.env.ROLLBAR_ACCESS_TOKEN,
+  RECHAPTCHA_SITE_KEY: "6LfLR8oUAAAAAGFnqkaV1H5u5tDrPCRm-J1t1hvL",
 };
 
 const nextConfig = {
@@ -61,8 +64,30 @@ const nextConfig = {
         destination: "/competitionDetail?id=:id&title=:title&type=share",
       },
       {
+        source: "/competition/:id/submission/:title",
+        destination: "/competitionDetail?id=:id&title=:title&type=submission",
+      },
+      {
         source: "/news",
         destination: "/news",
+      },
+      {
+        source: "/super/competitions/:status",
+        destination: "/super/competitions?status=:status",
+      },
+      {
+        source: "/super/competitions/edit/:id",
+        destination: "/super/competitions/create?competition_id=:id",
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        permanent: false,
+        source: "/mgws-rf500-2022",
+        destination:
+          "/competition/TVRnek53PT0/regulations/ikutan-rapha-festive-500-bisa-dapat-saldo-linkaja-dari-maugowes",
       },
     ];
   },

@@ -12,14 +12,16 @@ import {
  * function to get auth session
  * @return {Object}
  */
-export const getSession = () => {
+export const getSession = (serverCookies = {}) => {
   try {
     // ref: https://github.com/auth0/node-jsonwebtoken#jwtverifytoken-secretorpublickey-options-callback
-    const Token = Cookies.get(COOKIES_NAME_SESSION) || "";
+    const Token =
+      typeof window === "undefined"
+        ? serverCookies[COOKIES_NAME_SESSION]
+        : Cookies.get(COOKIES_NAME_SESSION);
 
     if (Token) {
-      const SessionData = JWT.verify(Token, JWT_PRIVATE_KEY) || {};
-      return SessionData;
+      return JWT.verify(Token, JWT_PRIVATE_KEY) || {};
     } else {
       return {};
     }

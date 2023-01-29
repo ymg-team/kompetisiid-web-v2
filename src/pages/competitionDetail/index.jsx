@@ -3,23 +3,29 @@ import Dynamic from "next/dynamic";
 import { nl2br } from "../../helpers/string";
 import { toCamelCase } from "string-manager";
 
+// config
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
 const { URL_KI_WEB } = publicRuntimeConfig;
 
+// helpers
+import { getSession } from "@helpers/cookies";
+
 // services
 import { fetchCompetitionById } from "@services/competition";
+import { fetchCompetitionSubmissionField } from "../../services/competition_submission_field";
+import { fetchCompetitionRelatedById } from "@services/competition";
 
 // components
 import SEO from "@components/meta/SEO";
 import Loading from "@components/preloaders/GlobalLoader";
 import Tab from "@components/navigations/TabCompetition";
-import CompetitionDetailBox from "@components/boxs/CompetitionDetail";
+import CompetitionDetailHeaderBox from "@components/boxs/CompetitionDetailHeader";
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
 import NextPrev from "@components/navigations/NextPrev";
 import GAds from "@components/cards/GoogleAds";
 import AlertBox from "@components/commons/AlertBox";
-import { fetchCompetitionRelatedById } from "../../services/competition";
+import ErrorCard from "@components/cards/ErrorCard";
 
 const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
   loading: CompetitionLoading,
@@ -54,6 +60,12 @@ const Discussions = Dynamic(
 const Sidebar = Dynamic(import("@components/competition-detail/Sidebar"), {
   loading: Loading,
 });
+const Submission = Dynamic(
+  import("@components/competition-detail/Submission"),
+  {
+    loading: Loading,
+  }
+);
 
 const TabNumber = {
   prizes: 0,
@@ -62,6 +74,7 @@ const TabNumber = {
   discussions: 3,
   contacts: 4,
   share: 5,
+  submission: 6,
 };
 
 const AlertBoxData = {
@@ -74,9 +87,9 @@ const AlertBoxData = {
     type: "blue",
     body: `Di kompetisi ini, <strong>Kompetisi Id </strong> berlaku sebagai <strong>Media Partner</strong>, jika ada pertanyaan lebih lanjut mengenai kompetisi ini, bisa ditanyakan langsung ke penyelenggara atau melalui tab diskusi.`,
   },
-  supported: {
+  manage: {
     type: "blue",
-    body: `Kompetisi ini bisa diikuti langsung di <strong>Kompetisi Id</strong>, silahkan login dan klik tombol "ikuti kompetisi".`,
+    body: `Kompetisi ini bisa diikuti langsung di <strong>Kompetisi Id</strong>, silahkan login dan klik tombol "Join Kompetisi".`,
   },
 };
 
@@ -107,6 +120,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
     serverData.competitions || {}
   );
   const [respRelatedCompetition, setRelatedCompetition] = React.useState({});
+  const [respSubmissionFields, setRespSubmissionField] = React.useState({});
 
   let NextPrevProps = {},
     helmetdata = {
@@ -124,7 +138,9 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
       title = toCamelCase(`${type + " " || ""}${respCompetition.data.title}`);
       description = respCompetition.data.sort;
       image = respCompetition.data.poster.original;
-      url = `${URL_KI_WEB}/competition/${respCompetition.data.id}/regulations/${respCompetition.data.nospace_title}`;
+      url = `${URL_KI_WEB}/competition/${
+        respCompetition.data.id
+      }/regulations/${respCompetition.data.nospace_title.toLowerCase()}`;
       jsonLd = generateJsonld(respCompetition.data, url);
     }
 
@@ -139,10 +155,10 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
 
   // save selected AlertBox data
   const selectedAlertBoxData = React.useMemo(() => {
-    const { is_mediapartner, is_support } = respCompetition.data || {};
+    const { is_mediapartner, is_manage_by_ki } = respCompetition.data || {};
 
     return AlertBoxData[
-      is_support ? "supported" : is_mediapartner ? "mediaPartner" : "default"
+      is_manage_by_ki ? "manage" : is_mediapartner ? "mediaPartner" : "default"
     ];
   }, [respCompetition.data]);
 
@@ -151,8 +167,8 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
   }, [type]);
 
   React.useEffect(() => {
-    fetchData();
     fetchRelatedData();
+    fetchSubmissionField();
   }, [encid]);
 
   React.useEffect(() => {
@@ -171,18 +187,18 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
 
   // === initial functions ===
 
-  const fetchData = React.useCallback(async () => {
-    if (firstRender.current) return (firstRender.current = false);
-    setRespCompetition({});
-    const Resp = await fetchCompetitionById({ id: encid });
-    setRespCompetition(Resp);
-  }, [encid]);
-
   const fetchRelatedData = React.useCallback(async () => {
     if (firstRender.current) return (firstRender.current = false);
     setRelatedCompetition({});
     const Resp = await fetchCompetitionRelatedById({ id: encid });
     setRelatedCompetition(Resp);
+  }, [encid]);
+
+  const fetchSubmissionField = React.useCallback(async () => {
+    const Resp = await fetchCompetitionSubmissionField({
+      competition_id: encid,
+    });
+    setRespSubmissionField(Resp);
   }, [encid]);
 
   return (
@@ -191,126 +207,143 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
         <SEO {...Meta} />
 
         {/* detail box competition */}
-        {respCompetition.data ? (
-          <>
-            <CompetitionDetailBox
-              activeTab={ActiveTab}
-              data={respCompetition.data}
-              // authData={props.authData}
-            />
-            <Tab
-              active={ActiveTab}
-              data={respCompetition.data}
-              link={helmetdata.url}
-            />
+        {respCompetition.status ? (
+          respCompetition.status === 200 ? (
+            <>
+              <CompetitionDetailHeaderBox
+                activeTab={ActiveTab}
+                data={respCompetition.data}
+                submissionFields={respSubmissionFields.data || {}}
+              />
+              <Tab
+                active={ActiveTab}
+                data={respCompetition.data}
+                link={helmetdata.url}
+              />
 
-            {/* GAds */}
-            <div className="row">
-              <div
-                className="col-md-12 align-center"
-                style={{ marginBottom: 30 }}
-              >
-                <GAds
-                  style={{ marginBottom: 0 }}
-                  adSlot={9209398500}
-                  timeout={1000}
-                />
+              {/* GAds */}
+              <div className="row">
+                <div
+                  className="col-md-12 align-center"
+                  style={{ marginBottom: 30 }}
+                >
+                  <GAds
+                    style={{ marginBottom: 0 }}
+                    adSlot={9209398500}
+                    timeout={1000}
+                  />
+                </div>
               </div>
-            </div>
-            {/* end of GAds */}
+              {/* end of GAds */}
 
-            <div className="container">
-              <div className="competition-detail--content">
-                <div className="col-md-10 col-md-push-1">
-                  {selectedAlertBoxData && (
-                    <AlertBox type={selectedAlertBoxData.type}>
-                      <strong>Perhatian!&nbsp;</strong>
-                      <span
-                        dangerouslySetInnerHTML={{
-                          __html: selectedAlertBoxData.body,
-                        }}
+              <div className="container">
+                <div className="competition-detail--content">
+                  <div className="col-md-10 col-md-push-1">
+                    {selectedAlertBoxData && (
+                      <AlertBox type={selectedAlertBoxData.type}>
+                        <strong>Perhatian!&nbsp;</strong>
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: selectedAlertBoxData.body,
+                          }}
+                        />
+                      </AlertBox>
+                    )}
+
+                    <div className="m-20" />
+
+                    <div className="row">
+                      <div className={"col-sm-8"}>
+                        {(() => {
+                          switch (ActiveTab) {
+                            case 1:
+                              return (
+                                <Regulations
+                                  {...{ encid }}
+                                  nospace_title={respCompetition.data.nospace_title.toLowerCase()}
+                                  link_source={respCompetition.data.link_source}
+                                  tags={
+                                    respCompetition.data.tag
+                                      ? respCompetition.data.tag.split(",")
+                                      : []
+                                  }
+                                  html={respCompetition.data.content}
+                                />
+                              );
+                            case 0:
+                              return (
+                                <Prizes
+                                  html={nl2br(
+                                    respCompetition.data.prize.description
+                                  )}
+                                />
+                              );
+                            case 2:
+                              return (
+                                <Announcements
+                                  data={
+                                    respCompetition.data.announcement
+                                      ? respCompetition.data.announcement
+                                      : []
+                                  }
+                                />
+                              );
+                            case 3:
+                              return <Discussions link={helmetdata.url} />;
+                            case 4:
+                              return (
+                                <Contacts
+                                  data={
+                                    respCompetition.data.contacts
+                                      ? respCompetition.data.contacts
+                                      : []
+                                  }
+                                />
+                              );
+                            case 5:
+                              return (
+                                <Share
+                                  title={respCompetition.data.title}
+                                  desc={respCompetition.data.sort}
+                                  link={helmetdata.url}
+                                />
+                              );
+                            case 6:
+                              return (
+                                <Submission
+                                  submissionFields={
+                                    respSubmissionFields.data || {}
+                                  }
+                                  competitionData={respCompetition.data}
+                                />
+                              );
+                            default:
+                              return null;
+                          }
+                        })()}
+                      </div>
+
+                      {/* show sidebar info */}
+                      <Sidebar
+                        {...respCompetition}
+                        submissionFields={respSubmissionFields.data || {}}
                       />
-                    </AlertBox>
-                  )}
-
-                  <div className="m-20" />
-
-                  <div className="row">
-                    <div className={"col-sm-8"}>
-                      {(() => {
-                        switch (ActiveTab) {
-                          case 1:
-                            return (
-                              <Regulations
-                                {...{ encid }}
-                                nospace_title={
-                                  respCompetition.data.nospace_title
-                                }
-                                link_source={respCompetition.data.link_source}
-                                tags={
-                                  respCompetition.data.tag
-                                    ? respCompetition.data.tag.split(",")
-                                    : []
-                                }
-                                html={respCompetition.data.content}
-                              />
-                            );
-                          case 0:
-                            return (
-                              <Prizes
-                                html={nl2br(
-                                  respCompetition.data.prize.description
-                                )}
-                              />
-                            );
-                          case 2:
-                            return (
-                              <Announcements
-                                data={
-                                  respCompetition.data.announcement
-                                    ? respCompetition.data.announcement
-                                    : []
-                                }
-                              />
-                            );
-                          case 3:
-                            return <Discussions link={helmetdata.url} />;
-                          case 4:
-                            return (
-                              <Contacts
-                                data={
-                                  respCompetition.data.contacts
-                                    ? respCompetition.data.contacts
-                                    : []
-                                }
-                              />
-                            );
-                          case 5:
-                            return (
-                              <Share
-                                title={respCompetition.data.title}
-                                desc={respCompetition.data.sort}
-                                link={helmetdata.url}
-                              />
-                            );
-                          default:
-                            return null;
-                        }
-                      })()}
+                      {/* end of show sidebar info */}
                     </div>
-
-                    {/* show sidebar info */}
-                    <Sidebar {...respCompetition} />
-                    {/* end of show sidebar info */}
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/*next prev*/}
-            <NextPrev {...NextPrevProps} />
-            {/* end of next prev */}
-          </>
+              {/*next prev*/}
+              <NextPrev {...NextPrevProps} />
+              {/* end of next prev */}
+            </>
+          ) : (
+            <ErrorCard
+              code={respCompetition.status}
+              message={respCompetition.message}
+            />
+          )
         ) : (
           <Loading style={{ minHeight: 200 }} />
         )}
@@ -382,17 +415,24 @@ function generateJsonld(n, url) {
   }`;
 }
 
-CompetitionDetailPage.getInitialProps = async ({ query }) => {
-  const { id, type, title } = query;
+CompetitionDetailPage.getInitialProps = async (ctx) => {
+  const { id, type, title } = ctx.query;
 
-  const ResponseCompetition = await fetchCompetitionById({ id });
+  let userKey = "";
+
+  if (ctx.req) {
+    const SessionData = getSession(ctx.req.cookies);
+    userKey = SessionData.status === 200 ? SessionData.data.user_key : "";
+  }
+
+  const competitions = (await fetchCompetitionById({ id, userKey })) || {};
 
   return {
     encid: id,
     type,
     title,
     serverData: {
-      competitions: ResponseCompetition,
+      competitions,
     },
   };
 };
