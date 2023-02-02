@@ -216,7 +216,7 @@ const Index = (props) => {
             >
               <img
                 className="footer-copyright-logo"
-                src="/images/icons-white/icon-72x72.png"
+                src="/static/images/icons-white/icon-72x72.png"
                 alt="kompetisi id icon"
               />
               <small className="footer-copyright-text">
@@ -289,7 +289,7 @@ const Index = (props) => {
                 target="_blank"
               >
                 <img
-                  src="/images/icons/ymg-icon-small.png"
+                  src="/static/images/icons/ymg-icon-small.png"
                   alt="Yussan Media Group Small Icon"
                 />
               </a>
