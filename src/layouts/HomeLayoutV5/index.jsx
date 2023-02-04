@@ -18,7 +18,6 @@ import Alert from "@components/alert/Base";
 import FullScreenLoader from "@components/preloaders/FullPage";
 import ImageModal from "@components/modals/ImageModal";
 import NotificationConfirmModal from "@components/modals/NotificationConfirmation";
-import GAds from "@components/cards/GoogleAds";
 
 const StickyNoteStyle = {
   position: "fixed",
@@ -142,17 +141,6 @@ const HomeLayoutV5 = ({ children, isFullScreen }) => {
         {!isHideNavbar && !isFullScreen && <Navbar />}
 
         {children}
-
-        {/* gads */}
-        {!isFullScreen && !RoutesNoGAds.includes(Router.asPath) && (
-          <div className="col-md-12 align-center">
-            <GAds
-              adSlot={5218613800}
-              // adTest={true}
-            />
-          </div>
-        )}
-        {/* gads */}
 
         {!isFullScreen && <Index />}
 
