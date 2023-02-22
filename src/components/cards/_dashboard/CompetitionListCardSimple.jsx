@@ -18,6 +18,10 @@ class CompetitionListCard extends React.Component {
   render() {
     const { n } = this.props;
 
+    const targetHref = `/competition/${
+      n.id
+    }/regulations/${n.nospace_title.toLowerCase()}`;
+
     return (
       <div className="competition-items">
         <div className="item">
@@ -25,9 +29,7 @@ class CompetitionListCard extends React.Component {
             <h4>
               <a
                 title="ke halaman kompetisi"
-                href={`/competition/${
-                  n.id
-                }/regulations/${n.nospace_title.toLowerCase()}`}
+                href={targetHref}
                 target="_blank"
                 rel="noreferrer noopener"
               >

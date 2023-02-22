@@ -57,27 +57,27 @@ const DashboardSidebar = (props) => {
     //     },
     //   ],
     // },
-    // {
-    //   title: "Join Kompetisi",
-    //   child: [
-    //     {
-    //       title: "Berlangsung",
-    //       to: "/manage/competition/as-participant/live",
-    //     },
-    //     {
-    //       title: "Selesai",
-    //       to: "/manage/competition/as-participant/end",
-    //     },
-    //     {
-    //       title: "Menang",
-    //       to: "/manage/competition/as-participant/won",
-    //     },
-    //     {
-    //       title: "Gagal",
-    //       to: "/manage/competition/as-participant/lost",
-    //     },
-    //   ],
-    // },
+    {
+      title: "Submission",
+      child: [
+        {
+          title: "Checking",
+          to: "/manage/submission/checking",
+        },
+        {
+          title: "Valid",
+          to: "/manage/submission/valid",
+        },
+        {
+          title: "Menang",
+          to: "/manage/submission/won",
+        },
+        {
+          title: "Gagal",
+          to: "/manage/submission/lost",
+        },
+      ],
+    },
     // {
     //   title: "Kompetisi Lainnya",
     //   child: [
