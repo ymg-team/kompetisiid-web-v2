@@ -58,8 +58,12 @@ const DashboardSidebar = (props) => {
     //   ],
     // },
     {
-      title: "Submission",
+      title: "Submissions",
       child: [
+        {
+          title: "Semua",
+          to: "/manage/submission/all",
+        },
         {
           title: "Checking",
           to: "/manage/submission/checking",

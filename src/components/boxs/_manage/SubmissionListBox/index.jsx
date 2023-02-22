@@ -16,6 +16,7 @@ const SubmissionListBox = ({
   setSelectedSubmission,
   submissionData,
   reloadHandler,
+  type,
 }) => {
   // initial states
   const [loading, setLoading] = React.useState(false);
@@ -71,7 +72,7 @@ const SubmissionListBox = ({
                 data={n}
                 onView={viewHandler}
                 onDelete={deleteHandler}
-                {...{ isCompetitionEnded }}
+                {...{ isCompetitionEnded, type }}
               />
             );
           })}
@@ -88,7 +89,7 @@ SubmissionListBox.defaultProps = {
   competitionData: {},
   submissionData: {},
   isReadOnly: false,
-  type: ["competition-detail", "manage"],
+  type: "competition-detail",
   reloadHandler: () => {},
 };
 

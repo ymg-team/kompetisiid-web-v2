@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Dynamic from "next/dynamic";
+import { useSelector } from "react-redux";
+
+// services
+import { fetchCompetitionSubmission } from "@services/competition_submission";
 
 // components
 import Loading from "@components/preloaders/GlobalLoader";
@@ -17,14 +21,18 @@ const SubmissionListBox = Dynamic(
 
 // layouts
 import ManageLayout from "@layouts/ManageLayoutV5";
+import { useRouter } from "next/router";
 
-const LIST_TYPES = ["checking", "valid", "won", "lost"];
+const LIST_TYPES = ["all", "checking", "valid", "won", "lost"];
 
 const META = {
+  all: {
+    title: "Submission",
+    description: "Semua submission kamu di Kompetisi Id",
+  },
   checking: {
     title: "Submission - Menunggu Diterima",
-    description:
-      "Kompetisi yang kamu ikuti status menunggu di validasi penyelenggara",
+    description: "Submission dengan status menunggu di validasi penyelenggara",
   },
   valid: {
     title: "Submission - Valid",
@@ -43,6 +51,43 @@ const META = {
 };
 
 const ListSubmission = ({ type }) => {
+  const Router = useRouter();
+
+  // initial ref
+  // const firstRender = React.useRef(true);
+
+  // initial global
+  const Session = useSelector((state) => state.Session || {});
+
+  // initial states
+  const [loading, setLoading] = React.useState(false);
+  const [response, setResponse] = React.useState({});
+
+  // initial effects
+  React.useEffect(() => {
+    if (Session?.data && Router.query.type) fetchSubmission();
+  }, [Session, Router.query]);
+
+  // initial functions
+  const fetchSubmission = async () => {
+    if (!loading) {
+      setLoading(true);
+      const { type } = Router.query;
+
+      let queryParams = {
+        user_id: Session?.data?.id,
+        status: type,
+      };
+
+      const Response = await fetchCompetitionSubmission({
+        query: queryParams,
+      });
+      setResponse(Response);
+      setLoading(false);
+    }
+  };
+
+  // initial memo
   const meta = React.useMemo(() => {
     return META[type];
   }, [type]);
@@ -58,7 +103,12 @@ const ListSubmission = ({ type }) => {
     <ManageLayout>
       <SEO {...meta} />
       <HeaderDashboard title={meta.title} text={meta.description} />
-      <SubmissionListBox isReadOnly />
+      <SubmissionListBox
+        isReadOnly
+        submissionData={response}
+        userData={Session}
+        type="manage"
+      />
     </ManageLayout>
   );
 };
