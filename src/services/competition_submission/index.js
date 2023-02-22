@@ -1,13 +1,12 @@
+import { objToQuery } from "string-manager/dist/modules/httpquery";
 import fetchModule from "~/src/helpers/apiCaller";
 
 /**
  * function to get competition submission
  */
-export const fetchCompetitionSubmission = ({
-  competition_submission_fields_id,
-}) => {
+export const fetchCompetitionSubmission = ({ query }) => {
   return fetchModule({
-    endpoint: `/v2/competition-submissions/${competition_submission_fields_id}`,
+    endpoint: `/v2/submissions${query ? `?${objToQuery(query)}` : ""}`,
     method: "get",
   });
 };

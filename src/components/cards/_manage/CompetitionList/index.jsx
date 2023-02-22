@@ -5,7 +5,7 @@ import { epochToRelativeTime } from "@helpers/dateTime";
 import Link from "next/link";
 import Label from "@components/Label";
 
-const CompetitionListCard = ({ type, n }) => {
+const CompetitionListCard = ({ type, n, userType }) => {
   const linkEdit = `/${
     type == "super" ? "super" : "dashboard"
   }/competition/update/${n.id}`;
@@ -117,16 +117,21 @@ const CompetitionListCard = ({ type, n }) => {
                       Preview
                     </a>
                   </li>
-                  <li>
-                    <Link href={linkEdit}>
-                      <a>Ubah</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <a onClick={(e) => e.preventDefault()} href="#">
-                      Hapus
-                    </a>
-                  </li>
+                  {userType !== "participant" && (
+                    <>
+                      {" "}
+                      <li>
+                        <Link href={linkEdit}>
+                          <a>Ubah</a>
+                        </Link>
+                      </li>
+                      <li>
+                        <a onClick={(e) => e.preventDefault()} href="#">
+                          Hapus
+                        </a>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>
