@@ -33,7 +33,7 @@ export default function KIDocument() {
         <Main />
         <NextScript />
         <div id="fb-root" />
-        <script src="/static/script.0.0.1.min.js" async></script>
+        <script src="/static/script.0.0.2.min.js" async></script>
         {NODE_ENV === "production" && (
           <>
             <script
