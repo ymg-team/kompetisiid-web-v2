@@ -6,7 +6,6 @@ const WHITELIST_HOST_CACHE = [
   "res.cloudinary.com",
   "localhost:20211",
   "kompetisi.id",
-  "media.kompetisi.id",
 ];
 
 // installation step
