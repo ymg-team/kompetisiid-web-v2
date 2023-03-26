@@ -30,7 +30,7 @@ const Contacts = (props) => (
       props.data.map((n, key) => {
         return (
           <p key={key}>
-            <i className={Type[n.type].icon} />{" "}
+            <i className={Type[n.type]?.icon} />{" "}
             {[1, 2, 3, 4, 8].includes(parseInt(n.type))
               ? generateLink(n.value, "_blank")
               : n.value}

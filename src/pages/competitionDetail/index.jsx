@@ -67,7 +67,7 @@ const Submission = Dynamic(
   }
 );
 
-const TabNumber = {
+const TAB_NUMBER = {
   prizes: 0,
   regulations: 1,
   announcements: 2,
@@ -75,6 +75,16 @@ const TabNumber = {
   contacts: 4,
   share: 5,
   submission: 6,
+};
+
+const TYPE_ID = {
+  prizes: "Hadiah",
+  regulations: "Peraturan",
+  announcements: "Pengumuman",
+  discussions: "Diskusi",
+  contacts: "Kontak",
+  share: "Share",
+  submission: "Submission",
 };
 
 const AlertBoxData = {
@@ -135,7 +145,11 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
     let title, description, image, url, jsonLd;
 
     if (respCompetition.status === 200) {
-      title = toCamelCase(`${type + " " || ""}${respCompetition.data.title}`);
+      title = toCamelCase(
+        `${TYPE_ID[type] ? `${TYPE_ID[type]} ` : ""}${
+          respCompetition.data.title
+        }`
+      );
       description = respCompetition.data.sort;
       image = respCompetition.data.poster.original;
       url = `${URL_KI_WEB}/competition/${
@@ -151,7 +165,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
       image,
       jsonLd,
     };
-  }, [respCompetition]);
+  }, [respCompetition, type]);
 
   // save selected AlertBox data
   const selectedAlertBoxData = React.useMemo(() => {
@@ -163,7 +177,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
   }, [respCompetition.data]);
 
   const ActiveTab = React.useMemo(() => {
-    return TabNumber[type] || 0;
+    return TAB_NUMBER[type] || 0;
   }, [type]);
 
   React.useEffect(() => {
