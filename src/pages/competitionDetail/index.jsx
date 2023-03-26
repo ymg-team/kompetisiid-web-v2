@@ -60,12 +60,12 @@ const Discussions = Dynamic(
 const Sidebar = Dynamic(import("@components/competition-detail/Sidebar"), {
   loading: Loading,
 });
-// const sSubmission = Dynamic(
-//   import("@components/competition-detail/Submission"),
-//   {
-//     loading: Loading,
-//   }
-// );
+const Submission = Dynamic(
+  import("@components/competition-detail/Submission"),
+  {
+    loading: Loading,
+  }
+);
 
 const TAB_NUMBER = {
   prizes: 0,
