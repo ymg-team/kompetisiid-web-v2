@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import sw from "sweetalert";
+import * as sw from "sweetalert";
 
 // helpers
 import { epochToRelativeTime } from "@helpers/dateTime";
@@ -76,7 +76,7 @@ const RequestAddCompetitionTable: React.FC = () => {
           value: "posted",
         },
       },
-    }).then((status) => {
+    }).then((status?: "posted" | "reject") => {
       switch (status) {
         case "posted":
         case "reject":
@@ -87,7 +87,7 @@ const RequestAddCompetitionTable: React.FC = () => {
             {
               content: "input",
             }
-          ).then(async (message) => {
+          ).then(async (message: string) => {
             const payload = {
               message,
               status,
@@ -226,7 +226,7 @@ const RequestAddCompetitionTable: React.FC = () => {
                     lastId: response.data[response.data.length - 1].id,
                   });
                 }}
-                disabled={loadingMore}
+                // disabled={loadingMore}
               >
                 {loadingMore ? "Loading..." : "Load More"}
               </a>
