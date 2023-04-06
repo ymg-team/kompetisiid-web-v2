@@ -1,7 +1,7 @@
 import React from "react";
 
 // components
-import Sidebar from "../../Sidebar";
+import Sidebar from "@components/navigations/Sidebar";
 
 const SuperSidebar = (props: any) => {
   const stats = React.useMemo(() => {
@@ -49,36 +49,43 @@ const SuperSidebar = (props: any) => {
           },
         ],
       },
-      // {
-      //   title: "Request",
-      //   child: [
-      //     {
-      //       title: "Request Menunggu",
-      //       to: "/super/requests/waiting",
-      //       hide: !stats.request.waiting,
-      //       label: {
-      //         color: "blue",
-      //         text: stats.request.waiting,
-      //       },
-      //     },
-      //     {
-      //       title: "Request Diterima",
-      //       to: "/super/requests/posted",
-      //       label: {
-      //         color: "blue",
-      //         text: stats.request.accept,
-      //       },
-      //     },
-      //     {
-      //       title: "Request Ditolak",
-      //       to: "/super/requests/reject",
-      //       label: {
-      //         color: "blue",
-      //         text: stats.request.reject,
-      //       },
-      //     },
-      //   ],
-      // },
+      {
+        title: "Request Add Competition",
+        child: [
+          {
+            title: "All",
+            to: "/super/requests",
+            label: {
+              color: "blue",
+              text: stats.request.waiting,
+            },
+          },
+          {
+            title: "Waiting",
+            to: "/super/requests/waiting",
+            label: {
+              color: "blue",
+              text: stats.request.waiting,
+            },
+          },
+          {
+            title: "Approved",
+            to: "/super/requests/approved",
+            label: {
+              color: "blue",
+              text: stats.request.accept,
+            },
+          },
+          {
+            title: "Rejected",
+            to: "/super/requests/rejected",
+            label: {
+              color: "blue",
+              text: stats.request.reject,
+            },
+          },
+        ],
+      },
       // {
       //   title: "Kabar",
       //   child: [

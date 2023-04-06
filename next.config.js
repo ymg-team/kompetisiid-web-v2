@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-const { queryToObj } = require("string-manager");
-
 const publicRuntimeConfig = {
   NODE_ENV: process.env.NODE_ENV || "production",
   URL_KI_BE: process.env.URL_KI_BE || "https://apiv4.kompetisi.id",
@@ -78,6 +76,19 @@ const nextConfig = {
       {
         source: "/super/competitions/edit/:id",
         destination: "/super/competitions/create?competition_id=:id",
+      },
+      // request add competition page
+      {
+        source: "/super/requests/waiting",
+        destination: "/super/requests?status=waiting",
+      },
+      {
+        source: "/super/requests/approved",
+        destination: "/super/requests?status=posted",
+      },
+      {
+        source: "/super/requests/rejected",
+        destination: "/super/requests?status=reject",
       },
     ];
   },

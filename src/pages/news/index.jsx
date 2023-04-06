@@ -17,8 +17,6 @@ const DEFAULT_REQ_QUERY_NEWS = {
   status: "published",
 };
 
-const Limit = 6;
-
 const Newsbox = Dynamic(import("@components/boxs/NewsBox"), {
   loading: () => <NewsLoading style={{ marginTop: "20px" }} withContainer />,
 });
