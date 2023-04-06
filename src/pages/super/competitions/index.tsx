@@ -5,11 +5,11 @@ import SuperLayout from "@layouts/SuperLayoutV5";
 
 // components
 import SEO from "@components/meta/SEO";
-import Table from "@components/table/_super/CompetitionTable";
+import Table from "@components/tables/_super/CompetitionTable";
 import Tab from "@components/tabs/_super/CompetitionTab";
 import HeaderDashboard from "@components/headers/HeaderDashboard";
 
-const Meta = {
+const META = {
   title: "List Competition",
   desc: "Kompetisi yang terpasang di Kompetisi Id",
 };
@@ -17,7 +17,7 @@ const Meta = {
 const SuperCompetitionSuper: NextPage = () => {
   return (
     <SuperLayout>
-      <SEO {...Meta} />
+      <SEO {...META} />
       <HeaderDashboard
         title={"Manage Competition"}
         text="Semua kompetisi yang terpasang di Kompetisi Id"
