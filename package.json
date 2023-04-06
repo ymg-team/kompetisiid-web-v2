@@ -11,6 +11,7 @@
     "check-typing": "tsc"
   },
   "dependencies": {
+    
     "@yaireo/tagify": "^4.17.7",
     "copy-to-clipboard": "^3.3.1",
     "formidable": "^2.1.1",
@@ -38,6 +39,7 @@
     "@types/react": "18.0.15",
     "@types/react-datepicker": "^4.8.0",
     "@types/react-dom": "18.0.6",
+    "@types/sweetalert": "^2.0.4",
     "@types/styled-components": "^5.1.26",
     "babel-plugin-styled-components": "^2.0.7",
     "eslint": "8.19.0",
