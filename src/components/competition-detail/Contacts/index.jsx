@@ -16,6 +16,8 @@ const Type = [
   { icon: "fas fa-map" },
   { icon: "fab fa-youtube-square" },
   { icon: "fas fa-phone-square" },
+  { icon: "fab fa-tiktok" },
+  { icon: "fab fa-whatsapp" },
 ];
 
 const Contacts = (props) => (

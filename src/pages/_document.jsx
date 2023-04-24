@@ -17,8 +17,7 @@ export default function KIDocument() {
         />
         <link
           rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
-          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           crossOrigin="anonymous"
         />
         <link rel="manifest" href="/manifest.json" />
