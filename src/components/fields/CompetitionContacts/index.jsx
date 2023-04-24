@@ -53,6 +53,16 @@ const CONTACT_TYPES = [
     type: "Telepon",
     icon: "",
   },
+  {
+    id: 10,
+    type: "Tiktok",
+    icon: "",
+  },
+  {
+    id: 11,
+    type: "Whatsapp",
+    icon: "",
+  },
 ];
 const CompetitionContactsForm = ({ name, initialValue }) => {
   // initial states
