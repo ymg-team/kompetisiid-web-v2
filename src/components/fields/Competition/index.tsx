@@ -20,6 +20,7 @@ import InputFileV2 from "@components/form/v2/InputFile";
 import TextareaV2 from "@components/form/v2/Textarea";
 
 import EditorV2 from "@components/form/v2/Editor";
+import CKEditor from "@components/form/CKEditor";
 import Submit from "@components/form/v2/Submit";
 import Spacer from "@components/boxs/Spacer";
 import HeaderDashboard from "@components/headers/HeaderDashboard";
@@ -221,7 +222,8 @@ const FormCompetition: React.FC<CompetitionFormProps> = ({
 
             <CompetitionCategoryField />
 
-            <EditorV2 name="content" label="Peraturan Kompetisi" required />
+            {/* <EditorV2 name="content" label="Peraturan Kompetisi" required /> */}
+            <CKEditor name="content" label="Peraturan Kompetisi" required />
 
             <Spacer size="large" />
 
