@@ -1,6 +1,6 @@
 import getConfig from "next/config";
 const { publicRuntimeConfig } = getConfig();
-const { URL_KI_BE } = publicRuntimeConfig;
+const { URL_KI_BE_GO } = publicRuntimeConfig;
 
 import sealMiddleware from "~/src/helpers/seal";
 
@@ -27,11 +27,11 @@ const IndexApi = async (req, res) => {
       method = method.toUpperCase();
 
       // const endpoint = `/${req.query.endpoint.join("/")}`;
-      const endpoint = req.url.replace("/api", "");
+      const endpoint = req.url.replace("/api/v3", "");
 
       delete query.endpoint;
 
-      const URL_TARGET = `${URL_KI_BE}${endpoint}`;
+      const URL_TARGET = `${URL_KI_BE_GO}${endpoint}`;
 
       let ReqArgs = {
         method,

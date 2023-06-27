@@ -183,6 +183,7 @@ const LabelDraft = () => (
 const CompetitionListCard = (props) => {
   // convert today midnight timestamp to seconds ref "https://stackoverflow.com/questions/3894048/what-is-the-best-way-to-initialize-a-javascript-date-to-midnight?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
   const { n, size } = props;
+
   const { now, deadline_at, is_ended, is_waiting } = getCompetitionStatus(
     n.deadline_at,
     n.announcement_at

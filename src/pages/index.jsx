@@ -6,6 +6,7 @@ import Dynamic from "next/dynamic";
 
 // helpers
 import { fetchCompetitions } from "@services/competition";
+import { fetchListCompetitions } from "@services/v3/competitions";
 
 // components
 import SEO from "@components/meta/SEO";
@@ -21,6 +22,9 @@ import AddCompetitionButton from "@components/buttons/ButtonAddCompetition";
 
 // split components
 const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
+  loading: () => <CompetitionLoading withContainer />,
+});
+const CompetitionBoxV3 = Dynamic(import("@components/boxs/CompetitionBoxV3"), {
   loading: () => <CompetitionLoading withContainer />,
 });
 const MediapartnerBox = Dynamic(import("@components/boxs/MediapartnerBox"), {
@@ -115,7 +119,7 @@ const Home = ({ serverData = {} }) => {
         />
       </div>
 
-      <CompetitionBox subtitle={false} {...respCompLatest} />
+      <CompetitionBoxV3 subtitle={false} {...respCompLatest} />
 
       <div className="row align-center">
         <Link href="/browse?status=active">
@@ -170,17 +174,13 @@ const Home = ({ serverData = {} }) => {
 };
 
 Home.getInitialProps = async (ctx) => {
-  const competitionLatest = await fetchCompetitions({
+  const competitionLatest = await fetchListCompetitions({
     query: { limit: 9, status: "active" },
   });
-  // const competitionManageByKI = await fetchCompetitions({
-  //   query: { limit: 9, is_manage: 1 },
-  // });
-  // const newsLatest = await
+
   return {
     serverData: {
       competitionLatest,
-      // competitionManageByKI,
     },
   };
 };
