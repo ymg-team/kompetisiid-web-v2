@@ -6,7 +6,7 @@ import Dynamic from "next/dynamic";
 
 // helpers
 import { fetchCompetitions } from "@services/competition";
-import { fetchListCompetitions } from "@services/v3/competitions";
+import { fetchListCompetitions as fetchListCompetitionsV3 } from "@services/v3/competitions";
 
 // components
 import SEO from "@components/meta/SEO";
@@ -58,13 +58,13 @@ const Home = ({ serverData = {} }) => {
     });
     setRespCompPopular(ResponsePopular);
 
-    const ResponseMP = await fetchCompetitions({
-      query: { limit: 7, is_mediapartner: true },
+    const ResponseMP = await fetchListCompetitionsV3({
+      query: { limit: 7, is_mediapartner: 1 },
     });
     setRespCompMP(ResponseMP);
 
-    const ResponseManaged = await fetchCompetitions({
-      query: { limit: 9, is_manage: true },
+    const ResponseManaged = await fetchListCompetitionsV3({
+      query: { limit: 9, is_manage: 1 },
     });
     setRespCompManageByKI(ResponseManaged);
   };
@@ -137,7 +137,7 @@ const Home = ({ serverData = {} }) => {
         />
       </div>
 
-      <CompetitionBox subtitle={false} {...respCompManageByKI} />
+      <CompetitionBoxV3 subtitle={false} {...respCompManageByKI} />
 
       {/* <div className="row align-center">
         <Link href="/browse?is_manage=true">
@@ -174,7 +174,7 @@ const Home = ({ serverData = {} }) => {
 };
 
 Home.getInitialProps = async (ctx) => {
-  const competitionLatest = await fetchListCompetitions({
+  const competitionLatest = await fetchListCompetitionsV3({
     query: { limit: 9, status: "active" },
   });
 

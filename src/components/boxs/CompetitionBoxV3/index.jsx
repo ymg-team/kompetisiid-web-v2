@@ -18,6 +18,7 @@ function generateList(size, n) {
         announcement_at: new Date(n.announcement_at).getTime() / 1000,
         nospace_title: toSlug(n.title),
         is_garansi: n.is_guaranted,
+        is_manage_by_ki: n.is_manage,
         author: {
           username: n.user.username,
           avatar: {
