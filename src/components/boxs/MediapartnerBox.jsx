@@ -3,6 +3,7 @@ import Link from "next/link";
 // components
 import Loader from "../preloaders/GlobalLoader";
 import MediaPartnerCard from "../cards/MediaPartner/index";
+import { toSlug } from "string-manager/dist/modules/slug";
 
 const MediaPartnerBox = (props) => {
   const { status, message, data } = props;
@@ -11,7 +12,7 @@ const MediaPartnerBox = (props) => {
       <div className="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3 no-padding">
         <div className="row">
           <div className="media-partner align-center">
-            <h2 className="big-text">Kompetisi Id sebagai Media Partner</h2>
+            <h2 className="big-text">KI sebagai Media Partner</h2>
             <div style={{ paddingBottom: 20 }}>
               KI juga ikut berperan sebagai media partner berbagai kompetisi di
               Indonesia.{" "}
@@ -21,7 +22,14 @@ const MediaPartnerBox = (props) => {
         {status ? (
           status === 200 ? (
             <div className="row">
-              {data.map((n) => {
+              {data.competitions.map((n) => {
+                n.nospace_title = toSlug(n.title);
+                n.author = {
+                  username: n.user.username,
+                  avatar: {
+                    small: "",
+                  },
+                };
                 return <MediaPartnerCard key={n.id} data={n} />;
               })}
             </div>
