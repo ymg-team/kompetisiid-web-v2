@@ -61,7 +61,7 @@ const CompetitionBoxV3 = (props) => {
       <div className="container">
         <div className="no-margin">
           {/* header total show competition */}
-          {data && status && subtitle ? (
+          {data?.competitions && status && subtitle ? (
             <div className="col-md-12">
               <br />
               menampilkan <strong> {data.length || 0}</strong> dari{" "}
@@ -70,22 +70,24 @@ const CompetitionBoxV3 = (props) => {
               <br />
             </div>
           ) : null}
-          {subtitle ? <div className="row m-10" /> : null}
+          {subtitle && <div className="row m-10" />}
           {/* end of header total show competition */}
 
           {/* competition literation */}
-          {status ? (
-            !data ? (
-              <p className="text-muted align-center">{message}</p>
+          {status && data ? (
+            !data?.competitions ? (
+              <p className="text-muted align-center">
+                Kompetisi tidak ditemukan
+              </p>
             ) : (
               generateList(size, data.competitions)
             )
           ) : null}
           {/* end of competition literation */}
 
-          {is_loading || !status ? (
+          {(is_loading || !status) && (
             <Loader size={props.size} total={props.total} />
-          ) : null}
+          )}
         </div>
       </div>
     </div>

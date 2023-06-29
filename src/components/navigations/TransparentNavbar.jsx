@@ -186,8 +186,8 @@ const Navbar = (props) => {
 
   React.useEffect(() => {
     const { query } = Router;
-    setSearch(typeof query.search !== "undefined");
-    setKeyword(query.search || "");
+    setSearch(typeof query.keyword !== "undefined");
+    setKeyword(query.keyword || "");
   }, [Router.query]);
 
   // componentDidMount and componentWilUnmount
@@ -276,7 +276,7 @@ const Navbar = (props) => {
                           Router.push({
                             pathname: "/browse",
                             query: {
-                              search: keyword,
+                              keyword,
                               status: "active",
                             },
                           });
