@@ -5,10 +5,8 @@ import Dynamic from "next/dynamic";
 import StaticSpecialTags from "~/src/config/consts/staticData/specialTags";
 
 // services
-import {
-  fetchCompetitionCategories,
-  fetchCompetitions,
-} from "~/src/services/competition";
+import { fetchCompetitionCategories } from "~/src/services/competition";
+import { fetchListCompetitions as fetchListCompetitionsV3 } from "@services/v3/competitions";
 
 // components
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
@@ -18,8 +16,9 @@ import GlobalLoading from "@components/preloaders/GlobalLoader";
 import { FilterJelajahStyled } from "@components/filters/Filter.styled";
 import Breadcrumb from "@components/navigations/Breadcrumb";
 import Head from "next/head";
+import { queryToObj } from "string-manager";
 
-const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
+const CompetitionBoxV3 = Dynamic(import("@components/boxs/CompetitionBoxV3"), {
   loading: () => <CompetitionLoading withContainer />,
 });
 const SpecialTags = Dynamic(import("@components/boxs/SpecialTags"), {
@@ -30,6 +29,7 @@ const SpecialTags = Dynamic(import("@components/boxs/SpecialTags"), {
 const DEFAULT_REQ_QUERY_COMPETITIONS = {
   status: "all",
   limit: 9,
+  is_draft: "0",
 };
 
 const SortText = {
@@ -53,8 +53,8 @@ const BreadcrumbData = [
 ];
 
 const BrowseCompetition = ({
-  mainkat,
-  subkat,
+  main_category,
+  sub_category,
   username,
   tag,
   serverData = {},
@@ -66,7 +66,7 @@ const BrowseCompetition = ({
   const firstRender = React.useRef(true);
 
   // === initial states ===
-
+  const [page, setPage] = React.useState(1);
   const [loading, setLoading] = React.useState(false);
   const [categories, setCategories] = React.useState({});
   const [sort, setSort] = React.useState("time_dsc");
@@ -101,21 +101,21 @@ const BrowseCompetition = ({
     }
 
     // jelajah media partner
-    if (Router.query.mediapartner == 1) {
+    if (Router.query.is_mediapartner == 1) {
       Title += ` Media Partner`;
       Description = `Jelajahi kompetisi yang menjadikan Kompetisi.id sebagai media partner`;
     }
 
     // jelajah berdasarkan kategori
-    if (mainkat) {
-      Title += ` Kategori ${mainkat}`;
-      Description += ` di kategori ${mainkat}`;
+    if (main_category) {
+      Title += ` Kategori ${main_category}`;
+      Description += ` di kategori ${main_category}`;
     }
 
     // jelajah berdasarkan kategori
-    if (subkat) {
-      Title += ` Sub Kategori ${subkat}`;
-      Description += ` di sub kategori ${subkat}`;
+    if (sub_category) {
+      Title += ` Sub Kategori ${sub_category}`;
+      Description += ` di sub kategori ${sub_category}`;
     }
 
     return {
@@ -132,13 +132,14 @@ const BrowseCompetition = ({
   }, [tag]);
 
   const subcategories = React.useMemo(() => {
-    if (mainkat && categories.status) {
-      const SelCategory = categories.data.find((n) => n.name === mainkat) || {};
+    if (main_category && categories.status) {
+      const SelCategory =
+        categories.data.find((n) => n.name === main_category) || {};
       return SelCategory.subcategories || [];
     }
 
     return [];
-  }, [mainkat]);
+  }, [main_category]);
 
   // === initial effects ===
   React.useEffect(() => {
@@ -150,9 +151,10 @@ const BrowseCompetition = ({
   }, [serverData]);
 
   React.useEffect(() => {
+    // need reset page because change filter
+    setPage(1);
+
     const {
-      mainkat: mainkatQuery,
-      subkat: subkatQuery,
       // mediapartner,
       // berakhir,
       // garansi,
@@ -183,28 +185,37 @@ const BrowseCompetition = ({
     setLoading(true);
     let currResponse = { ...respCompetition };
 
-    if (respCompetition.data && respCompetition.data.length > 0) {
-      const ResLength = respCompetition.data.length;
-      const lastid = respCompetition.data[ResLength - 1].id;
-      const Res = await fetchCompetitions({
+    if (respCompetition.data && respCompetition.data.competitions.length > 0) {
+      const nextPage = page + 1;
+
+      if (Router.query.tag)
+        Router.query.tag = Router.query.tag.replace(/%20/g, " ");
+
+      // const ResLength = respCompetition.data.length;
+      const Res = await fetchListCompetitionsV3({
         query: {
           ...DEFAULT_REQ_QUERY_COMPETITIONS,
           ...Router.query,
-          ...{ lastid },
+          ...{ page: nextPage },
         },
       });
 
       // join currentResponse and newResponse
       currResponse.status = Res.status;
       currResponse.message = Res.message;
-      currResponse.count = Res.count;
-      if (Res.data) currResponse.data = [...currResponse.data, ...Res.data];
+      currResponse.data.total = Res.data.total;
+      if (Res.data.competitions) {
+        currResponse.data.competitions = [
+          ...currResponse.data.competitions,
+          ...Res.data.competitions,
+        ];
+        setPage(nextPage);
+      }
 
       setRespCompetition(currResponse);
-
       setLoading(false);
     }
-  }, [Router.query, respCompetition]);
+  }, [Router.query, respCompetition, page]);
 
   return (
     <>
@@ -220,6 +231,8 @@ const BrowseCompetition = ({
           <SpecialTags {...SelectedSpecialTag} />
         ) : (
           <FilterJelajahStyled className="col-md-12 filter-jelajah">
+            {/* must be 1 H1 per page, SEO purpose */}
+            <h1 style={{ display: "none" }}>{Meta.Title}</h1>
             <div className="container">
               {/* filter by main category and sub category */}
               <div className="row">
@@ -230,12 +243,12 @@ const BrowseCompetition = ({
                 {/* end of breadcrumbs */}
 
                 <div className="col-md-12">
-                  <h1>
+                  <h2 style={{ fontSize: "2em" }}>
                     {" "}
                     {Router.query.search
                       ? ` Pencarian "${Router.query.search}"`
                       : "Jelajah"}
-                    {Router.query.mediapartner == 1 ? " Media Partner" : ""}{" "}
+                    {Router.query.is_mediapartner == 1 ? " Media Partner" : ""}{" "}
                     <a
                       href="#"
                       onClick={(e) => {
@@ -243,10 +256,10 @@ const BrowseCompetition = ({
                         modal("open", "select-main-kat");
                       }}
                     >
-                      {mainkat || "Semua Kategori"}
+                      {main_category || "Semua Kategori"}
                       <i className="fa fa-angle-down" />
                     </a>
-                    {mainkat && (
+                    {main_category && (
                       <span>
                         {" "}
                         dan{" "}
@@ -257,19 +270,19 @@ const BrowseCompetition = ({
                             modal("open", "select-sub-kat");
                           }}
                         >
-                          {subkat || "Semua subkategori"}
+                          {sub_category || "Semua Sub Kategori"}
                           <i className="fa fa-angle-down" />
                         </a>
                       </span>
                     )}
-                  </h1>
+                  </h2>
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-md-12">
-                  <h1>
-                    {/* sortby */}
+                  <h2 style={{ fontSize: "2em" }}>
+                    {/* sortby
                     Urutkan{" "}
                     <a
                       href="#"
@@ -280,7 +293,7 @@ const BrowseCompetition = ({
                     >
                       {SortText[sort] || "Terbaru"}
                       <i className="fa fa-angle-down" />
-                    </a>{" "}
+                    </a>{" "} */}
                     {/* filter by status */}
                     Tampilkan{" "}
                     <a
@@ -294,7 +307,7 @@ const BrowseCompetition = ({
                       <i className="fa fa-angle-down" />
                     </a>
                     {tag ? ` Tag "${tag}"` : ""}
-                  </h1>
+                  </h2>
                   {/* filter by status */}
                 </div>
               </div>
@@ -321,7 +334,7 @@ const BrowseCompetition = ({
         {/* end of media partner */}
 
         {/*content*/}
-        <CompetitionBox
+        <CompetitionBoxV3
           style={{ padding: "10px 15px" }}
           subtitle={true}
           {...respCompetition}
@@ -332,20 +345,23 @@ const BrowseCompetition = ({
         {loading && <GlobalLoading />}
 
         {/* button loadMore */}
-        {!loading && respCompetition.status == 200 && (
-          <div className="row align-center">
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                fetchDataMore();
-              }}
-              className="btn btn-bordergray"
-            >
-              KOMPETISI BERIKUTNYA
-            </a>
-          </div>
-        )}
+        {!loading &&
+          respCompetition.status == 200 &&
+          respCompetition.data?.competitions?.length >=
+            DEFAULT_REQ_QUERY_COMPETITIONS.limit && (
+            <div className="row align-center">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  fetchDataMore();
+                }}
+                className="btn btn-bordergray"
+              >
+                KOMPETISI BERIKUTNYA
+              </a>
+            </div>
+          )}
 
         {/*modal*/}
         <>
@@ -375,7 +391,7 @@ const BrowseCompetition = ({
                               pathname: `/browse/${n.name}`,
                               query: {
                                 ...Router.query,
-                                ...{ mainkat: n.name, subkat: "" },
+                                ...{ main_category: n.name, sub_category: "" },
                               },
                             });
                           }}
@@ -396,7 +412,7 @@ const BrowseCompetition = ({
                           pathname: `/browse`,
                           query: {
                             ...Router.query,
-                            ...{ mainkat: "", subkat: "" },
+                            ...{ main_category: "", sub_category: "" },
                           },
                         });
                       }}
@@ -431,10 +447,10 @@ const BrowseCompetition = ({
                             e.preventDefault();
                             modal("close", "select-sub-kat");
                             Router.push({
-                              pathname: `/browse/${mainkat}/${n.name}`,
+                              pathname: `/browse/${main_category}/${n.name}`,
                               query: {
                                 ...Router.query,
-                                ...{ subkat: n.name },
+                                ...{ sub_category: n.name },
                               },
                             });
                           }}
@@ -452,13 +468,13 @@ const BrowseCompetition = ({
                       e.preventDefault();
                       modal("close", "select-sub-kat");
                       Router.push({
-                        pathname: `/browse/${mainkat}`,
-                        query: { ...Router.query, ...{ subkat: "" } },
+                        pathname: `/browse/${main_category}`,
+                        query: { ...Router.query, ...{ sub_category: "" } },
                       });
                     }}
                     className="text-muted"
                   >
-                    Semua subkategori
+                    Semua Sub Kategori
                   </a>
                 </li>
               </ul>
@@ -567,15 +583,26 @@ const BrowseCompetition = ({
 
 BrowseCompetition.getInitialProps = async (ctx) => {
   const { query = {} } = ctx || {};
+  const main_category = query.main_category
+    ? query.main_category.replace(/%20/g, " ")
+    : "";
+  const sub_category = query.sub_category
+    ? query.sub_category.replace(/%20/g, " ")
+    : "";
+  const tag = query.tag ? query.tag.replace(/%20/g, " ") : "";
 
-  const NextQuery = { ...DEFAULT_REQ_QUERY_COMPETITIONS, ...query };
+  const NextQuery = {
+    ...DEFAULT_REQ_QUERY_COMPETITIONS,
+    ...query,
+    ...{ main_category, sub_category, tag },
+  };
 
-  const competitions = await fetchCompetitions({ query: NextQuery });
+  const competitions = await fetchListCompetitionsV3({ query: NextQuery });
 
   return {
-    mainkat: query.mainkat ? query.mainkat.replace(/%20/g, " ") : "",
-    subkat: query.subkat ? query.subkat.replace(/%20/g, " ") : "",
-    tag: query.tag,
+    main_category,
+    sub_category,
+    tag,
     username: query.username,
     serverData: {
       competitions,

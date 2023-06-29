@@ -21,9 +21,6 @@ import GAds from "@components/cards/GoogleAds";
 import AddCompetitionButton from "@components/buttons/ButtonAddCompetition";
 
 // split components
-const CompetitionBox = Dynamic(import("@components/boxs/CompetitionBox"), {
-  loading: () => <CompetitionLoading withContainer />,
-});
 const CompetitionBoxV3 = Dynamic(import("@components/boxs/CompetitionBoxV3"), {
   loading: () => <CompetitionLoading withContainer />,
 });
@@ -37,9 +34,7 @@ const MediaPartnerAds = Dynamic(import("@components/cards/MediaPartnerAds"), {
 const Home = ({ serverData = {} }) => {
   // === initial states ===
   const [respCompPopular, setRespCompPopular] = React.useState({});
-  const [respCompLatest, setRespCompLatest] = React.useState(
-    serverData.competitionLatest
-  );
+  const [respCompLatest] = React.useState(serverData.competitionLatest);
   const [respCompManageByKI, setRespCompManageByKI] = React.useState({});
   const [respCompMP, setRespCompMP] = React.useState({});
 
