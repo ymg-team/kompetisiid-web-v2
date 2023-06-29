@@ -21,16 +21,17 @@ const nextConfig = {
     return [
       //browse competition pages
       {
-        source: "/browse/:mainCat",
-        destination: "/browse?mainkat=:mainCat",
+        source: "/browse/:main_category",
+        destination: "/browse?main_category=:main_category",
       },
       {
         source: "/browse/tag/:tag",
         destination: "/browse?tag=:tag",
       },
       {
-        source: "/browse/:mainCat/:subCat",
-        destination: "/browse?mainkat=:mainCat&subkat=:subCat",
+        source: "/browse/:main_category/:sub_category",
+        destination:
+          "/browse?main_category=:main_category&sub_category=:sub_category",
       },
       //competition detail page
       {

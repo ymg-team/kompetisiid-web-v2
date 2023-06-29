@@ -16,7 +16,7 @@ const Header = (props) => {
       Router.push({
         pathname: "/browse",
         query: {
-          search: q,
+          keyword: q,
           status: "active",
         },
       });
