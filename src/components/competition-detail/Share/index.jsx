@@ -2,8 +2,7 @@
 import HeaderDashboard from "@components/headers/HeaderDashboard";
 import Spacer from "@components/boxs/Spacer";
 
-const Share = (props) => {
-  const { title, desc, link } = props;
+const Share = ({ title, desc, link }) => {
   return (
     <>
       <Spacer size="medium" />

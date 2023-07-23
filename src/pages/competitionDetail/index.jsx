@@ -132,10 +132,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
   const [respRelatedCompetition, setRelatedCompetition] = React.useState({});
   const [respSubmissionFields, setRespSubmissionField] = React.useState({});
 
-  let NextPrevProps = {},
-    helmetdata = {
-      script: [],
-    };
+  let NextPrevProps = {};
 
   // === initial memos ===
 
@@ -232,7 +229,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
               <Tab
                 active={ActiveTab}
                 data={respCompetition.data}
-                link={helmetdata.url}
+                link={Meta.url}
               />
 
               {/* GAds */}
@@ -303,7 +300,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                                 />
                               );
                             case 3:
-                              return <Discussions link={helmetdata.url} />;
+                              return <Discussions link={Meta.url} />;
                             case 4:
                               return (
                                 <Contacts
@@ -319,7 +316,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                                 <Share
                                   title={respCompetition.data.title}
                                   desc={respCompetition.data.sort}
-                                  link={helmetdata.url}
+                                  link={Meta.url}
                                 />
                               );
                             case 6:

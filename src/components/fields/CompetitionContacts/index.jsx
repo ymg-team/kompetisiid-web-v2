@@ -65,6 +65,8 @@ const CONTACT_TYPES = [
   },
 ];
 const CompetitionContactsForm = ({ name, initialValue }) => {
+  console.log("input penyelenggara", name, initialValue);
+
   // initial states
   const [contacts, setContacts] = React.useState(initialValue);
 

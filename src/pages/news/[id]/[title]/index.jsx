@@ -354,7 +354,7 @@ const NewsDetail = ({ encid, title, serverData }) => {
                 <br />
 
                 {/* share button */}
-                <Share url={url} />
+                <Share link={url} />
                 {/* end of share button */}
 
                 <br />
