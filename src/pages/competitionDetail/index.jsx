@@ -149,7 +149,7 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
       );
       description = respCompetition.data.sort;
       image = respCompetition.data.poster.original;
-      url = `${URL_KI_WEB}/competition/${
+      url = `${URL_KI_WEB.replace("/api", "")}/competition/${
         respCompetition.data.id
       }/regulations/${respCompetition.data.nospace_title.toLowerCase()}`;
       jsonLd = generateJsonld(respCompetition.data, url);
