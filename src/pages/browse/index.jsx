@@ -48,7 +48,7 @@ const BreadcrumbData = [
   },
   {
     title: "Jelajah Kompetisi",
-    link: "/browse?status=active",
+    link: "/browse",
   },
 ];
 

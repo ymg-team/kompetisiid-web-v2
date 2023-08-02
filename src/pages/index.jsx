@@ -117,7 +117,7 @@ const Home = ({ serverData = {} }) => {
       <CompetitionBoxV3 subtitle={false} {...respCompLatest} />
 
       <div className="row align-center">
-        <Link href="/browse?status=active">
+        <Link href="/browse">
           <a className="btn btn-bordergray">JELAJAH KOMPETISI</a>
         </Link>
       </div>

@@ -183,7 +183,7 @@ const Index = (props) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/browse?status=active">
+                  <Link href="/browse">
                     <a>Jelajah kompetisi</a>
                   </Link>
                 </li>
