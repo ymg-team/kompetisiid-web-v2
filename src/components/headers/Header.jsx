@@ -70,7 +70,7 @@ const Header = (props) => {
               onClick={(e) => e.preventDefault()}
             />
             <li>
-              <Link onClick={() => toggleNavTop()} href="/browse?status=active">
+              <Link onClick={() => toggleNavTop()} href="/browse">
                 <a>jelajah</a>
               </Link>
             </li>
@@ -177,7 +177,7 @@ const Header = (props) => {
           id="btn-closesearch"
           onClick={(e) => {
             e.preventDefault();
-            if (q != "") return Router.push("/browse?status=active");
+            if (q != "") return Router.push("/browse");
           }}
           href="#"
           title="tutup pencarian"

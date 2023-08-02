@@ -64,8 +64,11 @@ const CompetitionBoxV3 = (props) => {
           {data?.competitions && status && subtitle ? (
             <div className="col-md-12">
               <br />
-              menampilkan <strong> {data.length || 0}</strong> dari{" "}
-              <strong>{data.total > 5000 ? "banyak" : data.total}</strong>{" "}
+              menampilkan <strong>
+                {" "}
+                {data?.competitions.length || 0}
+              </strong>{" "}
+              dari <strong>{data.total > 5000 ? "banyak" : data.total}</strong>{" "}
               kompetisi
               <br />
             </div>
@@ -77,7 +80,7 @@ const CompetitionBoxV3 = (props) => {
           {status && data ? (
             !data?.competitions ? (
               <p className="text-muted align-center">
-                Kompetisi tidak ditemukan
+                Kompetisi Tidak Ditemukan
               </p>
             ) : (
               generateList(size, data.competitions)

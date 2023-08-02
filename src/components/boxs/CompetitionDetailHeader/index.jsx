@@ -38,7 +38,7 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
     },
     {
       title: "Jelajah Kompetisi",
-      link: "/browse?status=active",
+      link: "/browse",
     },
     {
       title: data.title,

@@ -9,10 +9,7 @@ const ErrorCard = (props) => (
         <h2>{props.message || "Telah Terjadi Masalah"}</h2>
         <p>
           Jika anda tersesat, silahkan masuk ke{" "}
-          <Link
-            href="/browse?status=active"
-            style={{ textDecoration: "underline" }}
-          >
+          <Link href="/browse" style={{ textDecoration: "underline" }}>
             <a>Jelajah Kompetisi</a>
           </Link>
           &nbsp; untuk menemukan kompetisi lainnya atau kembali ke{" "}

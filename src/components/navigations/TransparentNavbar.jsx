@@ -16,7 +16,7 @@ import { fullPageLoader } from "@components/preloaders/FullPage";
 
 const Menus = [
   {
-    link: "/browse?status=active",
+    link: "/browse",
     keys: ["browse", "competitionDetail"],
     text: "Jelajah",
     title: "Jelajahi kompetisi dari berbagai kategori",
@@ -226,7 +226,7 @@ const Navbar = (props) => {
     setSearch(!search);
     setKeyword("");
 
-    if (close) Router.push("/browse?status=active");
+    if (close) Router.push("/browse");
   };
 
   // logout handler
