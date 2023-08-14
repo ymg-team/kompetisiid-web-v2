@@ -70,24 +70,28 @@ const Header = (props) => {
               onClick={(e) => e.preventDefault()}
             />
             <li>
-              <Link onClick={() => toggleNavTop()} href="/browse">
+              <Link
+                legacyBehavior
+                onClick={() => toggleNavTop()}
+                href="/browse"
+              >
                 <a>jelajah</a>
               </Link>
             </li>
             <li>
-              <Link onClick={() => toggleNavTop()} href="/add">
+              <Link legacyBehavior onClick={() => toggleNavTop()} href="/add">
                 <a>pasang</a>
               </Link>
             </li>
             <li>
-              <Link onClick={() => toggleNavTop()} href="/news">
+              <Link legacyBehavior onClick={() => toggleNavTop()} href="/news">
                 <a>kabar</a>
               </Link>
             </li>
           </ul>
         </div>
         <div className="logo hide-mobile">
-          <Link href="/">
+          <Link legacyBehavior href="/">
             <a className="stage">
               <img id="ki-logo" src="/assets/4.2/img/icon-128x128.png" />
             </a>
@@ -124,7 +128,7 @@ const Header = (props) => {
                   <div className="dropdown-items" id="avatar-menu">
                     <ul>
                       <li>
-                        <Link href={`/user/${session.username}`}>
+                        <Link legacyBehavior href={`/user/${session.username}`}>
                           <a>Profil saya</a>
                         </Link>
                       </li>
@@ -156,7 +160,7 @@ const Header = (props) => {
               </li>
             ) : (
               <li style={{ display: "none" }} className="hide-mobile">
-                <Link href="/login">
+                <Link legacyBehavior href="/login">
                   <a>login</a>
                 </Link>
               </li>

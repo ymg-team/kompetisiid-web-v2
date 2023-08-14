@@ -113,7 +113,7 @@ const Sidebar = (props) => {
               <li>
                 {!n.child ? (
                   n.to !== "#" ? (
-                    <Link href={n.to}>
+                    <Link legacyBehavior href={n.to}>
                       <a onClick={() => toggleMenus()}>{n.title}</a>
                     </Link>
                   ) : (
@@ -148,7 +148,7 @@ const Sidebar = (props) => {
                             {m.title}
                           </a>
                         ) : (
-                          <Link href={m.to}>
+                          <Link legacyBehavior href={m.to}>
                             <a
                               onClick={() => {
                                 toggleMenus();

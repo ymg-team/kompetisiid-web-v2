@@ -78,7 +78,7 @@ const Tab = ({ tabs }) => (
       {tabs.map((n, key) => {
         return (
           <li key={key} className={n.is_active ? "active" : ""}>
-            <Link href={n.target}>
+            <Link legacyBehavior href={n.target}>
               <a>
                 {n.text} {n.count ? <Label type="gray" text={n.count} /> : null}
               </a>

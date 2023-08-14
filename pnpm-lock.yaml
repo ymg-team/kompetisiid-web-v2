@@ -6,6 +6,7 @@ specifiers:
   '@types/react-datepicker': ^4.8.0
   '@types/react-dom': 18.0.6
   '@types/styled-components': ^5.1.26
+  '@types/sweetalert': ^2.0.4
   '@yaireo/tagify': ^4.17.7
   babel-plugin-styled-components: ^2.0.7
   copy-to-clipboard: ^3.3.1
@@ -61,6 +62,7 @@ devDependencies:
   '@types/react-datepicker': 4.8.0_biqbaboplfbrettd7655fr4n2y
   '@types/react-dom': 18.0.6
   '@types/styled-components': 5.1.26
+  '@types/sweetalert': 2.0.4
   babel-plugin-styled-components: 2.0.7_styled-components@5.3.5
   eslint: 8.19.0
   eslint-config-next: 12.2.2_4x5o4skxv6sl53vpwefgt23khm
@@ -469,6 +471,13 @@ packages:
       '@types/hoist-non-react-statics': 3.3.1
       '@types/react': 18.0.15
       csstype: 3.1.0
+    dev: true
+
+  /@types/sweetalert/2.0.4:
+    resolution: {integrity: sha512-BSO9bAIUh/h1mfQgyMLniwTjysCV5Ktmy5JULmantIJBuZtHilIWNuM+O6myboyyHNv9uASXTc7Unh9GGp4srg==}
+    deprecated: This is a stub types definition for SweetAlert (https://github.com/t4t5/sweetalert/). SweetAlert provides its own type definitions, so you don't need @types/sweetalert installed!
+    dependencies:
+      sweetalert: 2.1.2
     dev: true
 
   /@types/use-sync-external-store/0.0.3:
@@ -942,7 +951,6 @@ packages:
 
   /es6-object-assign/1.1.0:
     resolution: {integrity: sha512-MEl9uirslVwqQU369iHNWZXsI8yaZYGg/D65aOgZkeyFJwHYSxilf7rQzXKI7DdDuBPrBXbfk3sl9hJhmd5AUw==}
-    dev: false
 
   /escape-string-regexp/1.0.5:
     resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
@@ -1980,7 +1988,6 @@ packages:
 
   /promise-polyfill/6.1.0:
     resolution: {integrity: sha512-g0LWaH0gFsxovsU7R5LrrhHhWAWiHRnh1GPrhXnPgYsDkIqjRYUYSZEsej/wtleDrz5xVSIDbeKfidztp2XHFQ==}
-    dev: false
 
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -2379,7 +2386,6 @@ packages:
     dependencies:
       es6-object-assign: 1.1.0
       promise-polyfill: 6.1.0
-    dev: false
 
   /text-table/0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}

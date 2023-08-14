@@ -13,16 +13,16 @@ const FullPageError = ({ message, code }) => {
           {message || "Sedang terjadi masalah"}
         </div>
         <div className="error__navigation">
-          <Link href="/">
+          <Link legacyBehavior href="/">
             <a>Kembali ke home</a>
           </Link>
-          <Link href="/browse">
+          <Link legacyBehavior href="/browse">
             <a>Jelajah</a>
           </Link>
-          <Link href="/add">
+          <Link legacyBehavior href="/add">
             <a>Pasang</a>
           </Link>
-          <Link href="/news">
+          <Link legacyBehavior href="/news">
             <a>Berita</a>
           </Link>
         </div>

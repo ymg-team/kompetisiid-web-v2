@@ -201,7 +201,7 @@ const CompetitionListCard = (props) => {
         style={{ opacity: n.is_draft || is_ended ? 0.5 : 1 }}
         className="card-competition"
       >
-        <Link href={target}>
+        <Link legacyBehavior href={target}>
           <a>
             <div
               className="card-competition--poster"
@@ -211,18 +211,19 @@ const CompetitionListCard = (props) => {
         </Link>
         <div className="card-competition--inside">
           <div className="categories">
-            <Link href={`/browse/${n.main_category.name}`}>
+            <Link legacyBehavior href={`/browse/${n.main_category.name}`}>
               <a className="muted">{n.main_category.name}</a>
             </Link>
             ,&nbsp;
             <Link
+              legacyBehavior
               className="muted"
               href={`/browse/${n.main_category.name}/${n.sub_category.name}`}
             >
               <a>{n.sub_category.name}</a>
             </Link>
           </div>
-          <Link href={target}>
+          <Link legacyBehavior href={target}>
             <a>
               <h3>{n.title}</h3>
             </a>
@@ -305,7 +306,7 @@ const CompetitionListCard = (props) => {
           <br />
           {/* author */}
           <div className="card-competition__author">
-            <Link href={`/user/${n.author.username}`}>
+            <Link legacyBehavior href={`/user/${n.author.username}`}>
               <a className="card-competition__author__avatar">
                 <img
                   src={
@@ -319,7 +320,7 @@ const CompetitionListCard = (props) => {
             <div style={{ lineHeight: "17px" }}>
               <small>
                 Diposting&nbsp;
-                <Link href={`/user/${n.author.username}`}>
+                <Link legacyBehavior href={`/user/${n.author.username}`}>
                   <a>{n.author.username}</a>
                 </Link>{" "}
                 {epochToRelativeTime(n.created_at)}

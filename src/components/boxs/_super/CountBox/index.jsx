@@ -19,7 +19,7 @@ const CountBoxStyled = Styled.div`
 const CountBox = (props) => {
   return (
     <CountBoxStyled>
-      <Link href={props.link || "/"}>
+      <Link legacyBehavior href={props.link || "/"}>
         <a>
           <h3>{props.count}</h3>
           {props.text}

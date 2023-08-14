@@ -192,7 +192,7 @@ const Register = () => {
             <hr />
             <p>
               Sudah punya akun, silahkan{" "}
-              <Link href="/login">
+              <Link legacyBehavior href="/login">
                 <a>Login</a>
               </Link>
             </p>
@@ -202,7 +202,7 @@ const Register = () => {
         {/* footer navigation */}
         <div className="login-box__footer">
           <small>
-            <Link href="/">
+            <Link legacyBehavior href="/">
               <a>ke Home</a>
             </Link>
             &nbsp;|&nbsp;

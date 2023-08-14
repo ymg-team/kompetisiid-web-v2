@@ -31,7 +31,7 @@ const Breadcrumb = ({ position, breadcrumb = [] }) => {
     <BreadcrumbStyled position={position} className="breadcrumb">
       {breadcrumb.map((n, key) => (
         <div key={n.title} className="breadcrumb-child">
-          <Link href={n.link}>
+          <Link legacyBehavior href={n.link}>
             <a>{n.title}</a>
           </Link>
           {key < breadcrumb.length - 1 ? (

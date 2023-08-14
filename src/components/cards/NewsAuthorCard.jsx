@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const NewsAuthorCard = (props) => (
   <div className="author">
-    <Link href={`/user/${props.data.username}`}>
+    <Link legacyBehavior href={`/user/${props.data.username}`}>
       <a>
         <img
           className="avatar"

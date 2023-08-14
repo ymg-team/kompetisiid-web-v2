@@ -84,7 +84,7 @@ const AddCompetition = () => {
                   sendiri
                 </small>
               </p>
-              <Link href="/add/send">
+              <Link legacyBehavior href="/add/send">
                 <a className="btn btn-white" title="klik untuk pasang cepat">
                   Klik untuk kirim kompetisi
                 </a>

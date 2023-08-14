@@ -68,6 +68,7 @@ const TabCompetition = ({ data, active }) => {
                 {tabList.map((n, key) => (
                   <li key={key} className={active == key ? "active" : ""}>
                     <Link
+                      legacyBehavior
                       href={`/competition/${data.id}/${
                         tab[key].link
                       }/${data.nospace_title.toLowerCase()}`}

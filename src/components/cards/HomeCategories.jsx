@@ -29,7 +29,7 @@ export default class HomeCategories extends PureComponent {
               {this.props.meta && this.props.meta.code == 200
                 ? this.props.data.map((n, key) => (
                     <span style={{ marginRight: "10px" }} key={key}>
-                      <Link href={`/browse/${n.main_kat}`}>
+                      <Link legacyBehavior href={`/browse/${n.main_kat}`}>
                         <a> {`${n.main_kat} (${n.count_kompetisi})`}</a>
                       </Link>
                     </span>
@@ -37,7 +37,7 @@ export default class HomeCategories extends PureComponent {
                 : null}
               <br />
               <br />
-              <Link href="/categories">
+              <Link legacyBehavior href="/categories">
                 <a className="btn btn-bordergray">
                   {" "}
                   LIHAT SEMUA KATEGORI -&gt;{" "}

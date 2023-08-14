@@ -117,7 +117,7 @@ const Home = ({ serverData = {} }) => {
       <CompetitionBoxV3 subtitle={false} {...respCompLatest} />
 
       <div className="row align-center">
-        <Link href="/browse">
+        <Link legacyBehavior href="/browse">
           <a className="btn btn-bordergray">JELAJAH KOMPETISI</a>
         </Link>
       </div>
@@ -135,7 +135,7 @@ const Home = ({ serverData = {} }) => {
       <CompetitionBoxV3 subtitle={false} {...respCompManageByKI} />
 
       {/* <div className="row align-center">
-        <Link href="/browse?is_manage=true">
+        <Link legacyBehavior href="/browse?is_manage=true">
           <a className="btn btn-bordergray">JELAJAH KOMPETISI</a>
         </Link>
       </div> */}

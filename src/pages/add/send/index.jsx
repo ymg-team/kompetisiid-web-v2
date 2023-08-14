@@ -90,7 +90,7 @@ const SendCompetition = () => {
               status kompetisi yang anda kirim ini.
               <br />
               <br />
-              <Link href="/add">
+              <Link legacyBehavior href="/add">
                 <a>kembali ke pasang</a>
               </Link>
             </p>
