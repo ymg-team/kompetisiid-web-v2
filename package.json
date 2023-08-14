@@ -11,7 +11,6 @@
     "check-typing": "tsc"
   },
   "dependencies": {
-    
     "@yaireo/tagify": "^4.17.7",
     "copy-to-clipboard": "^3.3.1",
     "formidable": "^2.1.1",
