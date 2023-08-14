@@ -14,13 +14,14 @@ const CompetitionListCard = ({ type, n, userType }) => {
       <div className="item">
         <div className="item__left">
           <h4>
-            <Link href={linkEdit}>
+            <Link legacyBehavior href={linkEdit}>
               <a>{n.title}</a>
             </Link>
           </h4>
           <p>
             <span>Dipost {epochToRelativeTime(n.created_at)}</span> oleh{" "}
             <Link
+              legacyBehavior
               title={n.author.username}
               href={`/manage/user/${n.author.username}`}
             >
@@ -121,7 +122,7 @@ const CompetitionListCard = ({ type, n, userType }) => {
                     <>
                       {" "}
                       <li>
-                        <Link href={linkEdit}>
+                        <Link legacyBehavior href={linkEdit}>
                           <a>Ubah</a>
                         </Link>
                       </li>

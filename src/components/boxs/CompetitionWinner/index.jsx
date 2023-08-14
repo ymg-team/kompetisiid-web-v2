@@ -28,7 +28,7 @@ const CompetitionWinnerBox = ({ competition_id }) => {
           <Loader />
         ) : respWinners.status === 200 ? (
           respWinners.data.winners.map((n) => (
-            <Link key={n.username} href={`/user/${n.username}`}>
+            <Link legacyBehavior key={n.username} href={`/user/${n.username}`}>
               <a>
                 <Avatar
                   title={`n.username`}

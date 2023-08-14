@@ -12,7 +12,7 @@ const NextPrev = (props) => {
               className={`col-md-4 align-right ${prev ? "btn-nextprev" : ""}`}
             >
               {prev ? (
-                <Link href={prev.link}>
+                <Link legacyBehavior href={prev.link}>
                   <a>
                     <h4>sebelumnya</h4>
                     {prev.title}
@@ -29,7 +29,7 @@ const NextPrev = (props) => {
               className={`col-md-4 align-left ${next ? "btn-nextprev" : ""}`}
             >
               {next ? (
-                <Link href={next.link}>
+                <Link legacyBehavior href={next.link}>
                   <a>
                     <h4>berikutnya</h4>
                     {next.title}

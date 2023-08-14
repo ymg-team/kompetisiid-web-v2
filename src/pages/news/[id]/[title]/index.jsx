@@ -109,7 +109,11 @@ const generateTags = (tags = []) => {
     return tags.map((n, key) => {
       return (
         <span key={key}>
-          <Link className="btn btn-white" href={`/news/tag/${n}`}>
+          <Link
+            legacyBehavior
+            className="btn btn-white"
+            href={`/news/tag/${n}`}
+          >
             {n}
           </Link>{" "}
         </span>

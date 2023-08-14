@@ -29,14 +29,18 @@ const CategoriesPage = ({ serverData }) => {
                   <h2>{n.name}</h2>
                   <div className="categories-child">
                     {n.subcategories.map((m, key) => (
-                      <Link key={key} href={`/browse/${n.name}/${m.name}`}>
+                      <Link
+                        legacyBehavior
+                        key={key}
+                        href={`/browse/${n.name}/${m.name}`}
+                      >
                         <a>
                           {m.name}
                           <i className="fa fa-angle-right" />
                         </a>
                       </Link>
                     ))}
-                    <Link href={`/browse/${n.name}`}>
+                    <Link legacyBehavior href={`/browse/${n.name}`}>
                       <a>
                         Semua {n.name}
                         <i className="fa fa-angle-right" />

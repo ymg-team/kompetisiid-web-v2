@@ -181,7 +181,7 @@ const SuperCompetitionTable: React.FC = () => {
                               </a>
                             </li>
                             <li>
-                              <Link href={linkEdit}>
+                              <Link legacyBehavior href={linkEdit}>
                                 <a>Ubah</a>
                               </Link>
                             </li>

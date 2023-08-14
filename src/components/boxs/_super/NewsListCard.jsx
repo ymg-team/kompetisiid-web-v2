@@ -12,7 +12,7 @@ const NewsListCard = (props) => {
       <div className="item">
         <div className="item__left">
           <h4>
-            <Link href={`/super/news/${data.id}`}>
+            <Link legacyBehavior href={`/super/news/${data.id}`}>
               <a>{data.title}</a>
             </Link>
           </h4>
@@ -48,7 +48,7 @@ const NewsListCard = (props) => {
                     </a>
                   </li>
                   <li>
-                    <Link href={`/super/news/${data.id}`}>
+                    <Link legacyBehavior href={`/super/news/${data.id}`}>
                       <a>Ubah</a>
                     </Link>
                   </li>

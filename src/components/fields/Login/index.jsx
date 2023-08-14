@@ -164,11 +164,11 @@ const Login = ({ isSuper, isDashboard }) => {
               <hr />
               <p>
                 Belum punya akun, silahkan{" "}
-                <Link href="/register">
+                <Link legacyBehavior href="/register">
                   <a>Register Disini</a>
                 </Link>{" "}
                 atau{" "}
-                <Link href="/forgot-password">
+                <Link legacyBehavior href="/forgot-password">
                   <a>Lupa password</a>
                 </Link>
               </p>
@@ -179,7 +179,7 @@ const Login = ({ isSuper, isDashboard }) => {
         {/* footer navigation */}
         <div className="login-box__footer">
           <small>
-            <Link href="/">
+            <Link legacyBehavior href="/">
               <a>ke Home</a>
             </Link>
             &nbsp;|&nbsp;

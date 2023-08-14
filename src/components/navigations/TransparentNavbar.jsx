@@ -251,7 +251,7 @@ const Navbar = (props) => {
               <div className="col-xs-12">
                 <ul className="inline-list inline-list-left">
                   <li style={{ padding: "0 12px 0 0" }}>
-                    <Link href="/">
+                    <Link legacyBehavior href="/">
                       <a
                         id="ki-logo"
                         style={{
@@ -312,7 +312,7 @@ const Navbar = (props) => {
                   {/* end of button to toggle sidebar on super and dashboard */}
 
                   <li style={{ padding: "0px 12px 0 0" }}>
-                    <Link href="/">
+                    <Link legacyBehavior href="/">
                       <a
                         id="ki-logo"
                         style={{
@@ -330,7 +330,7 @@ const Navbar = (props) => {
                       }
                       key={n.link}
                     >
-                      <Link href={n.link}>
+                      <Link legacyBehavior href={n.link}>
                         <a title={n.title}>{n.text}</a>
                       </Link>
                     </li>
@@ -415,12 +415,12 @@ const Navbar = (props) => {
                   ) : (
                     <>
                       <li key="login">
-                        <Link href="/login">
+                        <Link legacyBehavior href="/login">
                           <a>Login</a>
                         </Link>
                       </li>
                       <li key="register">
-                        <Link href="/register">
+                        <Link legacyBehavior href="/register">
                           <a>Register</a>
                         </Link>
                       </li>

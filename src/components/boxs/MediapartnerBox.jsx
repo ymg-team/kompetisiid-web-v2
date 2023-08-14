@@ -42,7 +42,7 @@ const MediaPartnerBox = (props) => {
       </div>
       <div className="col-md-12">
         <div className="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3">
-          <Link href={`/browse?is_mediapartner=1`}>
+          <Link legacyBehavior href={`/browse?is_mediapartner=1`}>
             <a
               className="btn btn-black btn-fullwidth"
               style={{ marginBottom: 40 }}

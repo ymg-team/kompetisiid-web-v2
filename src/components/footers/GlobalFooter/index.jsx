@@ -125,27 +125,27 @@ const Index = (props) => {
               </p>
               <ul className="vertical-menu">
                 <li>
-                  <Link href="/news/TXpVPQ/About">
+                  <Link legacyBehavior href="/news/TXpVPQ/About">
                     <a>Apa itu Kompetisi Id</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/news/TVRnPQ/Term-Of-Use">
+                  <Link legacyBehavior href="/news/TVRnPQ/Term-Of-Use">
                     <a>Aturan Penggunaan</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/news/TVRjPQ/Privacy-Policy">
+                  <Link legacyBehavior href="/news/TVRjPQ/Privacy-Policy">
                     <a>Kebijakan Privasi</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/news">
+                  <Link legacyBehavior href="/news">
                     <a>Berita terbaru</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/download/android">
+                  <Link legacyBehavior href="/download/android">
                     <a>Download Android App</a>
                   </Link>
                 </li>
@@ -159,7 +159,7 @@ const Index = (props) => {
                   </a>
                 </li>
                 <li>
-                  <Link href="/careers">
+                  <Link legacyBehavior href="/careers">
                     <a>Karir</a>
                   </Link>
                 </li>
@@ -173,33 +173,33 @@ const Index = (props) => {
               </p>
               <ul className="vertical-menu">
                 <li>
-                  <Link href="/add">
+                  <Link legacyBehavior href="/add">
                     <a>Pasang kompetisi</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/news">
+                  <Link legacyBehavior href="/news">
                     <a>Kabar kompetisi</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/browse">
+                  <Link legacyBehavior href="/browse">
                     <a>Jelajah kompetisi</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/calendar">
+                  <Link legacyBehavior href="/calendar">
                     <a>Kalender kompetisi</a>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/categories">
+                  <Link legacyBehavior href="/categories">
                     <a>Kategori</a>
                   </Link>
                 </li>
                 {!isLogin && (
                   <li>
-                    <Link href="/login">
+                    <Link legacyBehavior href="/login">
                       <a>Login / register</a>
                     </Link>
                   </li>

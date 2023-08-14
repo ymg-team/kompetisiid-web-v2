@@ -85,6 +85,7 @@ const SubmissionList = ({
                   <ul>
                     <li>
                       <Link
+                        legacyBehavior
                         href={`/competition/${data.competition.id}/submission/${data.competition.nospace_title}`}
                       >
                         <a>Lihat / Edit</a>

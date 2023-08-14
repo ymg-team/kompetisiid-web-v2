@@ -66,6 +66,7 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
         <div className="col-md-12">
           <div className="competition-author">
             <Link
+              legacyBehavior
               href={`/user/${data.author.username}`}
               title={`ke profil ${data.author.username}`}
             >
@@ -81,7 +82,7 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
             </Link>
             <p>
               dipasang oleh{" "}
-              <Link href={`/user/${data.author.username}`}>
+              <Link legacyBehavior href={`/user/${data.author.username}`}>
                 <a>{data.author.username}</a>
               </Link>
               <br />

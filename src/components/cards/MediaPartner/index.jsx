@@ -17,17 +17,19 @@ const MediaParnerCard = ({ data }) => {
       />
       <div className="details">
         <div className="categories">
-          <Link href={`/browse/${data.main_category.name}`}>
+          <Link legacyBehavior href={`/browse/${data.main_category.name}`}>
             <a className="muted">{data.main_category.name}</a>
           </Link>
           ,&nbsp;
           <Link
+            legacyBehavior
             href={`/browse/${data.main_category.name}/${data.sub_category.name}`}
           >
             <a className="muted">{data.sub_category.name}</a>
           </Link>
         </div>
         <Link
+          legacyBehavior
           href={`/competition/${
             data.id
           }/regulations/${data.nospace_title.toLowerCase()}`}
@@ -38,7 +40,7 @@ const MediaParnerCard = ({ data }) => {
         </Link>
         <small>
           Dipasang{" "}
-          <Link href={`/user/${data.author.username}`}>
+          <Link legacyBehavior href={`/user/${data.author.username}`}>
             <a>{data.author.username}</a>
           </Link>
         </small>

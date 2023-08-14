@@ -16,7 +16,7 @@ import GlobalLoading from "@components/preloaders/GlobalLoader";
 import { FilterJelajahStyled } from "@components/filters/Filter.styled";
 import Breadcrumb from "@components/navigations/Breadcrumb";
 import Head from "next/head";
-import { queryToObj } from "string-manager";
+// import { queryToObj } from "string-manager";
 
 const CompetitionBoxV3 = Dynamic(import("@components/boxs/CompetitionBoxV3"), {
   loading: () => <CompetitionLoading withContainer />,
@@ -63,7 +63,7 @@ const BrowseCompetition = ({
 
   // === initial ref ===
 
-  const firstRender = React.useRef(true);
+  // const firstRender = React.useRef(true);
 
   // === initial states ===
   const [page, setPage] = React.useState(1);

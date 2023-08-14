@@ -41,7 +41,7 @@ const NewsListCard = (props) => {
         style={{ opacity: n.is_draft ? 0.5 : 1 }}
       >
         {n.is_draft ? <LabelDraft /> : null}
-        <Link href={target}>
+        <Link legacyBehavior href={target}>
           <a>
             <div
               className="card-competition--poster"
@@ -56,13 +56,13 @@ const NewsListCard = (props) => {
           </a>
         </Link>
         <div className="card-competition--inside">
-          <Link href={target}>
+          <Link legacyBehavior href={target}>
             <a>
               <h3>{n.title}</h3>
             </a>
           </Link>
           <br />
-          <Link href={`/user/${n.author.username}`}>
+          <Link legacyBehavior href={`/user/${n.author.username}`}>
             <a className="card-competition__author">
               <img
                 className="card-competition__author__avatar"
