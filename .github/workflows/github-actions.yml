@@ -4,10 +4,17 @@ on:
     branches:
     - main
 jobs:
-  build: 
-    name: Build and Deploy via SSH
+
+  deploy: 
+    name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
+    - name: Build 
+      uses:  actions/setup-node@v1
+      with:
+        node-version: 14
+    - run: npm install
+    - run: npm run build
     - name: SSH Comands to Server
       uses: fifsky/ssh-action@master
       with:
