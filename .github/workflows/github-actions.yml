@@ -1,0 +1,27 @@
+name: Deploy Production
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - run: npm install
+      - run: npm run build
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Comands to Server
+        uses: fifsky/ssh-action@master
+        with:
+          host: ${{ secrets.PROD_SSH_HOST }}
+          user: ${{ secrets.PROD_SSH_USER }}
+          key: ${{ secrets.PROD_SSH_KEY}}
+          command: cd "/home/webdev/Web/kompetisi.id-v2" && git pull origin main && npm install && npm run build && pm2 restart ki-v2
