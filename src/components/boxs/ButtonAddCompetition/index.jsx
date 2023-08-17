@@ -2,10 +2,10 @@ import React from "react";
 
 // components
 import AddCompetitionBoxStyled from "./styled";
-import Button from "../index";
+import Button from "../../buttons/index";
 import { useRouter } from "next/router";
 
-const AddCompetitionBox = () => {
+const ButtonAddCompetition = () => {
   const Router = useRouter();
 
   return (
@@ -32,4 +32,4 @@ const AddCompetitionBox = () => {
   );
 };
 
-export default AddCompetitionBox;
+export default ButtonAddCompetition;

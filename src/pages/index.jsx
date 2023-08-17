@@ -18,7 +18,8 @@ import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
 import SubHeaderHome from "@components/headers/HomeSubHeader";
 import SubHeaderTitle from "@components/headers/SubHeader";
 import GAds from "@components/cards/GoogleAds";
-import AddCompetitionButton from "@components/buttons/ButtonAddCompetition";
+import AddCompetitionBox from "@components/boxs/ButtonAddCompetition";
+import SpecialHashtagBox from "@components/boxs/SpecialHashtags";
 
 // split components
 const CompetitionBoxV3 = Dynamic(import("@components/boxs/CompetitionBoxV3"), {
@@ -106,7 +107,8 @@ const Home = ({ serverData = {} }) => {
       </div>
 
       {/* competition */}
-      <AddCompetitionButton />
+      <AddCompetitionBox />
+      <SpecialHashtagBox />
       <div className="m-b-50" style={{ borderBottom: "1px solid #e4e4e4" }}>
         <SubHeaderTitle
           title="Kompetisi Baru"

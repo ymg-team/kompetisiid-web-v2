@@ -3,7 +3,7 @@ import { Colors } from "~/src/config/style";
 
 const AddCompetitionBoxStyled = Styled.div`
     padding: 60px 20px;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
     background: ${Colors.mainRed};
     color: ${Colors.mainWhite};
     display: -webkit-box;
