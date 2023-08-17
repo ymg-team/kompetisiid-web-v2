@@ -31,6 +31,7 @@ a {
 @media only screen and (min-width: 544px) and (max-width: 767px) {
     /* display: inline; */
     display: block;
+}
 `;
 
 const SpecialHashtagsBox = () => {
