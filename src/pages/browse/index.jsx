@@ -126,9 +126,7 @@ const BrowseCompetition = ({
   }, [Router.query]);
 
   const SelectedSpecialTag = React.useMemo(() => {
-    return tag
-      ? StaticSpecialTags.find((n) => n.tag === tag.toLowerCase()) || {}
-      : {};
+    return {};
   }, [tag]);
 
   const subcategories = React.useMemo(() => {
