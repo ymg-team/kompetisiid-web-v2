@@ -6,7 +6,7 @@ import {
   getCompetitionStatus,
 } from "../../helpers/dateTime";
 import { nominalToText } from "../../helpers/number";
-import { Colors } from "~/src/config/style";
+import { Colors, FontSizes } from "~/src/config/style";
 
 // components
 import Label from "../Label";
@@ -22,6 +22,18 @@ export const CardCompetitionStyled = Styled.div`
       border: 1px solid #FFF;
       box-shadow: 1px 4px 4px ${Colors.softGray};
     }
+
+    .card-competition__title {
+      font-weight: 500;
+      margin: 10px 0 10px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      height: 4.2em;
+      -webkit-line-clamp: 3; /* number of lines to show */
+      line-clamp: 3; 
+      
+    }
     
     a {
       text-decoration: none;
@@ -29,12 +41,6 @@ export const CardCompetitionStyled = Styled.div`
 
     .card-competition--inside {
       padding: 20px;
-      h3 {
-        font-weight: 500;
-        margin: 10px 0 10px;
-        height: 4.1em;
-        overflow: hidden;
-      }
       progress {
         width: 100%;
         margin: 20px 0;
@@ -113,22 +119,30 @@ export const CardCompetitionStyled = Styled.div`
   /* responsiveness */
   /* small */
   @media only screen and (max-width: 543px) {
-    /* padding-left: 0 !important; */
-    /* padding-right: 0 !important; */
+    font-size: ${FontSizes.textSmall};
     .card-competition { 
       .card-competition--inside { 
         padding: 20px 0;
       }
+      .card-competition__title {
+        height: 50px;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        line-clamp: 2; 
+      }
     }
   }
 
-  /* medium screen */
+  /* medium */
   @media only screen and (min-width: 544px) and (max-width: 767px) {
-    /* padding-left: 0 !important; */
-    /* padding-right: 0 !important; */
+    font-size: ${FontSizes.textSmall};
     .card-competition { 
       .card-competition--inside { 
         padding: 20px 0;
+      }
+      .card-competition__title {
+        height: 50px;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        line-clamp: 2; 
       }
     }
   }
@@ -194,7 +208,7 @@ const CompetitionListCard = (props) => {
 
   return (
     <CardCompetitionStyled
-      className={size === "large" ? "col-md-4 col-xs-12" : "col-md-3 col-xs-12"}
+      className={size === "large" ? "col-md-4 col-xs-6" : "col-md-3 col-xs-6"}
     >
       {n.is_draft ? <LabelDraft /> : is_ended ? <LabelEnd /> : null}
       <div
@@ -224,9 +238,7 @@ const CompetitionListCard = (props) => {
             </Link>
           </div>
           <Link legacyBehavior href={target}>
-            <a>
-              <h3>{n.title}</h3>
-            </a>
+            <h3 className="card-competition__title">{n.title}</h3>
           </Link>
           <progress
             className={is_ended ? "ended" : is_waiting ? "waiting" : ""}
@@ -290,7 +302,6 @@ const CompetitionListCard = (props) => {
               {deadline_at > now ? (
                 <p>
                   <strong>{epochToRelativeTime(n.deadline_at)}</strong> Deadline
-                  Pendaftaran
                 </p>
               ) : null}
               {/* end of competition status */}
@@ -307,7 +318,7 @@ const CompetitionListCard = (props) => {
           {/* author */}
           <div className="card-competition__author">
             <Link legacyBehavior href={`/user/${n.author.username}`}>
-              <a className="card-competition__author__avatar">
+              <a className="card-competition__author__avatar hide-mobile">
                 <img
                   src={
                     n.author.avatar.small ||
@@ -319,13 +330,15 @@ const CompetitionListCard = (props) => {
             </Link>
             <div style={{ lineHeight: "17px" }}>
               <small>
-                Diposting&nbsp;
+                Dipost{" "}
                 <Link legacyBehavior href={`/user/${n.author.username}`}>
                   <a>{n.author.username}</a>
                 </Link>{" "}
                 {epochToRelativeTime(n.created_at)}
                 <br />
-                Oleh {n.organizer} <br />
+                <span>
+                  By {n.organizer} <br />
+                </span>
                 {n.stats.views || 1} views &nbsp;•&nbsp;
                 {n.stats.likes || 0} likes
               </small>

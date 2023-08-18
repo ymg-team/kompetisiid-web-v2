@@ -25,3 +25,8 @@ export const Colors = {
   mainBlack: "#020621",
   transparentBlack: "rgba(27, 27, 27, 0.93)",
 };
+
+export const FontSizes = {
+  textSmall: "16px",
+  textLarge: "34px",
+};

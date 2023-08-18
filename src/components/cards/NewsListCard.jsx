@@ -33,7 +33,7 @@ const NewsListCard = (props) => {
   return (
     <CardCompetitionStyled
       className={
-        props.size == "small" ? "col-md-3 col-xs-12" : "col-md-4 col-xs-12"
+        props.size == "small" ? "col-md-3 col-xs-6" : "col-md-4 col-xs-6"
       }
     >
       <div
@@ -58,7 +58,7 @@ const NewsListCard = (props) => {
         <div className="card-competition--inside">
           <Link legacyBehavior href={target}>
             <a>
-              <h3>{n.title}</h3>
+              <h3 className="card-competition__title">{n.title}</h3>
             </a>
           </Link>
           <br />

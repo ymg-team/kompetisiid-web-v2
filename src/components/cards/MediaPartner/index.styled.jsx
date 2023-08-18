@@ -7,7 +7,7 @@ const MediaPartnerCardStyled = Styled.div`
         display: flex;
         border-top: 1px solid ${Colors.softGray};
         padding: 40px 0;
-
+       
         .thumbnails {
             flex: 1;
             overflow: hidden;
@@ -43,6 +43,8 @@ const MediaPartnerCardStyled = Styled.div`
             display: block;
             padding: 15px;
             border-top: none;
+            margin-bottom: 50px;
+
             .thumbnails, .details {
                 width: 100%;
             }
@@ -66,6 +68,8 @@ const MediaPartnerCardStyled = Styled.div`
             display: block;
             padding: 15px;
             border-top: none;
+            margin-bottom: 50px;
+
             .thumbnails, .details {
                 width: 100%;
             }
