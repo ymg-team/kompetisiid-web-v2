@@ -1,4 +1,4 @@
-import Styled from "styled-components"
+import Styled from "styled-components";
 
 export const FilterJelajahStyled = Styled.div`
   &.filter-jelajah {
@@ -23,8 +23,8 @@ export const FilterJelajahStyled = Styled.div`
     &.filter-jelajah { 
       padding: 15px 0 0 !important;
       h1, h2 {
-        font-size: 20px;
+        font-size: 20px !important;
       }
     }
   }
-`
+`;
