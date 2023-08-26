@@ -79,13 +79,14 @@ const FormCompetition: React.FC<CompetitionFormProps> = ({
   const InitialValues = React.useMemo(() => {
     if (competitionData.status === 200) {
       const { data } = competitionData;
+
       return {
         title: data.title || "",
         description: data.sort || "",
         organizer: data.organizer || "",
         poster: "",
-        deadline_date: new Date(data.deadline_at * 1000),
-        announcement_date: new Date(data.announcement_at * 1000),
+        deadline_date: new Date(parseInt(data.deadline_at) * 1000),
+        announcement_date: new Date(parseInt(data.announcement_at) * 1000),
         main_cat: data.main_category.id,
         sub_cat: data.sub_category.id,
         content: data.content,
@@ -211,12 +212,14 @@ const FormCompetition: React.FC<CompetitionFormProps> = ({
             <DatePickerV2
               label="Deadline Pendaftaran"
               name="deadline_date"
+              initialDate={InitialValues.deadline_date}
               required
             />
 
             <DatePickerV2
               label="Pengumuman Pemenang"
               name="announcement_date"
+              initialDate={InitialValues.deadline_date}
               required
             />
 

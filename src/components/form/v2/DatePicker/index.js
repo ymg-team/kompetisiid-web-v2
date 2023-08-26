@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DatePicker from "react-datepicker";
 import { Field } from "formik";
-import { InputTextProps } from "./types";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -16,20 +15,15 @@ const DatePickerV2 = ({
   dateFormat,
   minDate,
   maxDate,
+  initialDate,
 }) => {
   // initial refs
   const datePickerRef = React.useRef();
 
   // initial states
-  const [dateVal, setDateVal] = React.useState(new Date());
+  const [dateVal, setDateVal] = React.useState(initialDate);
 
-  // handler rawOnChange
-  // const changeHandlerRaw = (e) => {
-  //   const { value } = e.target;
-
-  //   if (value) {
-  //   }
-  // };
+  useEffect(() => {}, []);
 
   // handle onKeyDown
   const keyDownHandler = (e, form) => {
@@ -106,6 +100,7 @@ DatePickerV2.defaultProps = {
   dateFormat: "dd-MM-yyyy HH:mm:ss",
   minDate: Now,
   maxDate: new Date(`${Now.getFullYear() + 5}-01-01`),
+  initialDate: new Date(),
 };
 
 export default DatePickerV2;

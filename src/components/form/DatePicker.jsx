@@ -19,6 +19,11 @@ const DatePicker = (props) => {
     validate(props);
   }, [props.value]);
 
+  // listen initial date changes
+  React.useEffect(() => {
+    console.log("initialDate", initialDate);
+  }, [initialDate]);
+
   // initial functions
 
   const validateInput = (props = props) => {
@@ -67,12 +72,11 @@ const DatePicker = (props) => {
 
   return (
     <div className={`form-child ${!is_valid ? "error" : ""}`}>
-      {props.label ? (
+      {props.label && (
         <label htmlFor={props.id || props.name}>
-          {props.label}{" "}
-          {props.required ? <span className="text-red">*</span> : null}
+          {props.label} {props.required && <span className="text-red">*</span>}
         </label>
-      ) : null}
+      )}
       <input
         type="text"
         id={props.id || props.name}
@@ -84,13 +88,14 @@ const DatePicker = (props) => {
           }
         }}
       />
-      {!is_valid ? <small>{validate.message}</small> : null}
+      {!is_valid && <small>{validate.message}</small>}
     </div>
   );
 };
 
 DatePicker.defaultProps = {
   config: {},
+  initialDate: new Date(),
 };
 
 export default DatePicker;
