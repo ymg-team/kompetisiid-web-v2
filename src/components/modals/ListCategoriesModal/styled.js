@@ -2,10 +2,7 @@ import Styled from "styled-components";
 
 const ListCategoriesModalStyled = Styled.div`
 
-.container {
-    width:  100%;
-    padding: 0 15px !important;
-}
+
 
 /* small */
 @media only screen and (max-width: 543px) {
@@ -14,6 +11,10 @@ const ListCategoriesModalStyled = Styled.div`
     }
     .list-categories a {
         line-height: 1.7;
+    }
+    .container {
+        width:  100%;
+        padding: 0 15px !important;
     }
 }
 
@@ -25,6 +26,10 @@ const ListCategoriesModalStyled = Styled.div`
     .list-categories a {
         line-height: 1.7;
     }
+    .container {
+    width:  100%;
+    padding: 0 15px !important;
+}
 }
 `;
 
