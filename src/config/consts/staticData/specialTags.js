@@ -1,14 +1,5 @@
 export default [
   {
-    tag: "HUTRI78",
-    name: "HUT RI ke 78",
-    image:
-      "https://instagram-brand.com/wp-content/themes/ig-branding/assets/images/ig-logo-email.png",
-    description:
-      "Instagram lagi booming banget nih, banyak foto ataupun video keren yang biasa didapatkan disana. Disini kamu bisa menemukan berbagai kompetisi keren yang diadakan Instagram, yuk bergabung.",
-    link: "https://instagram.com",
-  },
-  {
     tag: "instagram",
     name: "Kompetisi Instagram",
     image:
@@ -52,5 +43,14 @@ export default [
     description:
       "Membuat masakan enak dan disukai banyak orang-orang, merupakan kebanggaan yang luar biasa. Agar lebih bermanfaat mari amal ilmu memasak tersebut melalui kompetisi memasak dan sejenis yang bisa ditemukan disini. Sumber gambar Freepik",
     link: "https://id.wikipedia.org/wiki/Memasak",
+  },
+  {
+    tag: "HUTRI78",
+    name: "HUT RI ke 78",
+    image:
+      "https://instagram-brand.com/wp-content/themes/ig-branding/assets/images/ig-logo-email.png",
+    description:
+      "Instagram lagi booming banget nih, banyak foto ataupun video keren yang biasa didapatkan disana. Disini kamu bisa menemukan berbagai kompetisi keren yang diadakan Instagram, yuk bergabung.",
+    link: "https://instagram.com",
   },
 ];

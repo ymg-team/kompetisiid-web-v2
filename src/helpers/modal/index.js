@@ -1,21 +1,24 @@
 /**
  * init modal image event listener
  */
-let isShow = false
+let isShow = false;
 
 export function initModalImages() {
-  document.addEventListener("click", e => {
-    if (e.target.className.indexOf("image-modal-target") > -1) {
+  document.addEventListener("click", (e) => {
+    if (
+      e?.target?.className?.indexOf &&
+      e?.target?.className?.indexOf("image-modal-target") > -1
+    ) {
       // toggle show modal
-      isShow = true
-      return toggleModalImages(e.target.src)
+      isShow = true;
+      return toggleModalImages(e.target.src);
     } else {
       if (isShow) {
-        isShow = false
-        return toggleModalImages(e.target.src)
+        isShow = false;
+        return toggleModalImages(e.target.src);
       }
     }
-  })
+  });
 }
 
 /**
@@ -24,18 +27,18 @@ export function initModalImages() {
  */
 
 export function toggleModalImages(src = "") {
-  const el = document.getElementById("image-modal")
+  const el = document.getElementById("image-modal");
   if (src) {
     // show modal and update background image
-    el.style.visibility = "visible"
-    el.style.opacity = 1
-    el.childNodes[0].style.backgroundImage = `url(${src})`
-    document.body.style.overflow = "hidden"
+    el.style.visibility = "visible";
+    el.style.opacity = 1;
+    el.childNodes[0].style.backgroundImage = `url(${src})`;
+    document.body.style.overflow = "hidden";
   } else {
     // hide modal
-    el.style.opacity = 0
-    el.style.visibility = "hidden"
-    el.childNodes[0].style.backgroundImage = ""
-    document.body.style.overflow = "auto"
+    el.style.opacity = 0;
+    el.style.visibility = "hidden";
+    el.childNodes[0].style.backgroundImage = "";
+    document.body.style.overflow = "auto";
   }
 }

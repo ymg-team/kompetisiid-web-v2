@@ -10,7 +10,10 @@ import {
 import { dateToFormat } from "@helpers/dateTime";
 
 // services
-import { createCompetition, updateCompetition } from "@services/competition";
+import {
+  createCompetition as createCompetitionV3,
+  updateCompetition as updateCompetitionV3,
+} from "@services/v3/competitions";
 
 // components
 import { Form, Formik } from "formik";
@@ -52,22 +55,24 @@ const FormCompetition: React.FC<CompetitionFormProps> = ({
       payload.sub_cat = parseInt(payload.sub_cat);
       payload.status = isDraft ? "posted" : "draft";
 
-      if (!payload.poster) delete payload.poster;
-
-      if (type === "edit") {
-        payload.competition_id = competitionData.data.id;
+      if (!payload.poster) {
+        delete payload.poster;
+      } else {
+        // convert poster file to base64
       }
 
-      // return console.log("payload", payload);
+      // return console.log("payload", JSON.stringify(payload));
 
       const Response =
         type === "create"
-          ? await createCompetition(payload)
-          : await updateCompetition(payload);
+          ? await createCompetitionV3(payload)
+          : await updateCompetitionV3(payload, competitionData.data.id);
 
       if (Response.status === 201 || Response.status === 200) {
         alert(true, Response.message, "success");
-        location.href = "/super/competitions";
+        setTimeout(() => {
+          location.href = "/super/competitions";
+        }, 2000);
       } else {
         setLoading(false);
         alert(true, Response.message, "error");
