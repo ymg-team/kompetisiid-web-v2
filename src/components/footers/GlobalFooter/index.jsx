@@ -238,6 +238,15 @@ const Index = (props) => {
                 </li> */}
                 <li>
                   <a
+                    href="https://t.me/kompetisiid_channel"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    <i className="fab fa-telegram" />
+                  </a>
+                </li>
+                <li>
+                  <a
                     href="https://facebook.com/kompetisiid"
                     target="_blank"
                     rel="noreferrer noopener"
