@@ -20,7 +20,7 @@ const CONTACT_TYPES = [
   },
   {
     id: 3,
-    type: "Twitter",
+    type: "X / Twitter",
     icon: "",
   },
   {
@@ -90,7 +90,7 @@ const CompetitionContactsForm = ({ name, initialValue }) => {
   return (
     <Field {...{ name }}>
       {({
-        field, // { name, value, onChange, onBlur }
+        // field, // { name, value, onChange, onBlur }
         form, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
         meta,
       }) => {

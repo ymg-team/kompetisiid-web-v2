@@ -40,7 +40,7 @@ const Contacts = (props) => (
         );
       })
     ) : (
-      <p>kontak tidak tersedia</p>
+      <p>Kontak tidak tersedia</p>
     )}
   </>
 );
