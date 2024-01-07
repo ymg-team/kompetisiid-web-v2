@@ -7,7 +7,6 @@ import { fetchListCompetitions as fetchListCompetitionsV3 } from "@services/v3/c
 
 // components
 import CompetitionLoading from "@components/preloaders/CompetitionCardLoader";
-// import Modal from "@components/modals/Base";
 import MediaPartnerAds from "@components/cards/MediaPartnerAds";
 import GlobalLoading from "@components/preloaders/GlobalLoader";
 import { FilterJelajahStyled } from "@components/filters/Filter.styled";
@@ -34,7 +33,7 @@ const SortText = {
   prize_dsc: "Hadiah terbesar",
 };
 
-const FilterStatus = {
+const FilterCondition = {
   active: "Masih berlangsung",
 };
 
@@ -68,6 +67,7 @@ const BrowseCompetition = ({
 
   const [sort, setSort] = React.useState("time_dsc");
   const [status, setStatus] = React.useState("");
+  const [condition, setCondition] = React.useState("");
   const [respCompetition, setRespCompetition] = React.useState(
     serverData.competitions || {}
   );
@@ -141,6 +141,7 @@ const BrowseCompetition = ({
       // q,
       orderby: orderbyQuery,
       status: statusQuery,
+      condition: conditionQuery,
     } = Router.query;
 
     // state sort state
@@ -148,6 +149,9 @@ const BrowseCompetition = ({
 
     // set status state
     if (statusQuery !== status) setStatus(statusQuery);
+
+    // set condtition state
+    if (conditionQuery !== condition) setCondition(conditionQuery);
 
     // if (username) query.username = username;
 
@@ -191,6 +195,8 @@ const BrowseCompetition = ({
       setLoading(false);
     }
   }, [Router.query, respCompetition, page]);
+
+  // console.log()
 
   return (
     <>
@@ -275,10 +281,10 @@ const BrowseCompetition = ({
                       href="#"
                       onClick={(e) => {
                         e.preventDefault();
-                        modal("open", "filter-by-status");
+                        modal("open", "filter-by-condition");
                       }}
                     >
-                      {FilterStatus[status] || "Semua"}
+                      {FilterCondition[condition] || "Semua"}
                       <i className="fa fa-angle-down" />
                     </a>
                     {tag ? ` Tag "${tag}"` : ""}

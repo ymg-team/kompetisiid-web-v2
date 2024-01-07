@@ -5,6 +5,7 @@ import HomeSliderStyled from "./styled";
 
 // components
 import Loader from "../../preloaders/GlobalLoader";
+import { toSlug } from "string-manager/dist/modules/slug";
 
 let IntervalSlider = null;
 
@@ -55,7 +56,7 @@ const HomeSubHeader = ({ slider }) => {
               className="glide__slides"
             >
               {slider.status === 200 &&
-                slider.data.map((n, key) => (
+                slider.data.competitions.map((n, key) => (
                   <CompetitionSlider mainTopic={key === 0} key={n.id} {...n} />
                 ))}
             </div>
@@ -66,7 +67,7 @@ const HomeSubHeader = ({ slider }) => {
             style={!sliderStart ? { display: "none" } : {}}
           >
             {slider.status === 200 &&
-              slider.data.map((n, key) => {
+              slider.data.competitions.map((n, key) => {
                 return (
                   <button
                     className="glide__bullet"
@@ -89,9 +90,9 @@ HomeSubHeader.defaultProps = {
 const CompetitionSlider = (props) => {
   const Router = useRouter();
 
-  const hrefTarget = `/competition/${
-    props.id
-  }/regulations/${props.nospace_title.toLowerCase()}`;
+  const hrefTarget = `/competition/${props.id}/regulations/${toSlug(
+    props.title.toLowerCase()
+  )}`;
   return (
     <div className={`competition-slider`}>
       <div

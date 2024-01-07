@@ -34,7 +34,7 @@ const MediaPartnerBox = (props) => {
               })}
             </div>
           ) : (
-            <p className="text-muted">{message}</p>
+            <p className="text-muted align-center">{message}</p>
           )
         ) : (
           <Loader />

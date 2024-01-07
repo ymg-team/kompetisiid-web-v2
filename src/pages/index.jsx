@@ -5,7 +5,6 @@ import Dynamic from "next/dynamic";
 // import Script from "next/script";
 
 // helpers
-import { fetchCompetitions } from "@services/competition";
 import { fetchListCompetitions as fetchListCompetitionsV3 } from "@services/v3/competitions";
 
 // components
@@ -49,8 +48,13 @@ const Home = ({ serverData = {} }) => {
   // === initial functions ===
 
   const doFetchData = async () => {
-    const ResponsePopular = await fetchCompetitions({
-      query: { limit: 7, is_popular: true, status: "active" },
+    const ResponsePopular = await fetchListCompetitionsV3({
+      query: {
+        limit: 7,
+        is_popular: true,
+        status: "posted",
+        condition: "active",
+      },
     });
     setRespCompPopular(ResponsePopular);
 
@@ -172,7 +176,7 @@ const Home = ({ serverData = {} }) => {
 
 Home.getInitialProps = async (ctx) => {
   const competitionLatest = await fetchListCompetitionsV3({
-    query: { limit: 9, status: "active" },
+    query: { limit: 9, status: "posted" },
   });
 
   return {

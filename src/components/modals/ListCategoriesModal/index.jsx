@@ -200,8 +200,8 @@ const ListCategoriesModal = ({ main_category }) => {
         </div>
       </Modal>
 
-      {/* modal filter-by-status */}
-      <Modal id="filter-by-status">
+      {/* modal filter-by-condition */}
+      <Modal id="filter-by-condition">
         <div className="container">
           <div className="modal-title">
             Status kompetisi
@@ -217,10 +217,10 @@ const ListCategoriesModal = ({ main_category }) => {
               <a
                 onClick={(e) => {
                   e.preventDefault();
-                  modal("close", "filter-by-status");
+                  modal("close", "filter-by-condition");
                   Router.push({
                     pathname: location.pathname,
-                    query: { ...Router.query, ...{ status: "all" } },
+                    query: { ...Router.query, ...{ condition: "all" } },
                   });
                 }}
                 href="#"
@@ -232,10 +232,10 @@ const ListCategoriesModal = ({ main_category }) => {
               <a
                 onClick={(e) => {
                   e.preventDefault();
-                  modal("close", "filter-by-status");
+                  modal("close", "filter-by-condition");
                   Router.push({
                     pathname: location.pathname,
-                    query: { ...Router.query, ...{ status: "active" } },
+                    query: { ...Router.query, ...{ condition: "active" } },
                   });
                 }}
                 href="#"
