@@ -1,16 +1,18 @@
 import React from "react";
-
+import { toSlug } from "string-manager";
 import { useRouter } from "next/router";
-import { epochToRelativeTime } from "@helpers/dateTime";
+import { datetimeToRelativeTime } from "@helpers/dateTime";
 
 // services
-import { fetchCompetitions } from "@services/competition";
+import { fetchListCompetitions as fetchCompetitions } from "@services/v3/competitions";
+// import { fetchCompetitions } from "@services/competition";
 
 // components
 import Link from "next/link";
 import Label from "@components/Label";
 import TextError from "@components/text/TextError";
 import GlobalLoader from "@components/preloaders/GlobalLoader";
+import Button from "@components/buttons/index";
 
 const REQ_LIMIT = 10;
 
@@ -19,27 +21,64 @@ const SuperCompetitionTable: React.FC = () => {
 
   // initial states
   const [page, setPage] = React.useState(1);
+  const [loading, setLoading] = React.useState(false);
   const [response, setResponse]: any = React.useState({});
 
   // initial effects
   React.useEffect(() => {
     fetchCompetitionHandler();
-  }, [Router.query, page]);
+  }, [Router.query]);
 
-  // initial callbacks
+  // initial callbacks functions
+
+  // function to fetch competition list
   const fetchCompetitionHandler = React.useCallback(async () => {
-    const { status } = Router.query;
+    const { status = "", condition = "" } = Router.query;
+
     const params = {
-      query: { page, limit: REQ_LIMIT, status },
+      query: { page: 1, limit: REQ_LIMIT, status, condition },
     };
     const Response = await fetchCompetitions(params);
-    return setResponse(Response);
-  }, [Router.query, page]);
+    // reset page
+    setPage(1);
+    // reset response
+    setResponse(Response);
+  }, [Router.query]);
+
+  // function to fetch loadmore competition list
+  const fetchLoadMoreHandler = React.useCallback(async () => {
+    setLoading(true);
+
+    const { status = "", condition = "" } = Router.query;
+    const nextResponse = { ...response };
+    const nextPage = page + 1;
+
+    const params = {
+      query: { page: nextPage, limit: REQ_LIMIT, status, condition },
+    };
+
+    const Resp = await fetchCompetitions(params);
+    nextResponse.status = Resp.status;
+    nextResponse.message = Resp.message;
+    nextResponse.data.total = Resp.data.total;
+
+    if (Resp.status === 200) {
+      nextResponse.data.competitions = [
+        ...nextResponse.data.competitions,
+        ...Resp.data.competitions,
+      ];
+    }
+
+    // update states
+    setResponse(nextResponse);
+    setPage(nextPage);
+    setLoading(false);
+  }, [response, Router.query, page]);
 
   return (
     <>
-      {response.status ? (
-        response.status !== 200 && (
+      {response?.status ? (
+        !response?.data?.competitions && (
           <TextError text={response.message || "Something Wrong :("} />
         )
       ) : (
@@ -47,42 +86,43 @@ const SuperCompetitionTable: React.FC = () => {
       )}
 
       {/* looping items */}
-      {response.status === 200 && (
+      {response?.data?.competitions && (
         <>
-          <p>Total kompetisi {response.count}</p>
-          {response.data.map((n: any) => {
+          <p>Total kompetisi {response?.data?.total || 0}</p>
+          {response?.data?.competitions?.map((n: any) => {
             const linkEdit = `/super/competitions/edit/${n.id}`;
+            const noSpaceTitle = toSlug(n.title).toLowerCase();
+            const linkCompetition = `/competition/${n.id}/regulations/${noSpaceTitle}`;
             return (
               <div key={n.id} className="competition-items">
                 <div className="item">
                   <div className="item__left">
                     <h4>
-                      <a
-                        title="ke halaman kompetisi"
-                        href={`/competition/${
-                          n.id
-                        }/regulations/${n.nospace_title.toLowerCase()}`}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                      >
+                      <a title="ke halaman kompetisi" href={linkEdit}>
                         {n.title}
                       </a>
                     </h4>
                     <p>
-                      <span>Dipost {epochToRelativeTime(n.created_at)}</span>{" "}
+                      <span>
+                        Dipost{" "}
+                        {datetimeToRelativeTime(n.created_at, {
+                          noExtraTime: true,
+                        })}
+                      </span>{" "}
                       oleh{" "}
                       <a
-                        title={n.author.username}
-                        href={`/user/${n.author.username}`}
+                        title={n.user.username}
+                        href={`/user/${n.user.username}`}
                         target="_blank"
                         rel="noreferrer noopener"
                       >
-                        {n.author.username}
+                        {n.user.username}
                       </a>
                       ,
                       {n.created_at < n.updated_at
-                        ? ` update terakhir ${epochToRelativeTime(
-                            n.updated_at
+                        ? ` update terakhir ${datetimeToRelativeTime(
+                            n.updated_at,
+                            { noExtraTime: true }
                           )}`
                         : " belum ada update"}
                       <br />
@@ -105,32 +145,33 @@ const SuperCompetitionTable: React.FC = () => {
                     </p>
 
                     {/* competition label */}
-                    {n.is_garansi ? (
-                      <Label type="green" text="garansi" />
-                    ) : null}
-                    {n.is_mediapartner ? (
+                    {n.is_garansi && <Label type="green" text="garansi" />}
+                    {n.is_mediapartner && (
                       <Label type="green" text="media partner" />
-                    ) : null}
-                    {n.is_manage_by_ki ? (
+                    )}
+                    {n.is_manage_by_ki && (
                       <Label type="blue" text="Manage on KI" />
-                    ) : null}
+                    )}
                     <Label
                       type="red"
                       text={
                         n.is_berakhir
                           ? n.sisapengumuman != "berakhir"
-                            ? `pengumuman ${epochToRelativeTime(
-                                n.announcement_at
-                              )}`
+                            ? `pengumuman ${
+                                (datetimeToRelativeTime(n.announcement_at),
+                                { noExtraTime: true })
+                              }`
                             : "berakhir"
-                          : `deadline ${epochToRelativeTime(n.deadline_at)}`
+                          : `deadline ${datetimeToRelativeTime(n.deadline_at, {
+                              noExtraTime: true,
+                            })}`
                       }
                     />
                     {/* end of competition label */}
                   </div>
                   <div className="item__right">
                     {/* stats count */}
-                    <div className="item__right-item">
+                    {/* <div className="item__right-item">
                       <h4
                         style={{
                           color:
@@ -146,7 +187,7 @@ const SuperCompetitionTable: React.FC = () => {
                           {n.content.split(" ").length}
                         </span>
                       </h4>
-                    </div>{" "}
+                    </div>{" "} */}
                     <div className="item__right-item">
                       <h4 title="total views">
                         <span>
@@ -173,9 +214,7 @@ const SuperCompetitionTable: React.FC = () => {
                               <a
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                href={`/competition/${
-                                  n.id
-                                }/regulations/${n.nospace_title.toLowerCase()}`}
+                                href={linkCompetition}
                               >
                                 Preview
                               </a>
@@ -200,6 +239,21 @@ const SuperCompetitionTable: React.FC = () => {
               </div>
             );
           })}
+
+          {/* this button loadmore */}
+          {response?.data?.competitions?.length < response?.data?.total && (
+            <div className="col-md-12 align-center">
+              <Button
+                loading={loading}
+                // color="white-transparent"
+                size="large"
+                onClick={() => fetchLoadMoreHandler()}
+              >
+                <>{loading ? "Loading" : "Load More"}</>
+              </Button>
+              {/* end of this button loadmore */}
+            </div>
+          )}
         </>
       )}
 

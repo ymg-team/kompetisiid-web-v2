@@ -18,7 +18,10 @@ export const Month = [
 ];
 
 // ref : https://www.samclarke.com/javascript-convert-time-ago-future/
-export function epochToRelativeTime(epochtime) {
+export function epochToRelativeTime(
+  epochtime,
+  params = { noExtraTime: false }
+) {
   const lang = {
     postfixes: {
       "<": " lagi",
@@ -52,7 +55,9 @@ export function epochToRelativeTime(epochtime) {
 
   const now = Date.now();
   const timespans = [1000, 60000, 3600000, 86400000, 2592000000, 31540000000];
-  let timeDifference = now - epochtime * 1000;
+  let timeDifference = params.noExtraTime
+    ? now - epochtime
+    : now - epochtime * 1000;
   const postfix = lang.postfixes[timeDifference < 0 ? "<" : ">"];
   let timespan = timespans[0];
 
@@ -86,9 +91,12 @@ export function getCompetitionStatus(deadline_at, announcement_at) {
   return { is_closed, is_ended, is_waiting, now, deadline_at, announcement_at };
 }
 
-export function datetimeToRelativeTime(datetime) {
+export function datetimeToRelativeTime(
+  datetime,
+  params = { noExtraTime: false }
+) {
   const date = new Date(datetime);
-  return epochToRelativeTime(date);
+  return epochToRelativeTime(date, params);
 }
 
 export function epochToDMY(epochtime) {

@@ -3,7 +3,6 @@ import Styled from "styled-components";
 import { Colors } from "~/src/config/style";
 
 // components
-import Link from "next/link";
 import Label from "../../Label";
 
 export const TabStyled = Styled.div`
@@ -69,25 +68,30 @@ export const TabStyled = Styled.div`
   }
 `;
 
-const Tab = ({ tabs }) => (
-  <TabStyled
-    className="container-competition-tab"
-    style={{ margin: "20px 0 20px" }}
-  >
-    <ul className="horizontal-menu">
-      {tabs.map((n, key) => {
-        return (
-          <li key={key} className={n.is_active ? "active" : ""}>
-            <Link legacyBehavior href={n.target}>
-              <a>
+const Tab = ({ tabs, selected, onClick }) => {
+  return (
+    <TabStyled
+      className="container-competition-tab"
+      style={{ margin: "20px 0 20px" }}
+    >
+      <ul className="horizontal-menu">
+        {tabs.map((n, key) => {
+          return (
+            <li key={key} className={selected === n.id ? "active" : ""}>
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  onClick(n.id);
+                }}
+              >
                 {n.text} {n.count ? <Label type="gray" text={n.count} /> : null}
               </a>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
-  </TabStyled>
-);
+            </li>
+          );
+        })}
+      </ul>
+    </TabStyled>
+  );
+};
 
 export default Tab;

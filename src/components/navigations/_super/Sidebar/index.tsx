@@ -37,15 +37,15 @@ const SuperSidebar = (props: any) => {
           {
             title: "Waiting",
             // hide: !stats.competition.waiting,
-            to: "/super/competitions/waiting",
+            to: "/super/competitions?status=waiting",
           },
           {
-            title: "Active",
-            to: "/super/competitions/active",
+            title: "Posted",
+            to: "/super/competitions?status=posted",
           },
           {
-            title: "End",
-            to: "/super/competitions/end",
+            title: "Rejected",
+            to: "/super/competitions?status=rejected",
           },
         ],
       },

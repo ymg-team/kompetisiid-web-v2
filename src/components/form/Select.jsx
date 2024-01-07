@@ -5,6 +5,8 @@ import { validate, validator } from "./Validator";
 const SelectStyled = Styled.select`
   background: none;
   height: 40px;
+  padding: 0 10px;
+  border: 1px lightgray solid;
 
   &.error {
     border-color: #cf3030 !important;

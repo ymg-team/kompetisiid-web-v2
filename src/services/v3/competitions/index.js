@@ -7,7 +7,6 @@ import fetchModule from "~/src/helpers/apiCaller";
 export const fetchListCompetitions = ({ query }) => {
   return fetchModule({
     endpoint: `/v3/competitions?${objToQuery(query)}`,
-    method: "get",
     query,
   });
 };
