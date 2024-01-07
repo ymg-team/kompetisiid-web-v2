@@ -16,13 +16,13 @@ import Button from "@components/buttons/index";
 
 const REQ_LIMIT = 10;
 
-const SuperCompetitionTable: React.FC = () => {
+const SuperCompetitionTable = () => {
   const Router = useRouter();
 
   // initial states
   const [page, setPage] = React.useState(1);
   const [loading, setLoading] = React.useState(false);
-  const [response, setResponse]: any = React.useState({});
+  const [response, setResponse] = React.useState({});
 
   // initial effects
   React.useEffect(() => {
@@ -89,7 +89,7 @@ const SuperCompetitionTable: React.FC = () => {
       {response?.data?.competitions && (
         <>
           <p>Total kompetisi {response?.data?.total || 0}</p>
-          {response?.data?.competitions?.map((n: any) => {
+          {response?.data?.competitions?.map((n) => {
             const linkEdit = `/super/competitions/edit/${n.id}`;
             const noSpaceTitle = toSlug(n.title).toLowerCase();
             const linkCompetition = `/competition/${n.id}/regulations/${noSpaceTitle}`;
