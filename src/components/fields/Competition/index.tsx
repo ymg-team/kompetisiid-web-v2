@@ -22,7 +22,7 @@ import InputTextV2 from "@components/form/v2/InputText";
 import InputFileV2 from "@components/form/v2/InputFile";
 import TextareaV2 from "@components/form/v2/Textarea";
 
-import EditorV2 from "@components/form/v2/Editor";
+// import EditorV2 from "@components/form/v2/Editor";
 import CKEditor from "@components/form/CKEditor";
 import Submit from "@components/form/v2/Submit";
 import Spacer from "@components/boxs/Spacer";
@@ -83,7 +83,7 @@ const FormCompetition: React.FC<CompetitionFormProps> = ({
 
   const InitialValues = React.useMemo(() => {
     if (competitionData.status === 200) {
-      const { data } = competitionData;
+      const data = competitionData?.data?.competition || {};
 
       return {
         title: data.title || "",

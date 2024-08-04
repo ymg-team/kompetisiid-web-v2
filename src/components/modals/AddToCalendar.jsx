@@ -139,16 +139,16 @@ const AddToCalendarModal = (props) => {
 export default AddToCalendarModal;
 
 const calendarParamsGenerator = (n) => {
-  let deadlineISOString = new Date(n.deadline_at * 1000).toISOString();
-  deadlineISOString = deadlineISOString
-    .replace(/-/g, "")
-    .replace(/:/g, "")
-    .replace(/\.000/g, "");
+  // let deadlineISOString = new Date(n.deadline_at * 1000).toISOString();
+  // deadlineISOString = deadlineISOString
+  //   .replace(/-/g, "")
+  //   .replace(/:/g, "")
+  //   .replace(/\.000/g, "");
 
   const params = {
     deadlineTitle: `Deadline ${n.title} - Kompetisi Id`,
     details: `Untuk selengkapnya silahkan kunjungi https://kompetisi.id/c/${n.id}`,
-    deadlineDate: deadlineISOString,
+    deadlineDate: n.deadline_at,
     location: `https://kompetisi.id/c/${n.id}`,
   };
 

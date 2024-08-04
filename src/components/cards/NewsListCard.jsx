@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { toSlug } from "string-manager";
 import { CardCompetitionStyled } from "./CompetitionListCard";
 import { epochToRelativeTime } from "../../helpers/dateTime";
 
@@ -29,7 +30,7 @@ const LabelDraft = () => (
 
 const NewsListCard = (props) => {
   const { n } = props;
-  const target = `/news/${n.id}/${n.nospace_title.toLowerCase()}`;
+  const target = `/news/${n.id}/${toSlug(n.title.toLowerCase())}`;
   return (
     <CardCompetitionStyled
       className={
@@ -66,9 +67,7 @@ const NewsListCard = (props) => {
             <a className="card-competition__author">
               <img
                 className="card-competition__author__avatar"
-                src={
-                  n.author.avatar.small || `/assets/4.2/img/avatar-default.jpg`
-                }
+                src={`/assets/4.2/img/avatar-default.jpg`}
                 alt={`avatar ${n.author.username}`}
               />
               <div style={{ lineHeight: "17px" }}>

@@ -1,7 +1,7 @@
 import React from "react";
 import Dynamic from "next/dynamic";
 import { nl2br } from "../../helpers/string";
-import { toCamelCase } from "string-manager";
+import { toCamelCase, toSlug } from "string-manager";
 
 // config
 import getConfig from "next/config";
@@ -12,9 +12,9 @@ const { URL_KI_WEB } = publicRuntimeConfig;
 import { getSession } from "@helpers/cookies";
 
 // services
-import { fetchCompetitionById } from "@services/competition";
 import { fetchCompetitionSubmissionField } from "../../services/competition_submission_field";
 import { fetchCompetitionRelatedById } from "@services/competition";
+import { fetchDetailCompetitions } from "@services/v3/competitions";
 
 // components
 import SEO from "@components/meta/SEO";
@@ -142,17 +142,21 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
     let title, description, image, url, jsonLd;
 
     if (respCompetition.status === 200) {
+      const titleSlug = toSlug(
+        `${respCompetition.data.competition.title.toLowerCase()}`
+      );
+
       title = toCamelCase(
         `${TYPE_ID[type] ? `${TYPE_ID[type]} ` : ""}${
-          respCompetition.data.title
+          respCompetition.data.competition.title
         }`
       );
-      description = respCompetition.data.sort;
-      image = respCompetition.data.poster.original;
+      description = respCompetition.data.competition.sort;
+      image = respCompetition?.data?.competition?.poster?.original;
       url = `${URL_KI_WEB.replace("/api", "")}/competition/${
-        respCompetition.data.id
-      }/regulations/${respCompetition.data.nospace_title.toLowerCase()}`;
-      jsonLd = generateJsonld(respCompetition.data, url);
+        respCompetition.data.competition.id
+      }/regulations/${titleSlug}`;
+      jsonLd = generateJsonld(respCompetition?.data?.competition || {}, url);
     }
 
     return {
@@ -271,21 +275,30 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                               return (
                                 <Regulations
                                   {...{ encid }}
-                                  nospace_title={respCompetition.data.nospace_title.toLowerCase()}
-                                  link_source={respCompetition.data.link_source}
+                                  nospace_title={toSlug(
+                                    respCompetition.data.competition.title.toLowerCase()
+                                  )}
+                                  link_source={
+                                    respCompetition.data.competition.link_source
+                                  }
                                   tags={
-                                    respCompetition.data.tag
-                                      ? respCompetition.data.tag.split(",")
+                                    respCompetition.data.competition.tags
+                                      ? respCompetition.data.competition.tags.split(
+                                          ","
+                                        )
                                       : []
                                   }
-                                  html={respCompetition.data.content}
+                                  html={
+                                    respCompetition.data.competition.content
+                                  }
                                 />
                               );
                             case 0:
                               return (
                                 <Prizes
                                   html={nl2br(
-                                    respCompetition.data.prize.description
+                                    respCompetition.data.competition.prize
+                                      .description || ""
                                   )}
                                 />
                               );
@@ -293,9 +306,8 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                               return (
                                 <Announcements
                                   data={
-                                    respCompetition.data.announcement
-                                      ? respCompetition.data.announcement
-                                      : []
+                                    respCompetition?.data?.competition
+                                      ?.announcements || []
                                   }
                                 />
                               );
@@ -305,8 +317,10 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                               return (
                                 <Contacts
                                   data={
-                                    respCompetition.data.contacts
-                                      ? respCompetition.data.contacts
+                                    respCompetition?.data?.competition?.contacts
+                                      ?.length > 0
+                                      ? respCompetition.data.competition
+                                          .contacts
                                       : []
                                   }
                                 />
@@ -314,8 +328,8 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                             case 5:
                               return (
                                 <Share
-                                  title={respCompetition.data.title}
-                                  desc={respCompetition.data.sort}
+                                  title={respCompetition.data.competition.title}
+                                  desc={respCompetition.data.competition.sort}
                                   link={Meta.url}
                                 />
                               );
@@ -379,14 +393,13 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
 
 function generateJsonld(n, url) {
   const now = new Date().getTime();
-  const createdAt = new Date(n.created_at * 1000).toISOString();
   return `{
     "@context": "http://schema.org",
     "@type": "Event",
     "name": "${n.title.replace(/\"/g, "")}",
     "description": "${n.sort.replace(/\"/g, "")}",
-    "startDate": "${createdAt}",
-    "endDate": "${new Date(n.deadline_at * 1000).toISOString()}",
+    "startDate": "${n.created_at}",
+    "endDate": "${n.deadline_at}",
     "url": "${url.replace(/\"/g, "")}",
     "sameAs": "${n.link_source}",
     "eventAttendanceMode": "Online",
@@ -420,7 +433,7 @@ function generateJsonld(n, url) {
       "priceCurrency": "IDR",
       "url": "${url.replace(/\"/g, "")}",
       "availability": "${n.link_source}",
-      "validFrom": "${createdAt}"
+      "validFrom": "${n.created_at}"
     },
     "performers": "Warga Negara Indonesia"
   }`;
@@ -433,10 +446,12 @@ CompetitionDetailPage.getInitialProps = async (ctx) => {
 
   if (ctx.req) {
     const SessionData = getSession(ctx.req.cookies);
-    userKey = SessionData.status === 200 ? SessionData.data.user_key : "";
+    userKey =
+      SessionData.status === 200 ? SessionData.data.competition.user_key : "";
   }
 
-  const competitions = (await fetchCompetitionById({ id, userKey })) || {};
+  const competitions =
+    (await fetchDetailCompetitions({ competitionId: id, userKey })) || {};
 
   return {
     encid: id,

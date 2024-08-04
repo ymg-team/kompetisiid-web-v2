@@ -12,6 +12,15 @@ export const fetchListCompetitions = ({ query }) => {
 };
 
 /**
+ * service to fetch related competition by id
+ */
+export const fetchDetailCompetitions = ({ competitionId }) => {
+  return fetchModule({
+    endpoint: `/v3/competitions/detail?id=${competitionId}`,
+  });
+};
+
+/**
  * service to add new competition
  */
 export const createCompetition = (payload) => {

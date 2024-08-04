@@ -18,10 +18,12 @@ export const Month = [
 ];
 
 // ref : https://www.samclarke.com/javascript-convert-time-ago-future/
-export function epochToRelativeTime(
-  epochtime,
-  params = { noExtraTime: false }
-) {
+export function epochToRelativeTime(epochtime, params = { noExtraTime: true }) {
+  // handling DATE ISO
+  if (typeof epochtime !== "number") {
+    epochtime = new Date(epochtime).getTime();
+  }
+
   const lang = {
     postfixes: {
       "<": " lagi",
@@ -77,13 +79,24 @@ export function epochToRelativeTime(
   );
 }
 
+export function epochToDMY(epochtime) {
+  // handling DATE ISO
+  if (typeof epochtime !== "number") {
+    epochtime = new Date(epochtime).getTime();
+  }
+
+  const d = new Date(epochtime);
+  return `${d.getDate()} ${Month[d.getMonth()][1]} ${d.getFullYear()}`;
+}
+
 export function getCompetitionStatus(deadline_at, announcement_at) {
   const d = new Date();
   d.setHours(0, 0, 0, 0);
   const now = d.getTime();
-  deadline_at = deadline_at * 1000;
 
-  announcement_at = announcement_at * 1000;
+  deadline_at = new Date(deadline_at).getTime();
+  announcement_at = new Date(announcement_at).getTime();
+
   const is_closed = deadline_at < now;
   const is_ended = is_closed && announcement_at < now;
   const is_waiting = is_closed && announcement_at > now;
@@ -97,11 +110,6 @@ export function datetimeToRelativeTime(
 ) {
   const date = new Date(datetime);
   return epochToRelativeTime(date, params);
-}
-
-export function epochToDMY(epochtime) {
-  const d = new Date(epochtime);
-  return `${d.getDate()} ${Month[d.getMonth()][1]} ${d.getFullYear()}`;
 }
 
 export function epochToDMYHIS(epochtime) {

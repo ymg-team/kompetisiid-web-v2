@@ -1,9 +1,8 @@
-import React from "react";
-// import { fetchBerita, fetchBeritaMore } from "./actions";
+import React, { useRef } from "react";
 import Dynamic from "next/dynamic";
 
 // services
-import { fetchNews } from "@services/news";
+import { fetchListNews } from "@services/v3/news/index";
 
 // components
 import SEO from "@components/meta/SEO";
@@ -23,6 +22,9 @@ const Newsbox = Dynamic(import("@components/boxs/NewsBox"), {
 
 const NewsList = ({ tag, serverData = {} }) => {
   const Router = useRouter();
+
+  // === initial refs ===
+  const pageRef = useRef(1);
 
   // === initial states ===
   const [respNews, setRespNews] = React.useState(serverData.news || {});
@@ -65,24 +67,27 @@ const NewsList = ({ tag, serverData = {} }) => {
   const fetchDataMore = async () => {
     setLoading(true);
 
-    let currResponse = { ...respNews };
+    const news = respNews?.data?.news || [];
+    const nextPage = pageRef.current + 1;
+    pageRef.current = nextPage;
 
-    if (respNews.data && respNews.data.length > 0) {
-      const ResLength = respNews.data.length;
-      const lastid = respNews.data[ResLength - 1].id;
-      const Res = await fetchNews({
+    if (news && news?.length > 0) {
+      const Res = await fetchListNews({
         query: {
           ...DEFAULT_REQ_QUERY_NEWS,
           ...Router.query,
-          ...{ lastid },
+          ...{ page: nextPage },
         },
       });
 
       // join currentResponse and newResponse
+      const currResponse = { ...respNews };
       currResponse.status = Res.status;
       currResponse.message = Res.message;
-      currResponse.count = Res.count;
-      if (Res.data) currResponse.data = [...currResponse.data, ...Res.data];
+      currResponse.data.total = Res.data.total;
+      if (Res?.data?.news) {
+        currResponse.data.news = [...currResponse.data.news, ...Res.data.news];
+      }
 
       setRespNews(currResponse);
 
@@ -135,7 +140,7 @@ const NewsList = ({ tag, serverData = {} }) => {
 NewsList.getInitialProps = async (ctx) => {
   const { query = {} } = ctx || {};
 
-  const ResponseNews = await fetchNews({
+  const ResponseNews = await fetchListNews({
     query: { ...query, ...DEFAULT_REQ_QUERY_NEWS },
   });
 

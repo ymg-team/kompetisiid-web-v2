@@ -55,37 +55,37 @@ export default class NewsBox extends Component {
   }
 
   render() {
-    const { status, message, count, data, is_loading, subtitle } = this.props;
+    const { status, message, data, is_loading, subtitle } = this.props;
     return (
       <NewsBoxStyled id="news-container">
         <div className="container">
           <div className="news-container__text no-margin">
-            {this.props.subtitle && data ? (
+            {this.props.subtitle && data && (
               <div className="col-md-12">
                 <br />
                 menampilkan&nbsp;
                 <strong>
                   {" "}
-                  {data.length}
+                  {data?.news?.length || 0}
                   &nbsp;
                 </strong>
                 dari&nbsp;
                 <strong>
-                  {count}
+                  {data?.total || 0}
                   &nbsp;
                 </strong>
                 kabar
                 <br />
               </div>
-            ) : null}
+            )}
           </div>
-          {subtitle ? <div className="row m-10" /> : null}
+          {subtitle && <div className="row m-10" />}
           <div className="row news-container__cards">
             {status ? (
-              !data ? (
+              !data?.news ? (
                 <p className="text-muted align-center">{message}</p>
               ) : (
-                this.generateList(data)
+                this.generateList(data.news)
               )
             ) : null}
           </div>

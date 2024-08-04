@@ -29,7 +29,8 @@ const hashtagGenerators = (tags) => {
 };
 
 const CompetitionDetailBox = ({ data, submissionFields }) => {
-  const link_competition = `https://kompetisi.id/c/${data.id}`;
+  const competition = data.competition || {};
+  const link_competition = `https://kompetisi.id/c/${competition.id}`;
 
   const BreadcrumbData = [
     {
@@ -41,14 +42,14 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
       link: "/browse",
     },
     {
-      title: data.title,
-      link: `/c/${data.id}`,
+      title: competition.title,
+      link: `/c/${competition.id}`,
     },
   ];
 
   const { is_ended, is_waiting } = getCompetitionStatus(
-    data.deadline_at,
-    data.announcement_at
+    competition.deadline_at,
+    competition.announcement_at
   );
 
   return (
@@ -67,35 +68,32 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
           <div className="competition-author">
             <Link
               legacyBehavior
-              href={`/user/${data.author.username}`}
-              title={`ke profil ${data.author.username}`}
+              href={`/user/${competition.user.username}`}
+              title={`ke profil ${competition.user.username}`}
             >
               <a>
                 <img
                   style={{ float: "left", marginRight: "10px" }}
-                  src={
-                    data.author.avatar.small ||
-                    "/assets/4.2/img/avatar-default.jpg"
-                  }
+                  src={"/assets/4.2/img/avatar-default.jpg"}
                 />
               </a>
             </Link>
             <p>
               dipasang oleh{" "}
-              <Link legacyBehavior href={`/user/${data.author.username}`}>
-                <a>{data.author.username}</a>
+              <Link legacyBehavior href={`/user/${competition.user.username}`}>
+                <a>{competition.user.username}</a>
               </Link>
               <br />
               <small>
-                {data.created_in} di{" "}
-                <a href={`/browse/${data.main_category.name}`}>
-                  <strong>{data.main_category.name}</strong>
+                {competition.created_in} di{" "}
+                <a href={`/browse/${competition.main_category.name}`}>
+                  <strong>{competition.main_category.name}</strong>
                 </a>
                 ,
                 <a
-                  href={`/browse/${data.main_category.name}/${data.sub_category.name}`}
+                  href={`/browse/${competition.main_category.name}/${competition.sub_category.name}`}
                 >
-                  <strong>{data.sub_category.name}</strong>
+                  <strong>{competition.sub_category.name}</strong>
                 </a>
               </small>
             </p>
@@ -106,9 +104,9 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
               <img
                 data-mediabox="my-gallery-name"
                 data-title="Sample image"
-                alt={data.title}
+                alt={competition.title}
                 className="poster image-modal-target"
-                src={data.poster.original}
+                src={competition.poster.original}
               />
             </div>
             <div className="col-sm-6 count competition-detail__right">
@@ -129,7 +127,7 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
               </div>
 
               <div className="competition-detail--title">
-                <h1>{data.title}</h1>
+                <h1>{competition.title}</h1>
 
                 <div className="m-20" />
 
@@ -138,28 +136,29 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
                     className="small-stats-icon"
                     title="Penyelenggara kompetisi"
                   >
-                    <i className="far fa-building" /> {data.organizer}
+                    <i className="far fa-building" /> {competition.organizer}
                   </span>{" "}
                   <span className="small-stats-icon" title="Total views">
-                    <i className="far fa-eye" /> {data.stats.views || 0}
+                    <i className="far fa-eye" /> {competition.stats.views || 0}
                   </span>
-                  {data.is_manage_by_ki && (
+                  {competition.is_manage_by_ki && (
                     <span className="small-stats-icon" title="Total joined">
-                      <i className="fas fa-users" /> {data.stats.joined || 0}
+                      <i className="fas fa-users" />{" "}
+                      {competition.stats.joined || 0}
                     </span>
                   )}
                 </p>
                 <div className="m-20" />
                 <p>
-                  {data.sort}
-                  {hashtagGenerators(data.tag)}
+                  {competition.sort}
+                  {hashtagGenerators(competition.tag)}
                 </p>
               </div>
               <div className="m-30" />
 
               {/* winner, only show if competition manage by ki and ended */}
-              {data.is_manage_by_ki && is_ended && (
-                <WinnerBox competition_id={data.id} />
+              {competition.is_manage_by_ki && is_ended && (
+                <WinnerBox competition_id={competition.id} />
               )}
 
               {/* end of winner */}
@@ -178,9 +177,9 @@ const CompetitionDetailBox = ({ data, submissionFields }) => {
 
               {/* like button */}
               <BtnLike
-                competition_id={data.id}
-                isLiked={data.is_liked}
-                total={data.stats.likes || 0}
+                competition_id={competition.id}
+                isLiked={competition.is_liked}
+                total={competition.stats.likes || 0}
               />
               {/* end of like button */}
 
@@ -275,14 +274,14 @@ function handleCopyInstagramCaption(data) {
   let hashtags = "";
   let mention = "";
 
-  if (data.tag) {
-    data.tag.split(",").map((n) => {
+  if (competition.tag) {
+    competition.tag.split(",").map((n) => {
       hashtags += `#${n.replace(/ /g, "")} `;
     });
   }
 
-  if (data.contacts && data.contacts.length > 0) {
-    data.contacts.map((n) => {
+  if (competition.contacts && competition.contacts.length > 0) {
+    competition.contacts.map((n) => {
       if (n.type == 4) {
         let username = n.value.replace("https://www.instagram.com/", "");
         username = username.replace("/", "");
@@ -291,7 +290,7 @@ function handleCopyInstagramCaption(data) {
     });
   }
 
-  const caption = `Ada Kompetisi nih "${data.title}" ${data.sort} kunjungi https://kompetisi.id/c/${data.id} ${hashtags} ${mention}`;
+  const caption = `Ada Kompetisi nih "${competition.title}" ${competition.sort} kunjungi https://kompetisi.id/c/${competition.id} ${hashtags} ${mention}`;
 
   copy(caption);
 

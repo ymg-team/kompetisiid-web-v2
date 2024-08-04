@@ -12,23 +12,23 @@ const Sidebar = ({ data, submissionFields }) => {
       <div className="competition-detail--meta">
         <progress value={30} max={100} />
         <h3 className="total-prize">
-          <strong>{nominalToText(data.prize.total)}</strong>
+          <strong>{nominalToText(data.competition.prize.total)}</strong>
           <small className="text-muted">total hadiah</small>
         </h3>
         <h3 className="total-view">
-          {data.stats.views}
+          {data.competition.stats.views}
           <small className="text-muted">kunjungan</small>
         </h3>
         <h3 className="total-view">
-          {epochToRelativeTime(data.deadline_at)}
+          {epochToRelativeTime(data.competition.deadline_at)}
           <small className="text-muted">{`Deadline (${epochToDMY(
-            data.deadline_at * 1000
+            data.competition.deadline_at
           )})`}</small>
         </h3>
         <h3 className="total-view">
-          {epochToRelativeTime(data.announcement_at)}
+          {epochToRelativeTime(data.competition.announcement_at)}
           <small className="text-muted">{`Pengumuman (${epochToDMY(
-            data.announcement_at * 1000
+            data.competition.announcement_at
           )})`}</small>
         </h3>
         {submissionFields.open_registration_at && (
@@ -42,27 +42,27 @@ const Sidebar = ({ data, submissionFields }) => {
       </div>
       <hr />
       <h4>Kompetisi ini bersifat</h4>
-      {data.is_garansi ? (
+      {data.competition.is_guaranted && (
         <Label
           type="gray"
           title="kompetisi sudah diverifikasi keberadaannya oleh kru KI"
           text="Garansi"
         />
-      ) : null}
-      {data.is_mediapartner ? (
+      )}
+      {data.competition.is_mediapartner && (
         <Label
           type="gray"
           title="KI berlaku sebagai media partner di kompetisi ini"
           text="Media Partner"
         />
-      ) : null}
-      {data.is_manage_by_ki ? (
+      )}
+      {data.competition.is_manage && (
         <Label
           type="gray"
           title="kompetisi ini bisa diikuti melalui KI"
           text="Manage on KI"
         />
-      ) : null}
+      )}
       <br />
       <br />
 

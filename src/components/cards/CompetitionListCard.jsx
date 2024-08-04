@@ -104,6 +104,7 @@ export const CardCompetitionStyled = Styled.div`
         width: 40px;
         height: 40px;
         margin-right: 10px;
+        border-radius: 50%;
         img {
           border-radius: 50%;
           width: 40px;
@@ -246,7 +247,7 @@ const CompetitionListCard = (props) => {
             max={100}
           />
           <div className="types">
-            {n.is_garansi ? (
+            {n.is_guaranted ? (
               <Label
                 title="kompetisi sudah diverifikasi keberadaannya oleh kru KI"
                 type="green"
@@ -262,7 +263,7 @@ const CompetitionListCard = (props) => {
                 Media Partner
               </Label>
             ) : null}
-            {n.is_manage_by_ki ? (
+            {n.is_manage ? (
               <Label title="Kompetisi ini bisa diikuti melalui KI" type="blue">
                 Manage on KI
               </Label>
@@ -317,22 +318,19 @@ const CompetitionListCard = (props) => {
           <br />
           {/* author */}
           <div className="card-competition__author">
-            <Link legacyBehavior href={`/user/${n.author.username}`}>
+            <Link legacyBehavior href={`/user/${n.user.username}`}>
               <a className="card-competition__author__avatar hide-mobile">
                 <img
-                  src={
-                    n.author.avatar.small ||
-                    `/assets/4.2/img/avatar-default.jpg`
-                  }
-                  alt={`avatar ${n.author.username}`}
+                  src={`/assets/4.2/img/avatar-default.jpg`}
+                  alt={`avatar ${n.user.username}`}
                 />
               </a>
             </Link>
             <div style={{ lineHeight: "17px" }}>
               <small>
                 Dipost{" "}
-                <Link legacyBehavior href={`/user/${n.author.username}`}>
-                  <a>{n.author.username}</a>
+                <Link legacyBehavior href={`/user/${n.user.username}`}>
+                  <a>{n.user.username}</a>
                 </Link>{" "}
                 {epochToRelativeTime(n.created_at)}
                 <br />

@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { toSlug } from "string-manager";
 import Link from "next/link";
 import Label from "../Label";
 import { TabStyled } from "@components/tabs/base";
@@ -35,11 +36,11 @@ const TabCompetition = ({ data, active }) => {
   const Session = useSelector((State) => State.Session);
 
   const n_pengumuman = React.useMemo(() => {
-    return data ? data.announcement.length : 0;
+    return data?.announcement ? data.announcement.length : 0;
   }, [data]);
 
   const n_kontak = React.useMemo(() => {
-    return data ? data.contacts.length : 0;
+    return data?.contacts ? data.contacts.length : 0;
   }, [data]);
 
   const tabList = React.useMemo(() => {
@@ -69,9 +70,9 @@ const TabCompetition = ({ data, active }) => {
                   <li key={key} className={active == key ? "active" : ""}>
                     <Link
                       legacyBehavior
-                      href={`/competition/${data.id}/${
+                      href={`/competition/${data.competition.id}/${
                         tab[key].link
-                      }/${data.nospace_title.toLowerCase()}`}
+                      }/${toSlug(data.competition.title.toLowerCase())}`}
                       scroll={false}
                     >
                       <a>
