@@ -107,7 +107,11 @@ const Home = ({ serverData = {} }) => {
         />
       </div>
       <div className="col-md-12">
-        <SubHeaderHome slider={respCompPopular} />
+        <SubHeaderHome
+          slider={
+            respCompPopular?.data?.length > 0 ? respCompPopular : respCompLatest
+          }
+        />
       </div>
 
       {/* competition */}
