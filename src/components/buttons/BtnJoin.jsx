@@ -12,12 +12,12 @@ const BtnJoin = ({ competitionData, submissionFields }) => {
   const Router = useRouter();
   const Session = useSelector((State) => State.Session);
 
+  const { register_link, is_manage, announcement_at, deadline_at } =
+    competitionData?.competition || {};
+
   // competition status generator
   const status = React.useMemo(() => {
-    return getCompetitionStatus(
-      competitionData.deadline_at,
-      competitionData.announcement_at
-    );
+    return getCompetitionStatus(deadline_at, announcement_at);
   }, [competitionData]);
 
   /**
@@ -32,7 +32,7 @@ const BtnJoin = ({ competitionData, submissionFields }) => {
         return alert(true, "Pendaftaran sudah ditutup", "error");
       }
 
-      if (competitionData.is_manage_by_ki) {
+      if (is_manage) {
         const submissionPage = `/competition/${
           competitionData.id
         }/submission/${competitionData.nospace_title.toLowerCase()}#competition-submission`;
@@ -77,20 +77,19 @@ const BtnJoin = ({ competitionData, submissionFields }) => {
         return Router.push(submissionPage);
       } else {
         // competition not manage by ki
-        return window.open(competitionData.link_join);
+        return window.open(register_link);
       }
     },
     [competitionData, submissionFields]
   );
 
   return (
-    (competitionData.link_join || competitionData.is_manage_by_ki) && (
+    (register_link || is_manage) && (
       <a
         id={competitionData.id}
         style={{ marginRight: "10px" }}
         onClick={joinBtnHandler}
         href="#"
-        // href={is_ended || is_waiting ? "#" : competitionData.link_join}
         target="_blank"
         rel="noreferrer noopener"
         className={`btn btn-join btn-lg ${

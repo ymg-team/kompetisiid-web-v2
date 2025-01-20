@@ -56,7 +56,7 @@ const Regulation = (props) => {
       <a
         target="_blank"
         rel="nofollow noopener noreferrer"
-        href={props.link_source}
+        href={props.source_link}
       >
         Kunjungi website kompetisi
       </a>

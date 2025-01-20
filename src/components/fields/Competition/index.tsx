@@ -103,7 +103,7 @@ const FormCompetition: React.FC<CompetitionFormProps> = ({
         is_manage: data.is_manage_by_ki,
         draft: data.is_draft,
         register_link: data.link_join || "",
-        source_link: data.link_source || "",
+        source_link: data.source_link || "",
         tags: data.tag ? data.tag.split(",") : [],
         announcements: data.announcement,
       };

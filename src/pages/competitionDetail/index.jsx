@@ -278,8 +278,8 @@ const CompetitionDetailPage = ({ encid, type, title, serverData }) => {
                                   nospace_title={toSlug(
                                     respCompetition.data.competition.title.toLowerCase()
                                   )}
-                                  link_source={
-                                    respCompetition.data.competition.link_source
+                                  source_link={
+                                    respCompetition.data.competition.source_link
                                   }
                                   tags={
                                     respCompetition.data.competition.tags
@@ -401,7 +401,7 @@ function generateJsonld(n, url) {
     "startDate": "${n.created_at}",
     "endDate": "${n.deadline_at}",
     "url": "${url.replace(/\"/g, "")}",
-    "sameAs": "${n.link_source}",
+    "sameAs": "${n.source_link}",
     "eventAttendanceMode": "Online",
     "eventStatus": "${now > n.deadline_at * 1000 ? "Ongoing" : "End"}",
     "image": {
@@ -413,7 +413,7 @@ function generateJsonld(n, url) {
     "organizer": {
       "@type": "Organization",
       "name": "${n.organizer.replace(/\"/g, "")}",
-      "url": "${n.link_source}",
+      "url": "${n.source_link}",
       "logo": {
           "@type": "ImageObject",
           "url": "https://res.cloudinary.com/dhjkktmal/image/upload/v1528851826/kompetisi-id/email_assets/icon-512x512.png",
@@ -432,7 +432,7 @@ function generateJsonld(n, url) {
       "price": "0",
       "priceCurrency": "IDR",
       "url": "${url.replace(/\"/g, "")}",
-      "availability": "${n.link_source}",
+      "availability": "${n.source_link}",
       "validFrom": "${n.created_at}"
     },
     "performers": "Warga Negara Indonesia"
